@@ -75,6 +75,36 @@ model Feedback {
   ride      Ride     @relation(fields: [rideId], references: [id])
 }
 
+model Admin {
+  id           String     @id @default(uuid())
+  name         String
+  email        String     @unique
+  passwordHash String
+  role         AdminRole  @default(admin)
+  createdAt    DateTime   @default(now())
+  routes       Route[]
+}
+
+model Company {
+  id          String   @id @default(uuid())
+  companyName String
+  domainName  String   @unique
+  createdAt   DateTime @default(now())
+  routes      Route[]
+}
+
+model Route {
+  id          String   @id @default(uuid())
+  startPoint  String
+  endPoint    String
+  distanceKm  Float?
+  companyId   String
+  createdAt   DateTime @default(now())
+  adminId     String?
+  admin       Admin?   @relation(fields: [adminId], references: [id])
+  company     Company  @relation(fields: [companyId], references: [id])
+}
+
 enum Role {
   driver
   rider
@@ -107,4 +137,9 @@ enum PaymentMethod {
   stripe
   mpesa
   paypal
+}
+
+enum AdminRole {
+  admin
+  superadmin
 }
