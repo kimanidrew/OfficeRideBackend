@@ -1,0 +1,110 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id               String     @id @default(uuid())
+  name             String
+  email            String     @unique
+  passwordHash     String?
+  role             Role
+  homeLocation     Json?
+  workLocation     Json?
+  schedule         Json?
+  rating           Float?     @default(0)
+  createdAt        DateTime   @default(now())
+  bookings         Booking[]  @relation("RiderBookings")
+  feedbackReceived Feedback[] @relation("FeedbackReceived")
+  feedbackGiven    Feedback[] @relation("FeedbackGiven")
+  rides            Ride[]     @relation("DriverRides")
+}
+
+model Ride {
+  id             String     @id @default(uuid())
+  driverId       String
+  startLocation  Json
+  endLocation    Json
+  departureTime  DateTime
+  availableSeats Int
+  costPerRider   Float
+  status         RideStatus @default(open)
+  createdAt      DateTime   @default(now())
+  bookings       Booking[]
+  feedback       Feedback[]
+  driver         User       @relation("DriverRides", fields: [driverId], references: [id])
+}
+
+model Booking {
+  id            String        @id @default(uuid())
+  rideId        String
+  riderId       String
+  status        BookingStatus @default(pending)
+  paymentStatus PaymentStatus @default(unpaid)
+  createdAt     DateTime      @default(now())
+  ride          Ride          @relation(fields: [rideId], references: [id])
+  rider         User          @relation("RiderBookings", fields: [riderId], references: [id])
+  payment       Payment?
+}
+
+model Payment {
+  id             String        @id @default(uuid())
+  bookingId      String        @unique
+  amount         Float
+  method         PaymentMethod
+  status         PaymentStatus @default(pending)
+  transactionRef String?
+  createdAt      DateTime      @default(now())
+  booking        Booking       @relation(fields: [bookingId], references: [id])
+}
+
+model Feedback {
+  id        String   @id @default(uuid())
+  rideId    String
+  raterId   String
+  rateeId   String
+  rating    Int
+  comment   String?
+  createdAt DateTime @default(now())
+  ratee     User     @relation("FeedbackReceived", fields: [rateeId], references: [id])
+  rater     User     @relation("FeedbackGiven", fields: [raterId], references: [id])
+  ride      Ride     @relation(fields: [rideId], references: [id])
+}
+
+enum Role {
+  driver
+  rider
+  both
+}
+
+enum RideStatus {
+  open
+  booked
+  completed
+  cancelled
+}
+
+enum BookingStatus {
+  pending
+  confirmed
+  cancelled
+}
+
+enum PaymentStatus {
+  unpaid
+  paid
+  refunded
+  pending
+  completed
+  failed
+}
+
+enum PaymentMethod {
+  stripe
+  mpesa
+  paypal
+}
