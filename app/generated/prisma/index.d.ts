@@ -38,6 +38,21 @@ export type Payment = $Result.DefaultSelection<Prisma.$PaymentPayload>
  * 
  */
 export type Feedback = $Result.DefaultSelection<Prisma.$FeedbackPayload>
+/**
+ * Model Admin
+ * 
+ */
+export type Admin = $Result.DefaultSelection<Prisma.$AdminPayload>
+/**
+ * Model Company
+ * 
+ */
+export type Company = $Result.DefaultSelection<Prisma.$CompanyPayload>
+/**
+ * Model Route
+ * 
+ */
+export type Route = $Result.DefaultSelection<Prisma.$RoutePayload>
 
 /**
  * Enums
@@ -91,6 +106,14 @@ export const PaymentMethod: {
 
 export type PaymentMethod = (typeof PaymentMethod)[keyof typeof PaymentMethod]
 
+
+export const AdminRole: {
+  admin: 'admin',
+  superadmin: 'superadmin'
+};
+
+export type AdminRole = (typeof AdminRole)[keyof typeof AdminRole]
+
 }
 
 export type Role = $Enums.Role
@@ -112,6 +135,10 @@ export const PaymentStatus: typeof $Enums.PaymentStatus
 export type PaymentMethod = $Enums.PaymentMethod
 
 export const PaymentMethod: typeof $Enums.PaymentMethod
+
+export type AdminRole = $Enums.AdminRole
+
+export const AdminRole: typeof $Enums.AdminRole
 
 /**
  * ##  Prisma Client ʲˢ
@@ -279,6 +306,36 @@ export class PrismaClient<
     * ```
     */
   get feedback(): Prisma.FeedbackDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.admin`: Exposes CRUD operations for the **Admin** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Admins
+    * const admins = await prisma.admin.findMany()
+    * ```
+    */
+  get admin(): Prisma.AdminDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.company`: Exposes CRUD operations for the **Company** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Companies
+    * const companies = await prisma.company.findMany()
+    * ```
+    */
+  get company(): Prisma.CompanyDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.route`: Exposes CRUD operations for the **Route** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Routes
+    * const routes = await prisma.route.findMany()
+    * ```
+    */
+  get route(): Prisma.RouteDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -717,7 +774,10 @@ export namespace Prisma {
     Ride: 'Ride',
     Booking: 'Booking',
     Payment: 'Payment',
-    Feedback: 'Feedback'
+    Feedback: 'Feedback',
+    Admin: 'Admin',
+    Company: 'Company',
+    Route: 'Route'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -733,7 +793,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "ride" | "booking" | "payment" | "feedback"
+      modelProps: "user" | "ride" | "booking" | "payment" | "feedback" | "admin" | "company" | "route"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1107,6 +1167,228 @@ export namespace Prisma {
           }
         }
       }
+      Admin: {
+        payload: Prisma.$AdminPayload<ExtArgs>
+        fields: Prisma.AdminFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AdminFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdminPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AdminFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdminPayload>
+          }
+          findFirst: {
+            args: Prisma.AdminFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdminPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AdminFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdminPayload>
+          }
+          findMany: {
+            args: Prisma.AdminFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdminPayload>[]
+          }
+          create: {
+            args: Prisma.AdminCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdminPayload>
+          }
+          createMany: {
+            args: Prisma.AdminCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AdminCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdminPayload>[]
+          }
+          delete: {
+            args: Prisma.AdminDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdminPayload>
+          }
+          update: {
+            args: Prisma.AdminUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdminPayload>
+          }
+          deleteMany: {
+            args: Prisma.AdminDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AdminUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AdminUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdminPayload>[]
+          }
+          upsert: {
+            args: Prisma.AdminUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdminPayload>
+          }
+          aggregate: {
+            args: Prisma.AdminAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAdmin>
+          }
+          groupBy: {
+            args: Prisma.AdminGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AdminGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AdminCountArgs<ExtArgs>
+            result: $Utils.Optional<AdminCountAggregateOutputType> | number
+          }
+        }
+      }
+      Company: {
+        payload: Prisma.$CompanyPayload<ExtArgs>
+        fields: Prisma.CompanyFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CompanyFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanyPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CompanyFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanyPayload>
+          }
+          findFirst: {
+            args: Prisma.CompanyFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanyPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CompanyFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanyPayload>
+          }
+          findMany: {
+            args: Prisma.CompanyFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanyPayload>[]
+          }
+          create: {
+            args: Prisma.CompanyCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanyPayload>
+          }
+          createMany: {
+            args: Prisma.CompanyCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CompanyCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanyPayload>[]
+          }
+          delete: {
+            args: Prisma.CompanyDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanyPayload>
+          }
+          update: {
+            args: Prisma.CompanyUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanyPayload>
+          }
+          deleteMany: {
+            args: Prisma.CompanyDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CompanyUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CompanyUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanyPayload>[]
+          }
+          upsert: {
+            args: Prisma.CompanyUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanyPayload>
+          }
+          aggregate: {
+            args: Prisma.CompanyAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCompany>
+          }
+          groupBy: {
+            args: Prisma.CompanyGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CompanyGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CompanyCountArgs<ExtArgs>
+            result: $Utils.Optional<CompanyCountAggregateOutputType> | number
+          }
+        }
+      }
+      Route: {
+        payload: Prisma.$RoutePayload<ExtArgs>
+        fields: Prisma.RouteFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RouteFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RoutePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RouteFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RoutePayload>
+          }
+          findFirst: {
+            args: Prisma.RouteFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RoutePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RouteFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RoutePayload>
+          }
+          findMany: {
+            args: Prisma.RouteFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RoutePayload>[]
+          }
+          create: {
+            args: Prisma.RouteCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RoutePayload>
+          }
+          createMany: {
+            args: Prisma.RouteCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RouteCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RoutePayload>[]
+          }
+          delete: {
+            args: Prisma.RouteDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RoutePayload>
+          }
+          update: {
+            args: Prisma.RouteUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RoutePayload>
+          }
+          deleteMany: {
+            args: Prisma.RouteDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RouteUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.RouteUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RoutePayload>[]
+          }
+          upsert: {
+            args: Prisma.RouteUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RoutePayload>
+          }
+          aggregate: {
+            args: Prisma.RouteAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRoute>
+          }
+          groupBy: {
+            args: Prisma.RouteGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RouteGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RouteCountArgs<ExtArgs>
+            result: $Utils.Optional<RouteCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1220,6 +1502,9 @@ export namespace Prisma {
     booking?: BookingOmit
     payment?: PaymentOmit
     feedback?: FeedbackOmit
+    admin?: AdminOmit
+    company?: CompanyOmit
+    route?: RouteOmit
   }
 
   /* Types for Logging */
@@ -1390,6 +1675,68 @@ export namespace Prisma {
    */
   export type RideCountOutputTypeCountFeedbackArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: FeedbackWhereInput
+  }
+
+
+  /**
+   * Count Type AdminCountOutputType
+   */
+
+  export type AdminCountOutputType = {
+    routes: number
+  }
+
+  export type AdminCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    routes?: boolean | AdminCountOutputTypeCountRoutesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * AdminCountOutputType without action
+   */
+  export type AdminCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdminCountOutputType
+     */
+    select?: AdminCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * AdminCountOutputType without action
+   */
+  export type AdminCountOutputTypeCountRoutesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RouteWhereInput
+  }
+
+
+  /**
+   * Count Type CompanyCountOutputType
+   */
+
+  export type CompanyCountOutputType = {
+    routes: number
+  }
+
+  export type CompanyCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    routes?: boolean | CompanyCountOutputTypeCountRoutesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CompanyCountOutputType without action
+   */
+  export type CompanyCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanyCountOutputType
+     */
+    select?: CompanyCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CompanyCountOutputType without action
+   */
+  export type CompanyCountOutputTypeCountRoutesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RouteWhereInput
   }
 
 
@@ -7191,6 +7538,3291 @@ export namespace Prisma {
 
 
   /**
+   * Model Admin
+   */
+
+  export type AggregateAdmin = {
+    _count: AdminCountAggregateOutputType | null
+    _min: AdminMinAggregateOutputType | null
+    _max: AdminMaxAggregateOutputType | null
+  }
+
+  export type AdminMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    email: string | null
+    passwordHash: string | null
+    role: $Enums.AdminRole | null
+    createdAt: Date | null
+  }
+
+  export type AdminMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    email: string | null
+    passwordHash: string | null
+    role: $Enums.AdminRole | null
+    createdAt: Date | null
+  }
+
+  export type AdminCountAggregateOutputType = {
+    id: number
+    name: number
+    email: number
+    passwordHash: number
+    role: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type AdminMinAggregateInputType = {
+    id?: true
+    name?: true
+    email?: true
+    passwordHash?: true
+    role?: true
+    createdAt?: true
+  }
+
+  export type AdminMaxAggregateInputType = {
+    id?: true
+    name?: true
+    email?: true
+    passwordHash?: true
+    role?: true
+    createdAt?: true
+  }
+
+  export type AdminCountAggregateInputType = {
+    id?: true
+    name?: true
+    email?: true
+    passwordHash?: true
+    role?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type AdminAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Admin to aggregate.
+     */
+    where?: AdminWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Admins to fetch.
+     */
+    orderBy?: AdminOrderByWithRelationInput | AdminOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AdminWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Admins from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Admins.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Admins
+    **/
+    _count?: true | AdminCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AdminMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AdminMaxAggregateInputType
+  }
+
+  export type GetAdminAggregateType<T extends AdminAggregateArgs> = {
+        [P in keyof T & keyof AggregateAdmin]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAdmin[P]>
+      : GetScalarType<T[P], AggregateAdmin[P]>
+  }
+
+
+
+
+  export type AdminGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AdminWhereInput
+    orderBy?: AdminOrderByWithAggregationInput | AdminOrderByWithAggregationInput[]
+    by: AdminScalarFieldEnum[] | AdminScalarFieldEnum
+    having?: AdminScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AdminCountAggregateInputType | true
+    _min?: AdminMinAggregateInputType
+    _max?: AdminMaxAggregateInputType
+  }
+
+  export type AdminGroupByOutputType = {
+    id: string
+    name: string
+    email: string
+    passwordHash: string
+    role: $Enums.AdminRole
+    createdAt: Date
+    _count: AdminCountAggregateOutputType | null
+    _min: AdminMinAggregateOutputType | null
+    _max: AdminMaxAggregateOutputType | null
+  }
+
+  type GetAdminGroupByPayload<T extends AdminGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AdminGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AdminGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AdminGroupByOutputType[P]>
+            : GetScalarType<T[P], AdminGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AdminSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    email?: boolean
+    passwordHash?: boolean
+    role?: boolean
+    createdAt?: boolean
+    routes?: boolean | Admin$routesArgs<ExtArgs>
+    _count?: boolean | AdminCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["admin"]>
+
+  export type AdminSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    email?: boolean
+    passwordHash?: boolean
+    role?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["admin"]>
+
+  export type AdminSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    email?: boolean
+    passwordHash?: boolean
+    role?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["admin"]>
+
+  export type AdminSelectScalar = {
+    id?: boolean
+    name?: boolean
+    email?: boolean
+    passwordHash?: boolean
+    role?: boolean
+    createdAt?: boolean
+  }
+
+  export type AdminOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "passwordHash" | "role" | "createdAt", ExtArgs["result"]["admin"]>
+  export type AdminInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    routes?: boolean | Admin$routesArgs<ExtArgs>
+    _count?: boolean | AdminCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type AdminIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type AdminIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $AdminPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Admin"
+    objects: {
+      routes: Prisma.$RoutePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      email: string
+      passwordHash: string
+      role: $Enums.AdminRole
+      createdAt: Date
+    }, ExtArgs["result"]["admin"]>
+    composites: {}
+  }
+
+  type AdminGetPayload<S extends boolean | null | undefined | AdminDefaultArgs> = $Result.GetResult<Prisma.$AdminPayload, S>
+
+  type AdminCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AdminFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AdminCountAggregateInputType | true
+    }
+
+  export interface AdminDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Admin'], meta: { name: 'Admin' } }
+    /**
+     * Find zero or one Admin that matches the filter.
+     * @param {AdminFindUniqueArgs} args - Arguments to find a Admin
+     * @example
+     * // Get one Admin
+     * const admin = await prisma.admin.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AdminFindUniqueArgs>(args: SelectSubset<T, AdminFindUniqueArgs<ExtArgs>>): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Admin that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AdminFindUniqueOrThrowArgs} args - Arguments to find a Admin
+     * @example
+     * // Get one Admin
+     * const admin = await prisma.admin.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AdminFindUniqueOrThrowArgs>(args: SelectSubset<T, AdminFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Admin that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdminFindFirstArgs} args - Arguments to find a Admin
+     * @example
+     * // Get one Admin
+     * const admin = await prisma.admin.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AdminFindFirstArgs>(args?: SelectSubset<T, AdminFindFirstArgs<ExtArgs>>): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Admin that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdminFindFirstOrThrowArgs} args - Arguments to find a Admin
+     * @example
+     * // Get one Admin
+     * const admin = await prisma.admin.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AdminFindFirstOrThrowArgs>(args?: SelectSubset<T, AdminFindFirstOrThrowArgs<ExtArgs>>): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Admins that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdminFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Admins
+     * const admins = await prisma.admin.findMany()
+     * 
+     * // Get first 10 Admins
+     * const admins = await prisma.admin.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const adminWithIdOnly = await prisma.admin.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AdminFindManyArgs>(args?: SelectSubset<T, AdminFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Admin.
+     * @param {AdminCreateArgs} args - Arguments to create a Admin.
+     * @example
+     * // Create one Admin
+     * const Admin = await prisma.admin.create({
+     *   data: {
+     *     // ... data to create a Admin
+     *   }
+     * })
+     * 
+     */
+    create<T extends AdminCreateArgs>(args: SelectSubset<T, AdminCreateArgs<ExtArgs>>): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Admins.
+     * @param {AdminCreateManyArgs} args - Arguments to create many Admins.
+     * @example
+     * // Create many Admins
+     * const admin = await prisma.admin.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AdminCreateManyArgs>(args?: SelectSubset<T, AdminCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Admins and returns the data saved in the database.
+     * @param {AdminCreateManyAndReturnArgs} args - Arguments to create many Admins.
+     * @example
+     * // Create many Admins
+     * const admin = await prisma.admin.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Admins and only return the `id`
+     * const adminWithIdOnly = await prisma.admin.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AdminCreateManyAndReturnArgs>(args?: SelectSubset<T, AdminCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Admin.
+     * @param {AdminDeleteArgs} args - Arguments to delete one Admin.
+     * @example
+     * // Delete one Admin
+     * const Admin = await prisma.admin.delete({
+     *   where: {
+     *     // ... filter to delete one Admin
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AdminDeleteArgs>(args: SelectSubset<T, AdminDeleteArgs<ExtArgs>>): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Admin.
+     * @param {AdminUpdateArgs} args - Arguments to update one Admin.
+     * @example
+     * // Update one Admin
+     * const admin = await prisma.admin.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AdminUpdateArgs>(args: SelectSubset<T, AdminUpdateArgs<ExtArgs>>): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Admins.
+     * @param {AdminDeleteManyArgs} args - Arguments to filter Admins to delete.
+     * @example
+     * // Delete a few Admins
+     * const { count } = await prisma.admin.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AdminDeleteManyArgs>(args?: SelectSubset<T, AdminDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Admins.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdminUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Admins
+     * const admin = await prisma.admin.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AdminUpdateManyArgs>(args: SelectSubset<T, AdminUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Admins and returns the data updated in the database.
+     * @param {AdminUpdateManyAndReturnArgs} args - Arguments to update many Admins.
+     * @example
+     * // Update many Admins
+     * const admin = await prisma.admin.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Admins and only return the `id`
+     * const adminWithIdOnly = await prisma.admin.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AdminUpdateManyAndReturnArgs>(args: SelectSubset<T, AdminUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Admin.
+     * @param {AdminUpsertArgs} args - Arguments to update or create a Admin.
+     * @example
+     * // Update or create a Admin
+     * const admin = await prisma.admin.upsert({
+     *   create: {
+     *     // ... data to create a Admin
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Admin we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AdminUpsertArgs>(args: SelectSubset<T, AdminUpsertArgs<ExtArgs>>): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Admins.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdminCountArgs} args - Arguments to filter Admins to count.
+     * @example
+     * // Count the number of Admins
+     * const count = await prisma.admin.count({
+     *   where: {
+     *     // ... the filter for the Admins we want to count
+     *   }
+     * })
+    **/
+    count<T extends AdminCountArgs>(
+      args?: Subset<T, AdminCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AdminCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Admin.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdminAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AdminAggregateArgs>(args: Subset<T, AdminAggregateArgs>): Prisma.PrismaPromise<GetAdminAggregateType<T>>
+
+    /**
+     * Group by Admin.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdminGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AdminGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AdminGroupByArgs['orderBy'] }
+        : { orderBy?: AdminGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AdminGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAdminGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Admin model
+   */
+  readonly fields: AdminFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Admin.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AdminClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    routes<T extends Admin$routesArgs<ExtArgs> = {}>(args?: Subset<T, Admin$routesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RoutePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Admin model
+   */
+  interface AdminFieldRefs {
+    readonly id: FieldRef<"Admin", 'String'>
+    readonly name: FieldRef<"Admin", 'String'>
+    readonly email: FieldRef<"Admin", 'String'>
+    readonly passwordHash: FieldRef<"Admin", 'String'>
+    readonly role: FieldRef<"Admin", 'AdminRole'>
+    readonly createdAt: FieldRef<"Admin", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Admin findUnique
+   */
+  export type AdminFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Admin
+     */
+    omit?: AdminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
+    /**
+     * Filter, which Admin to fetch.
+     */
+    where: AdminWhereUniqueInput
+  }
+
+  /**
+   * Admin findUniqueOrThrow
+   */
+  export type AdminFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Admin
+     */
+    omit?: AdminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
+    /**
+     * Filter, which Admin to fetch.
+     */
+    where: AdminWhereUniqueInput
+  }
+
+  /**
+   * Admin findFirst
+   */
+  export type AdminFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Admin
+     */
+    omit?: AdminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
+    /**
+     * Filter, which Admin to fetch.
+     */
+    where?: AdminWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Admins to fetch.
+     */
+    orderBy?: AdminOrderByWithRelationInput | AdminOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Admins.
+     */
+    cursor?: AdminWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Admins from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Admins.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Admins.
+     */
+    distinct?: AdminScalarFieldEnum | AdminScalarFieldEnum[]
+  }
+
+  /**
+   * Admin findFirstOrThrow
+   */
+  export type AdminFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Admin
+     */
+    omit?: AdminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
+    /**
+     * Filter, which Admin to fetch.
+     */
+    where?: AdminWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Admins to fetch.
+     */
+    orderBy?: AdminOrderByWithRelationInput | AdminOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Admins.
+     */
+    cursor?: AdminWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Admins from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Admins.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Admins.
+     */
+    distinct?: AdminScalarFieldEnum | AdminScalarFieldEnum[]
+  }
+
+  /**
+   * Admin findMany
+   */
+  export type AdminFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Admin
+     */
+    omit?: AdminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
+    /**
+     * Filter, which Admins to fetch.
+     */
+    where?: AdminWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Admins to fetch.
+     */
+    orderBy?: AdminOrderByWithRelationInput | AdminOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Admins.
+     */
+    cursor?: AdminWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Admins from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Admins.
+     */
+    skip?: number
+    distinct?: AdminScalarFieldEnum | AdminScalarFieldEnum[]
+  }
+
+  /**
+   * Admin create
+   */
+  export type AdminCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Admin
+     */
+    omit?: AdminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Admin.
+     */
+    data: XOR<AdminCreateInput, AdminUncheckedCreateInput>
+  }
+
+  /**
+   * Admin createMany
+   */
+  export type AdminCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Admins.
+     */
+    data: AdminCreateManyInput | AdminCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Admin createManyAndReturn
+   */
+  export type AdminCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Admin
+     */
+    omit?: AdminOmit<ExtArgs> | null
+    /**
+     * The data used to create many Admins.
+     */
+    data: AdminCreateManyInput | AdminCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Admin update
+   */
+  export type AdminUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Admin
+     */
+    omit?: AdminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Admin.
+     */
+    data: XOR<AdminUpdateInput, AdminUncheckedUpdateInput>
+    /**
+     * Choose, which Admin to update.
+     */
+    where: AdminWhereUniqueInput
+  }
+
+  /**
+   * Admin updateMany
+   */
+  export type AdminUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Admins.
+     */
+    data: XOR<AdminUpdateManyMutationInput, AdminUncheckedUpdateManyInput>
+    /**
+     * Filter which Admins to update
+     */
+    where?: AdminWhereInput
+    /**
+     * Limit how many Admins to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Admin updateManyAndReturn
+   */
+  export type AdminUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Admin
+     */
+    omit?: AdminOmit<ExtArgs> | null
+    /**
+     * The data used to update Admins.
+     */
+    data: XOR<AdminUpdateManyMutationInput, AdminUncheckedUpdateManyInput>
+    /**
+     * Filter which Admins to update
+     */
+    where?: AdminWhereInput
+    /**
+     * Limit how many Admins to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Admin upsert
+   */
+  export type AdminUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Admin
+     */
+    omit?: AdminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Admin to update in case it exists.
+     */
+    where: AdminWhereUniqueInput
+    /**
+     * In case the Admin found by the `where` argument doesn't exist, create a new Admin with this data.
+     */
+    create: XOR<AdminCreateInput, AdminUncheckedCreateInput>
+    /**
+     * In case the Admin was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AdminUpdateInput, AdminUncheckedUpdateInput>
+  }
+
+  /**
+   * Admin delete
+   */
+  export type AdminDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Admin
+     */
+    omit?: AdminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
+    /**
+     * Filter which Admin to delete.
+     */
+    where: AdminWhereUniqueInput
+  }
+
+  /**
+   * Admin deleteMany
+   */
+  export type AdminDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Admins to delete
+     */
+    where?: AdminWhereInput
+    /**
+     * Limit how many Admins to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Admin.routes
+   */
+  export type Admin$routesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Route
+     */
+    select?: RouteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Route
+     */
+    omit?: RouteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouteInclude<ExtArgs> | null
+    where?: RouteWhereInput
+    orderBy?: RouteOrderByWithRelationInput | RouteOrderByWithRelationInput[]
+    cursor?: RouteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RouteScalarFieldEnum | RouteScalarFieldEnum[]
+  }
+
+  /**
+   * Admin without action
+   */
+  export type AdminDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Admin
+     */
+    omit?: AdminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Company
+   */
+
+  export type AggregateCompany = {
+    _count: CompanyCountAggregateOutputType | null
+    _min: CompanyMinAggregateOutputType | null
+    _max: CompanyMaxAggregateOutputType | null
+  }
+
+  export type CompanyMinAggregateOutputType = {
+    id: string | null
+    companyName: string | null
+    domainName: string | null
+    createdAt: Date | null
+  }
+
+  export type CompanyMaxAggregateOutputType = {
+    id: string | null
+    companyName: string | null
+    domainName: string | null
+    createdAt: Date | null
+  }
+
+  export type CompanyCountAggregateOutputType = {
+    id: number
+    companyName: number
+    domainName: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type CompanyMinAggregateInputType = {
+    id?: true
+    companyName?: true
+    domainName?: true
+    createdAt?: true
+  }
+
+  export type CompanyMaxAggregateInputType = {
+    id?: true
+    companyName?: true
+    domainName?: true
+    createdAt?: true
+  }
+
+  export type CompanyCountAggregateInputType = {
+    id?: true
+    companyName?: true
+    domainName?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type CompanyAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Company to aggregate.
+     */
+    where?: CompanyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Companies to fetch.
+     */
+    orderBy?: CompanyOrderByWithRelationInput | CompanyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CompanyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Companies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Companies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Companies
+    **/
+    _count?: true | CompanyCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CompanyMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CompanyMaxAggregateInputType
+  }
+
+  export type GetCompanyAggregateType<T extends CompanyAggregateArgs> = {
+        [P in keyof T & keyof AggregateCompany]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCompany[P]>
+      : GetScalarType<T[P], AggregateCompany[P]>
+  }
+
+
+
+
+  export type CompanyGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CompanyWhereInput
+    orderBy?: CompanyOrderByWithAggregationInput | CompanyOrderByWithAggregationInput[]
+    by: CompanyScalarFieldEnum[] | CompanyScalarFieldEnum
+    having?: CompanyScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CompanyCountAggregateInputType | true
+    _min?: CompanyMinAggregateInputType
+    _max?: CompanyMaxAggregateInputType
+  }
+
+  export type CompanyGroupByOutputType = {
+    id: string
+    companyName: string
+    domainName: string
+    createdAt: Date
+    _count: CompanyCountAggregateOutputType | null
+    _min: CompanyMinAggregateOutputType | null
+    _max: CompanyMaxAggregateOutputType | null
+  }
+
+  type GetCompanyGroupByPayload<T extends CompanyGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CompanyGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CompanyGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CompanyGroupByOutputType[P]>
+            : GetScalarType<T[P], CompanyGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CompanySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    companyName?: boolean
+    domainName?: boolean
+    createdAt?: boolean
+    routes?: boolean | Company$routesArgs<ExtArgs>
+    _count?: boolean | CompanyCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["company"]>
+
+  export type CompanySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    companyName?: boolean
+    domainName?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["company"]>
+
+  export type CompanySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    companyName?: boolean
+    domainName?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["company"]>
+
+  export type CompanySelectScalar = {
+    id?: boolean
+    companyName?: boolean
+    domainName?: boolean
+    createdAt?: boolean
+  }
+
+  export type CompanyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "companyName" | "domainName" | "createdAt", ExtArgs["result"]["company"]>
+  export type CompanyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    routes?: boolean | Company$routesArgs<ExtArgs>
+    _count?: boolean | CompanyCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type CompanyIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type CompanyIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $CompanyPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Company"
+    objects: {
+      routes: Prisma.$RoutePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      companyName: string
+      domainName: string
+      createdAt: Date
+    }, ExtArgs["result"]["company"]>
+    composites: {}
+  }
+
+  type CompanyGetPayload<S extends boolean | null | undefined | CompanyDefaultArgs> = $Result.GetResult<Prisma.$CompanyPayload, S>
+
+  type CompanyCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CompanyFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CompanyCountAggregateInputType | true
+    }
+
+  export interface CompanyDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Company'], meta: { name: 'Company' } }
+    /**
+     * Find zero or one Company that matches the filter.
+     * @param {CompanyFindUniqueArgs} args - Arguments to find a Company
+     * @example
+     * // Get one Company
+     * const company = await prisma.company.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CompanyFindUniqueArgs>(args: SelectSubset<T, CompanyFindUniqueArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Company that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CompanyFindUniqueOrThrowArgs} args - Arguments to find a Company
+     * @example
+     * // Get one Company
+     * const company = await prisma.company.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CompanyFindUniqueOrThrowArgs>(args: SelectSubset<T, CompanyFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Company that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanyFindFirstArgs} args - Arguments to find a Company
+     * @example
+     * // Get one Company
+     * const company = await prisma.company.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CompanyFindFirstArgs>(args?: SelectSubset<T, CompanyFindFirstArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Company that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanyFindFirstOrThrowArgs} args - Arguments to find a Company
+     * @example
+     * // Get one Company
+     * const company = await prisma.company.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CompanyFindFirstOrThrowArgs>(args?: SelectSubset<T, CompanyFindFirstOrThrowArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Companies that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanyFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Companies
+     * const companies = await prisma.company.findMany()
+     * 
+     * // Get first 10 Companies
+     * const companies = await prisma.company.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const companyWithIdOnly = await prisma.company.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CompanyFindManyArgs>(args?: SelectSubset<T, CompanyFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Company.
+     * @param {CompanyCreateArgs} args - Arguments to create a Company.
+     * @example
+     * // Create one Company
+     * const Company = await prisma.company.create({
+     *   data: {
+     *     // ... data to create a Company
+     *   }
+     * })
+     * 
+     */
+    create<T extends CompanyCreateArgs>(args: SelectSubset<T, CompanyCreateArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Companies.
+     * @param {CompanyCreateManyArgs} args - Arguments to create many Companies.
+     * @example
+     * // Create many Companies
+     * const company = await prisma.company.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CompanyCreateManyArgs>(args?: SelectSubset<T, CompanyCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Companies and returns the data saved in the database.
+     * @param {CompanyCreateManyAndReturnArgs} args - Arguments to create many Companies.
+     * @example
+     * // Create many Companies
+     * const company = await prisma.company.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Companies and only return the `id`
+     * const companyWithIdOnly = await prisma.company.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CompanyCreateManyAndReturnArgs>(args?: SelectSubset<T, CompanyCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Company.
+     * @param {CompanyDeleteArgs} args - Arguments to delete one Company.
+     * @example
+     * // Delete one Company
+     * const Company = await prisma.company.delete({
+     *   where: {
+     *     // ... filter to delete one Company
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CompanyDeleteArgs>(args: SelectSubset<T, CompanyDeleteArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Company.
+     * @param {CompanyUpdateArgs} args - Arguments to update one Company.
+     * @example
+     * // Update one Company
+     * const company = await prisma.company.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CompanyUpdateArgs>(args: SelectSubset<T, CompanyUpdateArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Companies.
+     * @param {CompanyDeleteManyArgs} args - Arguments to filter Companies to delete.
+     * @example
+     * // Delete a few Companies
+     * const { count } = await prisma.company.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CompanyDeleteManyArgs>(args?: SelectSubset<T, CompanyDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Companies.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanyUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Companies
+     * const company = await prisma.company.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CompanyUpdateManyArgs>(args: SelectSubset<T, CompanyUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Companies and returns the data updated in the database.
+     * @param {CompanyUpdateManyAndReturnArgs} args - Arguments to update many Companies.
+     * @example
+     * // Update many Companies
+     * const company = await prisma.company.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Companies and only return the `id`
+     * const companyWithIdOnly = await prisma.company.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CompanyUpdateManyAndReturnArgs>(args: SelectSubset<T, CompanyUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Company.
+     * @param {CompanyUpsertArgs} args - Arguments to update or create a Company.
+     * @example
+     * // Update or create a Company
+     * const company = await prisma.company.upsert({
+     *   create: {
+     *     // ... data to create a Company
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Company we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CompanyUpsertArgs>(args: SelectSubset<T, CompanyUpsertArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Companies.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanyCountArgs} args - Arguments to filter Companies to count.
+     * @example
+     * // Count the number of Companies
+     * const count = await prisma.company.count({
+     *   where: {
+     *     // ... the filter for the Companies we want to count
+     *   }
+     * })
+    **/
+    count<T extends CompanyCountArgs>(
+      args?: Subset<T, CompanyCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CompanyCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Company.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanyAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CompanyAggregateArgs>(args: Subset<T, CompanyAggregateArgs>): Prisma.PrismaPromise<GetCompanyAggregateType<T>>
+
+    /**
+     * Group by Company.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanyGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CompanyGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CompanyGroupByArgs['orderBy'] }
+        : { orderBy?: CompanyGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CompanyGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCompanyGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Company model
+   */
+  readonly fields: CompanyFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Company.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CompanyClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    routes<T extends Company$routesArgs<ExtArgs> = {}>(args?: Subset<T, Company$routesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RoutePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Company model
+   */
+  interface CompanyFieldRefs {
+    readonly id: FieldRef<"Company", 'String'>
+    readonly companyName: FieldRef<"Company", 'String'>
+    readonly domainName: FieldRef<"Company", 'String'>
+    readonly createdAt: FieldRef<"Company", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Company findUnique
+   */
+  export type CompanyFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Company
+     */
+    select?: CompanySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Company
+     */
+    omit?: CompanyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInclude<ExtArgs> | null
+    /**
+     * Filter, which Company to fetch.
+     */
+    where: CompanyWhereUniqueInput
+  }
+
+  /**
+   * Company findUniqueOrThrow
+   */
+  export type CompanyFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Company
+     */
+    select?: CompanySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Company
+     */
+    omit?: CompanyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInclude<ExtArgs> | null
+    /**
+     * Filter, which Company to fetch.
+     */
+    where: CompanyWhereUniqueInput
+  }
+
+  /**
+   * Company findFirst
+   */
+  export type CompanyFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Company
+     */
+    select?: CompanySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Company
+     */
+    omit?: CompanyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInclude<ExtArgs> | null
+    /**
+     * Filter, which Company to fetch.
+     */
+    where?: CompanyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Companies to fetch.
+     */
+    orderBy?: CompanyOrderByWithRelationInput | CompanyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Companies.
+     */
+    cursor?: CompanyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Companies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Companies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Companies.
+     */
+    distinct?: CompanyScalarFieldEnum | CompanyScalarFieldEnum[]
+  }
+
+  /**
+   * Company findFirstOrThrow
+   */
+  export type CompanyFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Company
+     */
+    select?: CompanySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Company
+     */
+    omit?: CompanyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInclude<ExtArgs> | null
+    /**
+     * Filter, which Company to fetch.
+     */
+    where?: CompanyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Companies to fetch.
+     */
+    orderBy?: CompanyOrderByWithRelationInput | CompanyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Companies.
+     */
+    cursor?: CompanyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Companies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Companies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Companies.
+     */
+    distinct?: CompanyScalarFieldEnum | CompanyScalarFieldEnum[]
+  }
+
+  /**
+   * Company findMany
+   */
+  export type CompanyFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Company
+     */
+    select?: CompanySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Company
+     */
+    omit?: CompanyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInclude<ExtArgs> | null
+    /**
+     * Filter, which Companies to fetch.
+     */
+    where?: CompanyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Companies to fetch.
+     */
+    orderBy?: CompanyOrderByWithRelationInput | CompanyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Companies.
+     */
+    cursor?: CompanyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Companies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Companies.
+     */
+    skip?: number
+    distinct?: CompanyScalarFieldEnum | CompanyScalarFieldEnum[]
+  }
+
+  /**
+   * Company create
+   */
+  export type CompanyCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Company
+     */
+    select?: CompanySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Company
+     */
+    omit?: CompanyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Company.
+     */
+    data: XOR<CompanyCreateInput, CompanyUncheckedCreateInput>
+  }
+
+  /**
+   * Company createMany
+   */
+  export type CompanyCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Companies.
+     */
+    data: CompanyCreateManyInput | CompanyCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Company createManyAndReturn
+   */
+  export type CompanyCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Company
+     */
+    select?: CompanySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Company
+     */
+    omit?: CompanyOmit<ExtArgs> | null
+    /**
+     * The data used to create many Companies.
+     */
+    data: CompanyCreateManyInput | CompanyCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Company update
+   */
+  export type CompanyUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Company
+     */
+    select?: CompanySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Company
+     */
+    omit?: CompanyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Company.
+     */
+    data: XOR<CompanyUpdateInput, CompanyUncheckedUpdateInput>
+    /**
+     * Choose, which Company to update.
+     */
+    where: CompanyWhereUniqueInput
+  }
+
+  /**
+   * Company updateMany
+   */
+  export type CompanyUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Companies.
+     */
+    data: XOR<CompanyUpdateManyMutationInput, CompanyUncheckedUpdateManyInput>
+    /**
+     * Filter which Companies to update
+     */
+    where?: CompanyWhereInput
+    /**
+     * Limit how many Companies to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Company updateManyAndReturn
+   */
+  export type CompanyUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Company
+     */
+    select?: CompanySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Company
+     */
+    omit?: CompanyOmit<ExtArgs> | null
+    /**
+     * The data used to update Companies.
+     */
+    data: XOR<CompanyUpdateManyMutationInput, CompanyUncheckedUpdateManyInput>
+    /**
+     * Filter which Companies to update
+     */
+    where?: CompanyWhereInput
+    /**
+     * Limit how many Companies to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Company upsert
+   */
+  export type CompanyUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Company
+     */
+    select?: CompanySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Company
+     */
+    omit?: CompanyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Company to update in case it exists.
+     */
+    where: CompanyWhereUniqueInput
+    /**
+     * In case the Company found by the `where` argument doesn't exist, create a new Company with this data.
+     */
+    create: XOR<CompanyCreateInput, CompanyUncheckedCreateInput>
+    /**
+     * In case the Company was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CompanyUpdateInput, CompanyUncheckedUpdateInput>
+  }
+
+  /**
+   * Company delete
+   */
+  export type CompanyDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Company
+     */
+    select?: CompanySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Company
+     */
+    omit?: CompanyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInclude<ExtArgs> | null
+    /**
+     * Filter which Company to delete.
+     */
+    where: CompanyWhereUniqueInput
+  }
+
+  /**
+   * Company deleteMany
+   */
+  export type CompanyDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Companies to delete
+     */
+    where?: CompanyWhereInput
+    /**
+     * Limit how many Companies to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Company.routes
+   */
+  export type Company$routesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Route
+     */
+    select?: RouteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Route
+     */
+    omit?: RouteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouteInclude<ExtArgs> | null
+    where?: RouteWhereInput
+    orderBy?: RouteOrderByWithRelationInput | RouteOrderByWithRelationInput[]
+    cursor?: RouteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RouteScalarFieldEnum | RouteScalarFieldEnum[]
+  }
+
+  /**
+   * Company without action
+   */
+  export type CompanyDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Company
+     */
+    select?: CompanySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Company
+     */
+    omit?: CompanyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Route
+   */
+
+  export type AggregateRoute = {
+    _count: RouteCountAggregateOutputType | null
+    _avg: RouteAvgAggregateOutputType | null
+    _sum: RouteSumAggregateOutputType | null
+    _min: RouteMinAggregateOutputType | null
+    _max: RouteMaxAggregateOutputType | null
+  }
+
+  export type RouteAvgAggregateOutputType = {
+    distanceKm: number | null
+  }
+
+  export type RouteSumAggregateOutputType = {
+    distanceKm: number | null
+  }
+
+  export type RouteMinAggregateOutputType = {
+    id: string | null
+    startPoint: string | null
+    endPoint: string | null
+    distanceKm: number | null
+    companyId: string | null
+    createdAt: Date | null
+    adminId: string | null
+  }
+
+  export type RouteMaxAggregateOutputType = {
+    id: string | null
+    startPoint: string | null
+    endPoint: string | null
+    distanceKm: number | null
+    companyId: string | null
+    createdAt: Date | null
+    adminId: string | null
+  }
+
+  export type RouteCountAggregateOutputType = {
+    id: number
+    startPoint: number
+    endPoint: number
+    distanceKm: number
+    companyId: number
+    createdAt: number
+    adminId: number
+    _all: number
+  }
+
+
+  export type RouteAvgAggregateInputType = {
+    distanceKm?: true
+  }
+
+  export type RouteSumAggregateInputType = {
+    distanceKm?: true
+  }
+
+  export type RouteMinAggregateInputType = {
+    id?: true
+    startPoint?: true
+    endPoint?: true
+    distanceKm?: true
+    companyId?: true
+    createdAt?: true
+    adminId?: true
+  }
+
+  export type RouteMaxAggregateInputType = {
+    id?: true
+    startPoint?: true
+    endPoint?: true
+    distanceKm?: true
+    companyId?: true
+    createdAt?: true
+    adminId?: true
+  }
+
+  export type RouteCountAggregateInputType = {
+    id?: true
+    startPoint?: true
+    endPoint?: true
+    distanceKm?: true
+    companyId?: true
+    createdAt?: true
+    adminId?: true
+    _all?: true
+  }
+
+  export type RouteAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Route to aggregate.
+     */
+    where?: RouteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Routes to fetch.
+     */
+    orderBy?: RouteOrderByWithRelationInput | RouteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RouteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Routes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Routes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Routes
+    **/
+    _count?: true | RouteCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: RouteAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: RouteSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RouteMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RouteMaxAggregateInputType
+  }
+
+  export type GetRouteAggregateType<T extends RouteAggregateArgs> = {
+        [P in keyof T & keyof AggregateRoute]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRoute[P]>
+      : GetScalarType<T[P], AggregateRoute[P]>
+  }
+
+
+
+
+  export type RouteGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RouteWhereInput
+    orderBy?: RouteOrderByWithAggregationInput | RouteOrderByWithAggregationInput[]
+    by: RouteScalarFieldEnum[] | RouteScalarFieldEnum
+    having?: RouteScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RouteCountAggregateInputType | true
+    _avg?: RouteAvgAggregateInputType
+    _sum?: RouteSumAggregateInputType
+    _min?: RouteMinAggregateInputType
+    _max?: RouteMaxAggregateInputType
+  }
+
+  export type RouteGroupByOutputType = {
+    id: string
+    startPoint: string
+    endPoint: string
+    distanceKm: number | null
+    companyId: string
+    createdAt: Date
+    adminId: string | null
+    _count: RouteCountAggregateOutputType | null
+    _avg: RouteAvgAggregateOutputType | null
+    _sum: RouteSumAggregateOutputType | null
+    _min: RouteMinAggregateOutputType | null
+    _max: RouteMaxAggregateOutputType | null
+  }
+
+  type GetRouteGroupByPayload<T extends RouteGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RouteGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RouteGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RouteGroupByOutputType[P]>
+            : GetScalarType<T[P], RouteGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RouteSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    startPoint?: boolean
+    endPoint?: boolean
+    distanceKm?: boolean
+    companyId?: boolean
+    createdAt?: boolean
+    adminId?: boolean
+    admin?: boolean | Route$adminArgs<ExtArgs>
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["route"]>
+
+  export type RouteSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    startPoint?: boolean
+    endPoint?: boolean
+    distanceKm?: boolean
+    companyId?: boolean
+    createdAt?: boolean
+    adminId?: boolean
+    admin?: boolean | Route$adminArgs<ExtArgs>
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["route"]>
+
+  export type RouteSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    startPoint?: boolean
+    endPoint?: boolean
+    distanceKm?: boolean
+    companyId?: boolean
+    createdAt?: boolean
+    adminId?: boolean
+    admin?: boolean | Route$adminArgs<ExtArgs>
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["route"]>
+
+  export type RouteSelectScalar = {
+    id?: boolean
+    startPoint?: boolean
+    endPoint?: boolean
+    distanceKm?: boolean
+    companyId?: boolean
+    createdAt?: boolean
+    adminId?: boolean
+  }
+
+  export type RouteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "startPoint" | "endPoint" | "distanceKm" | "companyId" | "createdAt" | "adminId", ExtArgs["result"]["route"]>
+  export type RouteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    admin?: boolean | Route$adminArgs<ExtArgs>
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
+  }
+  export type RouteIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    admin?: boolean | Route$adminArgs<ExtArgs>
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
+  }
+  export type RouteIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    admin?: boolean | Route$adminArgs<ExtArgs>
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
+  }
+
+  export type $RoutePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Route"
+    objects: {
+      admin: Prisma.$AdminPayload<ExtArgs> | null
+      company: Prisma.$CompanyPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      startPoint: string
+      endPoint: string
+      distanceKm: number | null
+      companyId: string
+      createdAt: Date
+      adminId: string | null
+    }, ExtArgs["result"]["route"]>
+    composites: {}
+  }
+
+  type RouteGetPayload<S extends boolean | null | undefined | RouteDefaultArgs> = $Result.GetResult<Prisma.$RoutePayload, S>
+
+  type RouteCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<RouteFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: RouteCountAggregateInputType | true
+    }
+
+  export interface RouteDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Route'], meta: { name: 'Route' } }
+    /**
+     * Find zero or one Route that matches the filter.
+     * @param {RouteFindUniqueArgs} args - Arguments to find a Route
+     * @example
+     * // Get one Route
+     * const route = await prisma.route.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RouteFindUniqueArgs>(args: SelectSubset<T, RouteFindUniqueArgs<ExtArgs>>): Prisma__RouteClient<$Result.GetResult<Prisma.$RoutePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Route that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {RouteFindUniqueOrThrowArgs} args - Arguments to find a Route
+     * @example
+     * // Get one Route
+     * const route = await prisma.route.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RouteFindUniqueOrThrowArgs>(args: SelectSubset<T, RouteFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RouteClient<$Result.GetResult<Prisma.$RoutePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Route that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RouteFindFirstArgs} args - Arguments to find a Route
+     * @example
+     * // Get one Route
+     * const route = await prisma.route.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RouteFindFirstArgs>(args?: SelectSubset<T, RouteFindFirstArgs<ExtArgs>>): Prisma__RouteClient<$Result.GetResult<Prisma.$RoutePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Route that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RouteFindFirstOrThrowArgs} args - Arguments to find a Route
+     * @example
+     * // Get one Route
+     * const route = await prisma.route.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RouteFindFirstOrThrowArgs>(args?: SelectSubset<T, RouteFindFirstOrThrowArgs<ExtArgs>>): Prisma__RouteClient<$Result.GetResult<Prisma.$RoutePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Routes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RouteFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Routes
+     * const routes = await prisma.route.findMany()
+     * 
+     * // Get first 10 Routes
+     * const routes = await prisma.route.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const routeWithIdOnly = await prisma.route.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RouteFindManyArgs>(args?: SelectSubset<T, RouteFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RoutePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Route.
+     * @param {RouteCreateArgs} args - Arguments to create a Route.
+     * @example
+     * // Create one Route
+     * const Route = await prisma.route.create({
+     *   data: {
+     *     // ... data to create a Route
+     *   }
+     * })
+     * 
+     */
+    create<T extends RouteCreateArgs>(args: SelectSubset<T, RouteCreateArgs<ExtArgs>>): Prisma__RouteClient<$Result.GetResult<Prisma.$RoutePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Routes.
+     * @param {RouteCreateManyArgs} args - Arguments to create many Routes.
+     * @example
+     * // Create many Routes
+     * const route = await prisma.route.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RouteCreateManyArgs>(args?: SelectSubset<T, RouteCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Routes and returns the data saved in the database.
+     * @param {RouteCreateManyAndReturnArgs} args - Arguments to create many Routes.
+     * @example
+     * // Create many Routes
+     * const route = await prisma.route.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Routes and only return the `id`
+     * const routeWithIdOnly = await prisma.route.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RouteCreateManyAndReturnArgs>(args?: SelectSubset<T, RouteCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RoutePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Route.
+     * @param {RouteDeleteArgs} args - Arguments to delete one Route.
+     * @example
+     * // Delete one Route
+     * const Route = await prisma.route.delete({
+     *   where: {
+     *     // ... filter to delete one Route
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RouteDeleteArgs>(args: SelectSubset<T, RouteDeleteArgs<ExtArgs>>): Prisma__RouteClient<$Result.GetResult<Prisma.$RoutePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Route.
+     * @param {RouteUpdateArgs} args - Arguments to update one Route.
+     * @example
+     * // Update one Route
+     * const route = await prisma.route.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RouteUpdateArgs>(args: SelectSubset<T, RouteUpdateArgs<ExtArgs>>): Prisma__RouteClient<$Result.GetResult<Prisma.$RoutePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Routes.
+     * @param {RouteDeleteManyArgs} args - Arguments to filter Routes to delete.
+     * @example
+     * // Delete a few Routes
+     * const { count } = await prisma.route.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RouteDeleteManyArgs>(args?: SelectSubset<T, RouteDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Routes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RouteUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Routes
+     * const route = await prisma.route.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RouteUpdateManyArgs>(args: SelectSubset<T, RouteUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Routes and returns the data updated in the database.
+     * @param {RouteUpdateManyAndReturnArgs} args - Arguments to update many Routes.
+     * @example
+     * // Update many Routes
+     * const route = await prisma.route.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Routes and only return the `id`
+     * const routeWithIdOnly = await prisma.route.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends RouteUpdateManyAndReturnArgs>(args: SelectSubset<T, RouteUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RoutePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Route.
+     * @param {RouteUpsertArgs} args - Arguments to update or create a Route.
+     * @example
+     * // Update or create a Route
+     * const route = await prisma.route.upsert({
+     *   create: {
+     *     // ... data to create a Route
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Route we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RouteUpsertArgs>(args: SelectSubset<T, RouteUpsertArgs<ExtArgs>>): Prisma__RouteClient<$Result.GetResult<Prisma.$RoutePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Routes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RouteCountArgs} args - Arguments to filter Routes to count.
+     * @example
+     * // Count the number of Routes
+     * const count = await prisma.route.count({
+     *   where: {
+     *     // ... the filter for the Routes we want to count
+     *   }
+     * })
+    **/
+    count<T extends RouteCountArgs>(
+      args?: Subset<T, RouteCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RouteCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Route.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RouteAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RouteAggregateArgs>(args: Subset<T, RouteAggregateArgs>): Prisma.PrismaPromise<GetRouteAggregateType<T>>
+
+    /**
+     * Group by Route.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RouteGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RouteGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RouteGroupByArgs['orderBy'] }
+        : { orderBy?: RouteGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RouteGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRouteGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Route model
+   */
+  readonly fields: RouteFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Route.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RouteClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    admin<T extends Route$adminArgs<ExtArgs> = {}>(args?: Subset<T, Route$adminArgs<ExtArgs>>): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    company<T extends CompanyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CompanyDefaultArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Route model
+   */
+  interface RouteFieldRefs {
+    readonly id: FieldRef<"Route", 'String'>
+    readonly startPoint: FieldRef<"Route", 'String'>
+    readonly endPoint: FieldRef<"Route", 'String'>
+    readonly distanceKm: FieldRef<"Route", 'Float'>
+    readonly companyId: FieldRef<"Route", 'String'>
+    readonly createdAt: FieldRef<"Route", 'DateTime'>
+    readonly adminId: FieldRef<"Route", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Route findUnique
+   */
+  export type RouteFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Route
+     */
+    select?: RouteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Route
+     */
+    omit?: RouteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouteInclude<ExtArgs> | null
+    /**
+     * Filter, which Route to fetch.
+     */
+    where: RouteWhereUniqueInput
+  }
+
+  /**
+   * Route findUniqueOrThrow
+   */
+  export type RouteFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Route
+     */
+    select?: RouteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Route
+     */
+    omit?: RouteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouteInclude<ExtArgs> | null
+    /**
+     * Filter, which Route to fetch.
+     */
+    where: RouteWhereUniqueInput
+  }
+
+  /**
+   * Route findFirst
+   */
+  export type RouteFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Route
+     */
+    select?: RouteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Route
+     */
+    omit?: RouteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouteInclude<ExtArgs> | null
+    /**
+     * Filter, which Route to fetch.
+     */
+    where?: RouteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Routes to fetch.
+     */
+    orderBy?: RouteOrderByWithRelationInput | RouteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Routes.
+     */
+    cursor?: RouteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Routes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Routes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Routes.
+     */
+    distinct?: RouteScalarFieldEnum | RouteScalarFieldEnum[]
+  }
+
+  /**
+   * Route findFirstOrThrow
+   */
+  export type RouteFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Route
+     */
+    select?: RouteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Route
+     */
+    omit?: RouteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouteInclude<ExtArgs> | null
+    /**
+     * Filter, which Route to fetch.
+     */
+    where?: RouteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Routes to fetch.
+     */
+    orderBy?: RouteOrderByWithRelationInput | RouteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Routes.
+     */
+    cursor?: RouteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Routes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Routes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Routes.
+     */
+    distinct?: RouteScalarFieldEnum | RouteScalarFieldEnum[]
+  }
+
+  /**
+   * Route findMany
+   */
+  export type RouteFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Route
+     */
+    select?: RouteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Route
+     */
+    omit?: RouteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouteInclude<ExtArgs> | null
+    /**
+     * Filter, which Routes to fetch.
+     */
+    where?: RouteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Routes to fetch.
+     */
+    orderBy?: RouteOrderByWithRelationInput | RouteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Routes.
+     */
+    cursor?: RouteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Routes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Routes.
+     */
+    skip?: number
+    distinct?: RouteScalarFieldEnum | RouteScalarFieldEnum[]
+  }
+
+  /**
+   * Route create
+   */
+  export type RouteCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Route
+     */
+    select?: RouteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Route
+     */
+    omit?: RouteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouteInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Route.
+     */
+    data: XOR<RouteCreateInput, RouteUncheckedCreateInput>
+  }
+
+  /**
+   * Route createMany
+   */
+  export type RouteCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Routes.
+     */
+    data: RouteCreateManyInput | RouteCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Route createManyAndReturn
+   */
+  export type RouteCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Route
+     */
+    select?: RouteSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Route
+     */
+    omit?: RouteOmit<ExtArgs> | null
+    /**
+     * The data used to create many Routes.
+     */
+    data: RouteCreateManyInput | RouteCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouteIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Route update
+   */
+  export type RouteUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Route
+     */
+    select?: RouteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Route
+     */
+    omit?: RouteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouteInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Route.
+     */
+    data: XOR<RouteUpdateInput, RouteUncheckedUpdateInput>
+    /**
+     * Choose, which Route to update.
+     */
+    where: RouteWhereUniqueInput
+  }
+
+  /**
+   * Route updateMany
+   */
+  export type RouteUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Routes.
+     */
+    data: XOR<RouteUpdateManyMutationInput, RouteUncheckedUpdateManyInput>
+    /**
+     * Filter which Routes to update
+     */
+    where?: RouteWhereInput
+    /**
+     * Limit how many Routes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Route updateManyAndReturn
+   */
+  export type RouteUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Route
+     */
+    select?: RouteSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Route
+     */
+    omit?: RouteOmit<ExtArgs> | null
+    /**
+     * The data used to update Routes.
+     */
+    data: XOR<RouteUpdateManyMutationInput, RouteUncheckedUpdateManyInput>
+    /**
+     * Filter which Routes to update
+     */
+    where?: RouteWhereInput
+    /**
+     * Limit how many Routes to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouteIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Route upsert
+   */
+  export type RouteUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Route
+     */
+    select?: RouteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Route
+     */
+    omit?: RouteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouteInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Route to update in case it exists.
+     */
+    where: RouteWhereUniqueInput
+    /**
+     * In case the Route found by the `where` argument doesn't exist, create a new Route with this data.
+     */
+    create: XOR<RouteCreateInput, RouteUncheckedCreateInput>
+    /**
+     * In case the Route was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RouteUpdateInput, RouteUncheckedUpdateInput>
+  }
+
+  /**
+   * Route delete
+   */
+  export type RouteDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Route
+     */
+    select?: RouteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Route
+     */
+    omit?: RouteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouteInclude<ExtArgs> | null
+    /**
+     * Filter which Route to delete.
+     */
+    where: RouteWhereUniqueInput
+  }
+
+  /**
+   * Route deleteMany
+   */
+  export type RouteDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Routes to delete
+     */
+    where?: RouteWhereInput
+    /**
+     * Limit how many Routes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Route.admin
+   */
+  export type Route$adminArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Admin
+     */
+    omit?: AdminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
+    where?: AdminWhereInput
+  }
+
+  /**
+   * Route without action
+   */
+  export type RouteDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Route
+     */
+    select?: RouteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Route
+     */
+    omit?: RouteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouteInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -7271,6 +10903,41 @@ export namespace Prisma {
   };
 
   export type FeedbackScalarFieldEnum = (typeof FeedbackScalarFieldEnum)[keyof typeof FeedbackScalarFieldEnum]
+
+
+  export const AdminScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    email: 'email',
+    passwordHash: 'passwordHash',
+    role: 'role',
+    createdAt: 'createdAt'
+  };
+
+  export type AdminScalarFieldEnum = (typeof AdminScalarFieldEnum)[keyof typeof AdminScalarFieldEnum]
+
+
+  export const CompanyScalarFieldEnum: {
+    id: 'id',
+    companyName: 'companyName',
+    domainName: 'domainName',
+    createdAt: 'createdAt'
+  };
+
+  export type CompanyScalarFieldEnum = (typeof CompanyScalarFieldEnum)[keyof typeof CompanyScalarFieldEnum]
+
+
+  export const RouteScalarFieldEnum: {
+    id: 'id',
+    startPoint: 'startPoint',
+    endPoint: 'endPoint',
+    distanceKm: 'distanceKm',
+    companyId: 'companyId',
+    createdAt: 'createdAt',
+    adminId: 'adminId'
+  };
+
+  export type RouteScalarFieldEnum = (typeof RouteScalarFieldEnum)[keyof typeof RouteScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -7463,6 +11130,20 @@ export namespace Prisma {
    * Reference to a field of type 'PaymentMethod[]'
    */
   export type ListEnumPaymentMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentMethod[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'AdminRole'
+   */
+  export type EnumAdminRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AdminRole'>
+    
+
+
+  /**
+   * Reference to a field of type 'AdminRole[]'
+   */
+  export type ListEnumAdminRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AdminRole[]'>
     
   /**
    * Deep Input Types
@@ -7847,6 +11528,186 @@ export namespace Prisma {
     rating?: IntWithAggregatesFilter<"Feedback"> | number
     comment?: StringNullableWithAggregatesFilter<"Feedback"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Feedback"> | Date | string
+  }
+
+  export type AdminWhereInput = {
+    AND?: AdminWhereInput | AdminWhereInput[]
+    OR?: AdminWhereInput[]
+    NOT?: AdminWhereInput | AdminWhereInput[]
+    id?: StringFilter<"Admin"> | string
+    name?: StringFilter<"Admin"> | string
+    email?: StringFilter<"Admin"> | string
+    passwordHash?: StringFilter<"Admin"> | string
+    role?: EnumAdminRoleFilter<"Admin"> | $Enums.AdminRole
+    createdAt?: DateTimeFilter<"Admin"> | Date | string
+    routes?: RouteListRelationFilter
+  }
+
+  export type AdminOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    passwordHash?: SortOrder
+    role?: SortOrder
+    createdAt?: SortOrder
+    routes?: RouteOrderByRelationAggregateInput
+  }
+
+  export type AdminWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    email?: string
+    AND?: AdminWhereInput | AdminWhereInput[]
+    OR?: AdminWhereInput[]
+    NOT?: AdminWhereInput | AdminWhereInput[]
+    name?: StringFilter<"Admin"> | string
+    passwordHash?: StringFilter<"Admin"> | string
+    role?: EnumAdminRoleFilter<"Admin"> | $Enums.AdminRole
+    createdAt?: DateTimeFilter<"Admin"> | Date | string
+    routes?: RouteListRelationFilter
+  }, "id" | "email">
+
+  export type AdminOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    passwordHash?: SortOrder
+    role?: SortOrder
+    createdAt?: SortOrder
+    _count?: AdminCountOrderByAggregateInput
+    _max?: AdminMaxOrderByAggregateInput
+    _min?: AdminMinOrderByAggregateInput
+  }
+
+  export type AdminScalarWhereWithAggregatesInput = {
+    AND?: AdminScalarWhereWithAggregatesInput | AdminScalarWhereWithAggregatesInput[]
+    OR?: AdminScalarWhereWithAggregatesInput[]
+    NOT?: AdminScalarWhereWithAggregatesInput | AdminScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Admin"> | string
+    name?: StringWithAggregatesFilter<"Admin"> | string
+    email?: StringWithAggregatesFilter<"Admin"> | string
+    passwordHash?: StringWithAggregatesFilter<"Admin"> | string
+    role?: EnumAdminRoleWithAggregatesFilter<"Admin"> | $Enums.AdminRole
+    createdAt?: DateTimeWithAggregatesFilter<"Admin"> | Date | string
+  }
+
+  export type CompanyWhereInput = {
+    AND?: CompanyWhereInput | CompanyWhereInput[]
+    OR?: CompanyWhereInput[]
+    NOT?: CompanyWhereInput | CompanyWhereInput[]
+    id?: StringFilter<"Company"> | string
+    companyName?: StringFilter<"Company"> | string
+    domainName?: StringFilter<"Company"> | string
+    createdAt?: DateTimeFilter<"Company"> | Date | string
+    routes?: RouteListRelationFilter
+  }
+
+  export type CompanyOrderByWithRelationInput = {
+    id?: SortOrder
+    companyName?: SortOrder
+    domainName?: SortOrder
+    createdAt?: SortOrder
+    routes?: RouteOrderByRelationAggregateInput
+  }
+
+  export type CompanyWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    domainName?: string
+    AND?: CompanyWhereInput | CompanyWhereInput[]
+    OR?: CompanyWhereInput[]
+    NOT?: CompanyWhereInput | CompanyWhereInput[]
+    companyName?: StringFilter<"Company"> | string
+    createdAt?: DateTimeFilter<"Company"> | Date | string
+    routes?: RouteListRelationFilter
+  }, "id" | "domainName">
+
+  export type CompanyOrderByWithAggregationInput = {
+    id?: SortOrder
+    companyName?: SortOrder
+    domainName?: SortOrder
+    createdAt?: SortOrder
+    _count?: CompanyCountOrderByAggregateInput
+    _max?: CompanyMaxOrderByAggregateInput
+    _min?: CompanyMinOrderByAggregateInput
+  }
+
+  export type CompanyScalarWhereWithAggregatesInput = {
+    AND?: CompanyScalarWhereWithAggregatesInput | CompanyScalarWhereWithAggregatesInput[]
+    OR?: CompanyScalarWhereWithAggregatesInput[]
+    NOT?: CompanyScalarWhereWithAggregatesInput | CompanyScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Company"> | string
+    companyName?: StringWithAggregatesFilter<"Company"> | string
+    domainName?: StringWithAggregatesFilter<"Company"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Company"> | Date | string
+  }
+
+  export type RouteWhereInput = {
+    AND?: RouteWhereInput | RouteWhereInput[]
+    OR?: RouteWhereInput[]
+    NOT?: RouteWhereInput | RouteWhereInput[]
+    id?: StringFilter<"Route"> | string
+    startPoint?: StringFilter<"Route"> | string
+    endPoint?: StringFilter<"Route"> | string
+    distanceKm?: FloatNullableFilter<"Route"> | number | null
+    companyId?: StringFilter<"Route"> | string
+    createdAt?: DateTimeFilter<"Route"> | Date | string
+    adminId?: StringNullableFilter<"Route"> | string | null
+    admin?: XOR<AdminNullableScalarRelationFilter, AdminWhereInput> | null
+    company?: XOR<CompanyScalarRelationFilter, CompanyWhereInput>
+  }
+
+  export type RouteOrderByWithRelationInput = {
+    id?: SortOrder
+    startPoint?: SortOrder
+    endPoint?: SortOrder
+    distanceKm?: SortOrderInput | SortOrder
+    companyId?: SortOrder
+    createdAt?: SortOrder
+    adminId?: SortOrderInput | SortOrder
+    admin?: AdminOrderByWithRelationInput
+    company?: CompanyOrderByWithRelationInput
+  }
+
+  export type RouteWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: RouteWhereInput | RouteWhereInput[]
+    OR?: RouteWhereInput[]
+    NOT?: RouteWhereInput | RouteWhereInput[]
+    startPoint?: StringFilter<"Route"> | string
+    endPoint?: StringFilter<"Route"> | string
+    distanceKm?: FloatNullableFilter<"Route"> | number | null
+    companyId?: StringFilter<"Route"> | string
+    createdAt?: DateTimeFilter<"Route"> | Date | string
+    adminId?: StringNullableFilter<"Route"> | string | null
+    admin?: XOR<AdminNullableScalarRelationFilter, AdminWhereInput> | null
+    company?: XOR<CompanyScalarRelationFilter, CompanyWhereInput>
+  }, "id">
+
+  export type RouteOrderByWithAggregationInput = {
+    id?: SortOrder
+    startPoint?: SortOrder
+    endPoint?: SortOrder
+    distanceKm?: SortOrderInput | SortOrder
+    companyId?: SortOrder
+    createdAt?: SortOrder
+    adminId?: SortOrderInput | SortOrder
+    _count?: RouteCountOrderByAggregateInput
+    _avg?: RouteAvgOrderByAggregateInput
+    _max?: RouteMaxOrderByAggregateInput
+    _min?: RouteMinOrderByAggregateInput
+    _sum?: RouteSumOrderByAggregateInput
+  }
+
+  export type RouteScalarWhereWithAggregatesInput = {
+    AND?: RouteScalarWhereWithAggregatesInput | RouteScalarWhereWithAggregatesInput[]
+    OR?: RouteScalarWhereWithAggregatesInput[]
+    NOT?: RouteScalarWhereWithAggregatesInput | RouteScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Route"> | string
+    startPoint?: StringWithAggregatesFilter<"Route"> | string
+    endPoint?: StringWithAggregatesFilter<"Route"> | string
+    distanceKm?: FloatNullableWithAggregatesFilter<"Route"> | number | null
+    companyId?: StringWithAggregatesFilter<"Route"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Route"> | Date | string
+    adminId?: StringNullableWithAggregatesFilter<"Route"> | string | null
   }
 
   export type UserCreateInput = {
@@ -8246,6 +12107,194 @@ export namespace Prisma {
     rating?: IntFieldUpdateOperationsInput | number
     comment?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AdminCreateInput = {
+    id?: string
+    name: string
+    email: string
+    passwordHash: string
+    role?: $Enums.AdminRole
+    createdAt?: Date | string
+    routes?: RouteCreateNestedManyWithoutAdminInput
+  }
+
+  export type AdminUncheckedCreateInput = {
+    id?: string
+    name: string
+    email: string
+    passwordHash: string
+    role?: $Enums.AdminRole
+    createdAt?: Date | string
+    routes?: RouteUncheckedCreateNestedManyWithoutAdminInput
+  }
+
+  export type AdminUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    role?: EnumAdminRoleFieldUpdateOperationsInput | $Enums.AdminRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    routes?: RouteUpdateManyWithoutAdminNestedInput
+  }
+
+  export type AdminUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    role?: EnumAdminRoleFieldUpdateOperationsInput | $Enums.AdminRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    routes?: RouteUncheckedUpdateManyWithoutAdminNestedInput
+  }
+
+  export type AdminCreateManyInput = {
+    id?: string
+    name: string
+    email: string
+    passwordHash: string
+    role?: $Enums.AdminRole
+    createdAt?: Date | string
+  }
+
+  export type AdminUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    role?: EnumAdminRoleFieldUpdateOperationsInput | $Enums.AdminRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AdminUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    role?: EnumAdminRoleFieldUpdateOperationsInput | $Enums.AdminRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CompanyCreateInput = {
+    id?: string
+    companyName: string
+    domainName: string
+    createdAt?: Date | string
+    routes?: RouteCreateNestedManyWithoutCompanyInput
+  }
+
+  export type CompanyUncheckedCreateInput = {
+    id?: string
+    companyName: string
+    domainName: string
+    createdAt?: Date | string
+    routes?: RouteUncheckedCreateNestedManyWithoutCompanyInput
+  }
+
+  export type CompanyUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    companyName?: StringFieldUpdateOperationsInput | string
+    domainName?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    routes?: RouteUpdateManyWithoutCompanyNestedInput
+  }
+
+  export type CompanyUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    companyName?: StringFieldUpdateOperationsInput | string
+    domainName?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    routes?: RouteUncheckedUpdateManyWithoutCompanyNestedInput
+  }
+
+  export type CompanyCreateManyInput = {
+    id?: string
+    companyName: string
+    domainName: string
+    createdAt?: Date | string
+  }
+
+  export type CompanyUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    companyName?: StringFieldUpdateOperationsInput | string
+    domainName?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CompanyUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    companyName?: StringFieldUpdateOperationsInput | string
+    domainName?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RouteCreateInput = {
+    id?: string
+    startPoint: string
+    endPoint: string
+    distanceKm?: number | null
+    createdAt?: Date | string
+    admin?: AdminCreateNestedOneWithoutRoutesInput
+    company: CompanyCreateNestedOneWithoutRoutesInput
+  }
+
+  export type RouteUncheckedCreateInput = {
+    id?: string
+    startPoint: string
+    endPoint: string
+    distanceKm?: number | null
+    companyId: string
+    createdAt?: Date | string
+    adminId?: string | null
+  }
+
+  export type RouteUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    startPoint?: StringFieldUpdateOperationsInput | string
+    endPoint?: StringFieldUpdateOperationsInput | string
+    distanceKm?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    admin?: AdminUpdateOneWithoutRoutesNestedInput
+    company?: CompanyUpdateOneRequiredWithoutRoutesNestedInput
+  }
+
+  export type RouteUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    startPoint?: StringFieldUpdateOperationsInput | string
+    endPoint?: StringFieldUpdateOperationsInput | string
+    distanceKm?: NullableFloatFieldUpdateOperationsInput | number | null
+    companyId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    adminId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type RouteCreateManyInput = {
+    id?: string
+    startPoint: string
+    endPoint: string
+    distanceKm?: number | null
+    companyId: string
+    createdAt?: Date | string
+    adminId?: string | null
+  }
+
+  export type RouteUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    startPoint?: StringFieldUpdateOperationsInput | string
+    endPoint?: StringFieldUpdateOperationsInput | string
+    distanceKm?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RouteUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    startPoint?: StringFieldUpdateOperationsInput | string
+    endPoint?: StringFieldUpdateOperationsInput | string
+    distanceKm?: NullableFloatFieldUpdateOperationsInput | number | null
+    companyId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    adminId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -8844,6 +12893,129 @@ export namespace Prisma {
     rating?: SortOrder
   }
 
+  export type EnumAdminRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.AdminRole | EnumAdminRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.AdminRole[] | ListEnumAdminRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AdminRole[] | ListEnumAdminRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumAdminRoleFilter<$PrismaModel> | $Enums.AdminRole
+  }
+
+  export type RouteListRelationFilter = {
+    every?: RouteWhereInput
+    some?: RouteWhereInput
+    none?: RouteWhereInput
+  }
+
+  export type RouteOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AdminCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    passwordHash?: SortOrder
+    role?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AdminMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    passwordHash?: SortOrder
+    role?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AdminMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    passwordHash?: SortOrder
+    role?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type EnumAdminRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AdminRole | EnumAdminRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.AdminRole[] | ListEnumAdminRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AdminRole[] | ListEnumAdminRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumAdminRoleWithAggregatesFilter<$PrismaModel> | $Enums.AdminRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAdminRoleFilter<$PrismaModel>
+    _max?: NestedEnumAdminRoleFilter<$PrismaModel>
+  }
+
+  export type CompanyCountOrderByAggregateInput = {
+    id?: SortOrder
+    companyName?: SortOrder
+    domainName?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CompanyMaxOrderByAggregateInput = {
+    id?: SortOrder
+    companyName?: SortOrder
+    domainName?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CompanyMinOrderByAggregateInput = {
+    id?: SortOrder
+    companyName?: SortOrder
+    domainName?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AdminNullableScalarRelationFilter = {
+    is?: AdminWhereInput | null
+    isNot?: AdminWhereInput | null
+  }
+
+  export type CompanyScalarRelationFilter = {
+    is?: CompanyWhereInput
+    isNot?: CompanyWhereInput
+  }
+
+  export type RouteCountOrderByAggregateInput = {
+    id?: SortOrder
+    startPoint?: SortOrder
+    endPoint?: SortOrder
+    distanceKm?: SortOrder
+    companyId?: SortOrder
+    createdAt?: SortOrder
+    adminId?: SortOrder
+  }
+
+  export type RouteAvgOrderByAggregateInput = {
+    distanceKm?: SortOrder
+  }
+
+  export type RouteMaxOrderByAggregateInput = {
+    id?: SortOrder
+    startPoint?: SortOrder
+    endPoint?: SortOrder
+    distanceKm?: SortOrder
+    companyId?: SortOrder
+    createdAt?: SortOrder
+    adminId?: SortOrder
+  }
+
+  export type RouteMinOrderByAggregateInput = {
+    id?: SortOrder
+    startPoint?: SortOrder
+    endPoint?: SortOrder
+    distanceKm?: SortOrder
+    companyId?: SortOrder
+    createdAt?: SortOrder
+    adminId?: SortOrder
+  }
+
+  export type RouteSumOrderByAggregateInput = {
+    distanceKm?: SortOrder
+  }
+
   export type BookingCreateNestedManyWithoutRiderInput = {
     create?: XOR<BookingCreateWithoutRiderInput, BookingUncheckedCreateWithoutRiderInput> | BookingCreateWithoutRiderInput[] | BookingUncheckedCreateWithoutRiderInput[]
     connectOrCreate?: BookingCreateOrConnectWithoutRiderInput | BookingCreateOrConnectWithoutRiderInput[]
@@ -9282,6 +13454,124 @@ export namespace Prisma {
     update?: XOR<XOR<RideUpdateToOneWithWhereWithoutFeedbackInput, RideUpdateWithoutFeedbackInput>, RideUncheckedUpdateWithoutFeedbackInput>
   }
 
+  export type RouteCreateNestedManyWithoutAdminInput = {
+    create?: XOR<RouteCreateWithoutAdminInput, RouteUncheckedCreateWithoutAdminInput> | RouteCreateWithoutAdminInput[] | RouteUncheckedCreateWithoutAdminInput[]
+    connectOrCreate?: RouteCreateOrConnectWithoutAdminInput | RouteCreateOrConnectWithoutAdminInput[]
+    createMany?: RouteCreateManyAdminInputEnvelope
+    connect?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
+  }
+
+  export type RouteUncheckedCreateNestedManyWithoutAdminInput = {
+    create?: XOR<RouteCreateWithoutAdminInput, RouteUncheckedCreateWithoutAdminInput> | RouteCreateWithoutAdminInput[] | RouteUncheckedCreateWithoutAdminInput[]
+    connectOrCreate?: RouteCreateOrConnectWithoutAdminInput | RouteCreateOrConnectWithoutAdminInput[]
+    createMany?: RouteCreateManyAdminInputEnvelope
+    connect?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
+  }
+
+  export type EnumAdminRoleFieldUpdateOperationsInput = {
+    set?: $Enums.AdminRole
+  }
+
+  export type RouteUpdateManyWithoutAdminNestedInput = {
+    create?: XOR<RouteCreateWithoutAdminInput, RouteUncheckedCreateWithoutAdminInput> | RouteCreateWithoutAdminInput[] | RouteUncheckedCreateWithoutAdminInput[]
+    connectOrCreate?: RouteCreateOrConnectWithoutAdminInput | RouteCreateOrConnectWithoutAdminInput[]
+    upsert?: RouteUpsertWithWhereUniqueWithoutAdminInput | RouteUpsertWithWhereUniqueWithoutAdminInput[]
+    createMany?: RouteCreateManyAdminInputEnvelope
+    set?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
+    disconnect?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
+    delete?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
+    connect?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
+    update?: RouteUpdateWithWhereUniqueWithoutAdminInput | RouteUpdateWithWhereUniqueWithoutAdminInput[]
+    updateMany?: RouteUpdateManyWithWhereWithoutAdminInput | RouteUpdateManyWithWhereWithoutAdminInput[]
+    deleteMany?: RouteScalarWhereInput | RouteScalarWhereInput[]
+  }
+
+  export type RouteUncheckedUpdateManyWithoutAdminNestedInput = {
+    create?: XOR<RouteCreateWithoutAdminInput, RouteUncheckedCreateWithoutAdminInput> | RouteCreateWithoutAdminInput[] | RouteUncheckedCreateWithoutAdminInput[]
+    connectOrCreate?: RouteCreateOrConnectWithoutAdminInput | RouteCreateOrConnectWithoutAdminInput[]
+    upsert?: RouteUpsertWithWhereUniqueWithoutAdminInput | RouteUpsertWithWhereUniqueWithoutAdminInput[]
+    createMany?: RouteCreateManyAdminInputEnvelope
+    set?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
+    disconnect?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
+    delete?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
+    connect?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
+    update?: RouteUpdateWithWhereUniqueWithoutAdminInput | RouteUpdateWithWhereUniqueWithoutAdminInput[]
+    updateMany?: RouteUpdateManyWithWhereWithoutAdminInput | RouteUpdateManyWithWhereWithoutAdminInput[]
+    deleteMany?: RouteScalarWhereInput | RouteScalarWhereInput[]
+  }
+
+  export type RouteCreateNestedManyWithoutCompanyInput = {
+    create?: XOR<RouteCreateWithoutCompanyInput, RouteUncheckedCreateWithoutCompanyInput> | RouteCreateWithoutCompanyInput[] | RouteUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: RouteCreateOrConnectWithoutCompanyInput | RouteCreateOrConnectWithoutCompanyInput[]
+    createMany?: RouteCreateManyCompanyInputEnvelope
+    connect?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
+  }
+
+  export type RouteUncheckedCreateNestedManyWithoutCompanyInput = {
+    create?: XOR<RouteCreateWithoutCompanyInput, RouteUncheckedCreateWithoutCompanyInput> | RouteCreateWithoutCompanyInput[] | RouteUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: RouteCreateOrConnectWithoutCompanyInput | RouteCreateOrConnectWithoutCompanyInput[]
+    createMany?: RouteCreateManyCompanyInputEnvelope
+    connect?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
+  }
+
+  export type RouteUpdateManyWithoutCompanyNestedInput = {
+    create?: XOR<RouteCreateWithoutCompanyInput, RouteUncheckedCreateWithoutCompanyInput> | RouteCreateWithoutCompanyInput[] | RouteUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: RouteCreateOrConnectWithoutCompanyInput | RouteCreateOrConnectWithoutCompanyInput[]
+    upsert?: RouteUpsertWithWhereUniqueWithoutCompanyInput | RouteUpsertWithWhereUniqueWithoutCompanyInput[]
+    createMany?: RouteCreateManyCompanyInputEnvelope
+    set?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
+    disconnect?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
+    delete?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
+    connect?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
+    update?: RouteUpdateWithWhereUniqueWithoutCompanyInput | RouteUpdateWithWhereUniqueWithoutCompanyInput[]
+    updateMany?: RouteUpdateManyWithWhereWithoutCompanyInput | RouteUpdateManyWithWhereWithoutCompanyInput[]
+    deleteMany?: RouteScalarWhereInput | RouteScalarWhereInput[]
+  }
+
+  export type RouteUncheckedUpdateManyWithoutCompanyNestedInput = {
+    create?: XOR<RouteCreateWithoutCompanyInput, RouteUncheckedCreateWithoutCompanyInput> | RouteCreateWithoutCompanyInput[] | RouteUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: RouteCreateOrConnectWithoutCompanyInput | RouteCreateOrConnectWithoutCompanyInput[]
+    upsert?: RouteUpsertWithWhereUniqueWithoutCompanyInput | RouteUpsertWithWhereUniqueWithoutCompanyInput[]
+    createMany?: RouteCreateManyCompanyInputEnvelope
+    set?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
+    disconnect?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
+    delete?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
+    connect?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
+    update?: RouteUpdateWithWhereUniqueWithoutCompanyInput | RouteUpdateWithWhereUniqueWithoutCompanyInput[]
+    updateMany?: RouteUpdateManyWithWhereWithoutCompanyInput | RouteUpdateManyWithWhereWithoutCompanyInput[]
+    deleteMany?: RouteScalarWhereInput | RouteScalarWhereInput[]
+  }
+
+  export type AdminCreateNestedOneWithoutRoutesInput = {
+    create?: XOR<AdminCreateWithoutRoutesInput, AdminUncheckedCreateWithoutRoutesInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutRoutesInput
+    connect?: AdminWhereUniqueInput
+  }
+
+  export type CompanyCreateNestedOneWithoutRoutesInput = {
+    create?: XOR<CompanyCreateWithoutRoutesInput, CompanyUncheckedCreateWithoutRoutesInput>
+    connectOrCreate?: CompanyCreateOrConnectWithoutRoutesInput
+    connect?: CompanyWhereUniqueInput
+  }
+
+  export type AdminUpdateOneWithoutRoutesNestedInput = {
+    create?: XOR<AdminCreateWithoutRoutesInput, AdminUncheckedCreateWithoutRoutesInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutRoutesInput
+    upsert?: AdminUpsertWithoutRoutesInput
+    disconnect?: AdminWhereInput | boolean
+    delete?: AdminWhereInput | boolean
+    connect?: AdminWhereUniqueInput
+    update?: XOR<XOR<AdminUpdateToOneWithWhereWithoutRoutesInput, AdminUpdateWithoutRoutesInput>, AdminUncheckedUpdateWithoutRoutesInput>
+  }
+
+  export type CompanyUpdateOneRequiredWithoutRoutesNestedInput = {
+    create?: XOR<CompanyCreateWithoutRoutesInput, CompanyUncheckedCreateWithoutRoutesInput>
+    connectOrCreate?: CompanyCreateOrConnectWithoutRoutesInput
+    upsert?: CompanyUpsertWithoutRoutesInput
+    connect?: CompanyWhereUniqueInput
+    update?: XOR<XOR<CompanyUpdateToOneWithWhereWithoutRoutesInput, CompanyUpdateWithoutRoutesInput>, CompanyUncheckedUpdateWithoutRoutesInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -9590,6 +13880,23 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumPaymentMethodFilter<$PrismaModel>
     _max?: NestedEnumPaymentMethodFilter<$PrismaModel>
+  }
+
+  export type NestedEnumAdminRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.AdminRole | EnumAdminRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.AdminRole[] | ListEnumAdminRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AdminRole[] | ListEnumAdminRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumAdminRoleFilter<$PrismaModel> | $Enums.AdminRole
+  }
+
+  export type NestedEnumAdminRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AdminRole | EnumAdminRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.AdminRole[] | ListEnumAdminRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AdminRole[] | ListEnumAdminRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumAdminRoleWithAggregatesFilter<$PrismaModel> | $Enums.AdminRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAdminRoleFilter<$PrismaModel>
+    _max?: NestedEnumAdminRoleFilter<$PrismaModel>
   }
 
   export type BookingCreateWithoutRiderInput = {
@@ -10464,6 +14771,203 @@ export namespace Prisma {
     bookings?: BookingUncheckedUpdateManyWithoutRideNestedInput
   }
 
+  export type RouteCreateWithoutAdminInput = {
+    id?: string
+    startPoint: string
+    endPoint: string
+    distanceKm?: number | null
+    createdAt?: Date | string
+    company: CompanyCreateNestedOneWithoutRoutesInput
+  }
+
+  export type RouteUncheckedCreateWithoutAdminInput = {
+    id?: string
+    startPoint: string
+    endPoint: string
+    distanceKm?: number | null
+    companyId: string
+    createdAt?: Date | string
+  }
+
+  export type RouteCreateOrConnectWithoutAdminInput = {
+    where: RouteWhereUniqueInput
+    create: XOR<RouteCreateWithoutAdminInput, RouteUncheckedCreateWithoutAdminInput>
+  }
+
+  export type RouteCreateManyAdminInputEnvelope = {
+    data: RouteCreateManyAdminInput | RouteCreateManyAdminInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type RouteUpsertWithWhereUniqueWithoutAdminInput = {
+    where: RouteWhereUniqueInput
+    update: XOR<RouteUpdateWithoutAdminInput, RouteUncheckedUpdateWithoutAdminInput>
+    create: XOR<RouteCreateWithoutAdminInput, RouteUncheckedCreateWithoutAdminInput>
+  }
+
+  export type RouteUpdateWithWhereUniqueWithoutAdminInput = {
+    where: RouteWhereUniqueInput
+    data: XOR<RouteUpdateWithoutAdminInput, RouteUncheckedUpdateWithoutAdminInput>
+  }
+
+  export type RouteUpdateManyWithWhereWithoutAdminInput = {
+    where: RouteScalarWhereInput
+    data: XOR<RouteUpdateManyMutationInput, RouteUncheckedUpdateManyWithoutAdminInput>
+  }
+
+  export type RouteScalarWhereInput = {
+    AND?: RouteScalarWhereInput | RouteScalarWhereInput[]
+    OR?: RouteScalarWhereInput[]
+    NOT?: RouteScalarWhereInput | RouteScalarWhereInput[]
+    id?: StringFilter<"Route"> | string
+    startPoint?: StringFilter<"Route"> | string
+    endPoint?: StringFilter<"Route"> | string
+    distanceKm?: FloatNullableFilter<"Route"> | number | null
+    companyId?: StringFilter<"Route"> | string
+    createdAt?: DateTimeFilter<"Route"> | Date | string
+    adminId?: StringNullableFilter<"Route"> | string | null
+  }
+
+  export type RouteCreateWithoutCompanyInput = {
+    id?: string
+    startPoint: string
+    endPoint: string
+    distanceKm?: number | null
+    createdAt?: Date | string
+    admin?: AdminCreateNestedOneWithoutRoutesInput
+  }
+
+  export type RouteUncheckedCreateWithoutCompanyInput = {
+    id?: string
+    startPoint: string
+    endPoint: string
+    distanceKm?: number | null
+    createdAt?: Date | string
+    adminId?: string | null
+  }
+
+  export type RouteCreateOrConnectWithoutCompanyInput = {
+    where: RouteWhereUniqueInput
+    create: XOR<RouteCreateWithoutCompanyInput, RouteUncheckedCreateWithoutCompanyInput>
+  }
+
+  export type RouteCreateManyCompanyInputEnvelope = {
+    data: RouteCreateManyCompanyInput | RouteCreateManyCompanyInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type RouteUpsertWithWhereUniqueWithoutCompanyInput = {
+    where: RouteWhereUniqueInput
+    update: XOR<RouteUpdateWithoutCompanyInput, RouteUncheckedUpdateWithoutCompanyInput>
+    create: XOR<RouteCreateWithoutCompanyInput, RouteUncheckedCreateWithoutCompanyInput>
+  }
+
+  export type RouteUpdateWithWhereUniqueWithoutCompanyInput = {
+    where: RouteWhereUniqueInput
+    data: XOR<RouteUpdateWithoutCompanyInput, RouteUncheckedUpdateWithoutCompanyInput>
+  }
+
+  export type RouteUpdateManyWithWhereWithoutCompanyInput = {
+    where: RouteScalarWhereInput
+    data: XOR<RouteUpdateManyMutationInput, RouteUncheckedUpdateManyWithoutCompanyInput>
+  }
+
+  export type AdminCreateWithoutRoutesInput = {
+    id?: string
+    name: string
+    email: string
+    passwordHash: string
+    role?: $Enums.AdminRole
+    createdAt?: Date | string
+  }
+
+  export type AdminUncheckedCreateWithoutRoutesInput = {
+    id?: string
+    name: string
+    email: string
+    passwordHash: string
+    role?: $Enums.AdminRole
+    createdAt?: Date | string
+  }
+
+  export type AdminCreateOrConnectWithoutRoutesInput = {
+    where: AdminWhereUniqueInput
+    create: XOR<AdminCreateWithoutRoutesInput, AdminUncheckedCreateWithoutRoutesInput>
+  }
+
+  export type CompanyCreateWithoutRoutesInput = {
+    id?: string
+    companyName: string
+    domainName: string
+    createdAt?: Date | string
+  }
+
+  export type CompanyUncheckedCreateWithoutRoutesInput = {
+    id?: string
+    companyName: string
+    domainName: string
+    createdAt?: Date | string
+  }
+
+  export type CompanyCreateOrConnectWithoutRoutesInput = {
+    where: CompanyWhereUniqueInput
+    create: XOR<CompanyCreateWithoutRoutesInput, CompanyUncheckedCreateWithoutRoutesInput>
+  }
+
+  export type AdminUpsertWithoutRoutesInput = {
+    update: XOR<AdminUpdateWithoutRoutesInput, AdminUncheckedUpdateWithoutRoutesInput>
+    create: XOR<AdminCreateWithoutRoutesInput, AdminUncheckedCreateWithoutRoutesInput>
+    where?: AdminWhereInput
+  }
+
+  export type AdminUpdateToOneWithWhereWithoutRoutesInput = {
+    where?: AdminWhereInput
+    data: XOR<AdminUpdateWithoutRoutesInput, AdminUncheckedUpdateWithoutRoutesInput>
+  }
+
+  export type AdminUpdateWithoutRoutesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    role?: EnumAdminRoleFieldUpdateOperationsInput | $Enums.AdminRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AdminUncheckedUpdateWithoutRoutesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    role?: EnumAdminRoleFieldUpdateOperationsInput | $Enums.AdminRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CompanyUpsertWithoutRoutesInput = {
+    update: XOR<CompanyUpdateWithoutRoutesInput, CompanyUncheckedUpdateWithoutRoutesInput>
+    create: XOR<CompanyCreateWithoutRoutesInput, CompanyUncheckedCreateWithoutRoutesInput>
+    where?: CompanyWhereInput
+  }
+
+  export type CompanyUpdateToOneWithWhereWithoutRoutesInput = {
+    where?: CompanyWhereInput
+    data: XOR<CompanyUpdateWithoutRoutesInput, CompanyUncheckedUpdateWithoutRoutesInput>
+  }
+
+  export type CompanyUpdateWithoutRoutesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    companyName?: StringFieldUpdateOperationsInput | string
+    domainName?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CompanyUncheckedUpdateWithoutRoutesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    companyName?: StringFieldUpdateOperationsInput | string
+    domainName?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type BookingCreateManyRiderInput = {
     id?: string
     rideId: string
@@ -10686,6 +15190,78 @@ export namespace Prisma {
     rating?: IntFieldUpdateOperationsInput | number
     comment?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RouteCreateManyAdminInput = {
+    id?: string
+    startPoint: string
+    endPoint: string
+    distanceKm?: number | null
+    companyId: string
+    createdAt?: Date | string
+  }
+
+  export type RouteUpdateWithoutAdminInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    startPoint?: StringFieldUpdateOperationsInput | string
+    endPoint?: StringFieldUpdateOperationsInput | string
+    distanceKm?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    company?: CompanyUpdateOneRequiredWithoutRoutesNestedInput
+  }
+
+  export type RouteUncheckedUpdateWithoutAdminInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    startPoint?: StringFieldUpdateOperationsInput | string
+    endPoint?: StringFieldUpdateOperationsInput | string
+    distanceKm?: NullableFloatFieldUpdateOperationsInput | number | null
+    companyId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RouteUncheckedUpdateManyWithoutAdminInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    startPoint?: StringFieldUpdateOperationsInput | string
+    endPoint?: StringFieldUpdateOperationsInput | string
+    distanceKm?: NullableFloatFieldUpdateOperationsInput | number | null
+    companyId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RouteCreateManyCompanyInput = {
+    id?: string
+    startPoint: string
+    endPoint: string
+    distanceKm?: number | null
+    createdAt?: Date | string
+    adminId?: string | null
+  }
+
+  export type RouteUpdateWithoutCompanyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    startPoint?: StringFieldUpdateOperationsInput | string
+    endPoint?: StringFieldUpdateOperationsInput | string
+    distanceKm?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    admin?: AdminUpdateOneWithoutRoutesNestedInput
+  }
+
+  export type RouteUncheckedUpdateWithoutCompanyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    startPoint?: StringFieldUpdateOperationsInput | string
+    endPoint?: StringFieldUpdateOperationsInput | string
+    distanceKm?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    adminId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type RouteUncheckedUpdateManyWithoutCompanyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    startPoint?: StringFieldUpdateOperationsInput | string
+    endPoint?: StringFieldUpdateOperationsInput | string
+    distanceKm?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    adminId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 
