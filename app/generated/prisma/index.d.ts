@@ -71,7 +71,8 @@ export namespace $Enums {
   export const Role: {
   driver: 'driver',
   rider: 'rider',
-  both: 'both'
+  both: 'both',
+  admin: 'admin'
 };
 
 export type Role = (typeof Role)[keyof typeof Role]
@@ -8907,14 +8908,16 @@ export namespace Prisma {
     id: string | null
     name: string | null
     email: string | null
-    role: string | null
+    role: $Enums.AdminRole | null
+    passwordHash: string | null
   }
 
   export type AdminMaxAggregateOutputType = {
     id: string | null
     name: string | null
     email: string | null
-    role: string | null
+    role: $Enums.AdminRole | null
+    passwordHash: string | null
   }
 
   export type AdminCountAggregateOutputType = {
@@ -8922,6 +8925,7 @@ export namespace Prisma {
     name: number
     email: number
     role: number
+    passwordHash: number
     _all: number
   }
 
@@ -8931,6 +8935,7 @@ export namespace Prisma {
     name?: true
     email?: true
     role?: true
+    passwordHash?: true
   }
 
   export type AdminMaxAggregateInputType = {
@@ -8938,6 +8943,7 @@ export namespace Prisma {
     name?: true
     email?: true
     role?: true
+    passwordHash?: true
   }
 
   export type AdminCountAggregateInputType = {
@@ -8945,6 +8951,7 @@ export namespace Prisma {
     name?: true
     email?: true
     role?: true
+    passwordHash?: true
     _all?: true
   }
 
@@ -9024,7 +9031,8 @@ export namespace Prisma {
     id: string
     name: string
     email: string
-    role: string
+    role: $Enums.AdminRole
+    passwordHash: string
     _count: AdminCountAggregateOutputType | null
     _min: AdminMinAggregateOutputType | null
     _max: AdminMaxAggregateOutputType | null
@@ -9049,6 +9057,7 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     role?: boolean
+    passwordHash?: boolean
     routes?: boolean | Admin$routesArgs<ExtArgs>
     _count?: boolean | AdminCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["admin"]>
@@ -9058,6 +9067,7 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     role?: boolean
+    passwordHash?: boolean
   }, ExtArgs["result"]["admin"]>
 
   export type AdminSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -9065,6 +9075,7 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     role?: boolean
+    passwordHash?: boolean
   }, ExtArgs["result"]["admin"]>
 
   export type AdminSelectScalar = {
@@ -9072,9 +9083,10 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     role?: boolean
+    passwordHash?: boolean
   }
 
-  export type AdminOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "role", ExtArgs["result"]["admin"]>
+  export type AdminOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "role" | "passwordHash", ExtArgs["result"]["admin"]>
   export type AdminInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     routes?: boolean | Admin$routesArgs<ExtArgs>
     _count?: boolean | AdminCountOutputTypeDefaultArgs<ExtArgs>
@@ -9091,7 +9103,8 @@ export namespace Prisma {
       id: string
       name: string
       email: string
-      role: string
+      role: $Enums.AdminRole
+      passwordHash: string
     }, ExtArgs["result"]["admin"]>
     composites: {}
   }
@@ -9519,7 +9532,8 @@ export namespace Prisma {
     readonly id: FieldRef<"Admin", 'String'>
     readonly name: FieldRef<"Admin", 'String'>
     readonly email: FieldRef<"Admin", 'String'>
-    readonly role: FieldRef<"Admin", 'String'>
+    readonly role: FieldRef<"Admin", 'AdminRole'>
+    readonly passwordHash: FieldRef<"Admin", 'String'>
   }
     
 
@@ -13501,7 +13515,8 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     email: 'email',
-    role: 'role'
+    role: 'role',
+    passwordHash: 'passwordHash'
   };
 
   export type AdminScalarFieldEnum = (typeof AdminScalarFieldEnum)[keyof typeof AdminScalarFieldEnum]
@@ -13732,6 +13747,20 @@ export namespace Prisma {
    * Reference to a field of type 'PaymentMethod[]'
    */
   export type ListEnumPaymentMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentMethod[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'AdminRole'
+   */
+  export type EnumAdminRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AdminRole'>
+    
+
+
+  /**
+   * Reference to a field of type 'AdminRole[]'
+   */
+  export type ListEnumAdminRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AdminRole[]'>
     
   /**
    * Deep Input Types
@@ -14178,7 +14207,8 @@ export namespace Prisma {
     id?: StringFilter<"Admin"> | string
     name?: StringFilter<"Admin"> | string
     email?: StringFilter<"Admin"> | string
-    role?: StringFilter<"Admin"> | string
+    role?: EnumAdminRoleFilter<"Admin"> | $Enums.AdminRole
+    passwordHash?: StringFilter<"Admin"> | string
     routes?: RouteListRelationFilter
   }
 
@@ -14187,6 +14217,7 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     role?: SortOrder
+    passwordHash?: SortOrder
     routes?: RouteOrderByRelationAggregateInput
   }
 
@@ -14197,7 +14228,8 @@ export namespace Prisma {
     OR?: AdminWhereInput[]
     NOT?: AdminWhereInput | AdminWhereInput[]
     name?: StringFilter<"Admin"> | string
-    role?: StringFilter<"Admin"> | string
+    role?: EnumAdminRoleFilter<"Admin"> | $Enums.AdminRole
+    passwordHash?: StringFilter<"Admin"> | string
     routes?: RouteListRelationFilter
   }, "id" | "email">
 
@@ -14206,6 +14238,7 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     role?: SortOrder
+    passwordHash?: SortOrder
     _count?: AdminCountOrderByAggregateInput
     _max?: AdminMaxOrderByAggregateInput
     _min?: AdminMinOrderByAggregateInput
@@ -14218,7 +14251,8 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Admin"> | string
     name?: StringWithAggregatesFilter<"Admin"> | string
     email?: StringWithAggregatesFilter<"Admin"> | string
-    role?: StringWithAggregatesFilter<"Admin"> | string
+    role?: EnumAdminRoleWithAggregatesFilter<"Admin"> | $Enums.AdminRole
+    passwordHash?: StringWithAggregatesFilter<"Admin"> | string
   }
 
   export type LocationWhereInput = {
@@ -14887,7 +14921,8 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
-    role: string
+    role: $Enums.AdminRole
+    passwordHash: string
     routes?: RouteCreateNestedManyWithoutAdminInput
   }
 
@@ -14895,7 +14930,8 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
-    role: string
+    role: $Enums.AdminRole
+    passwordHash: string
     routes?: RouteUncheckedCreateNestedManyWithoutAdminInput
   }
 
@@ -14903,7 +14939,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    role?: EnumAdminRoleFieldUpdateOperationsInput | $Enums.AdminRole
+    passwordHash?: StringFieldUpdateOperationsInput | string
     routes?: RouteUpdateManyWithoutAdminNestedInput
   }
 
@@ -14911,7 +14948,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    role?: EnumAdminRoleFieldUpdateOperationsInput | $Enums.AdminRole
+    passwordHash?: StringFieldUpdateOperationsInput | string
     routes?: RouteUncheckedUpdateManyWithoutAdminNestedInput
   }
 
@@ -14919,21 +14957,24 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
-    role: string
+    role: $Enums.AdminRole
+    passwordHash: string
   }
 
   export type AdminUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    role?: EnumAdminRoleFieldUpdateOperationsInput | $Enums.AdminRole
+    passwordHash?: StringFieldUpdateOperationsInput | string
   }
 
   export type AdminUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    role?: EnumAdminRoleFieldUpdateOperationsInput | $Enums.AdminRole
+    passwordHash?: StringFieldUpdateOperationsInput | string
   }
 
   export type LocationCreateInput = {
@@ -15764,11 +15805,19 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
+  export type EnumAdminRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.AdminRole | EnumAdminRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.AdminRole[] | ListEnumAdminRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AdminRole[] | ListEnumAdminRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumAdminRoleFilter<$PrismaModel> | $Enums.AdminRole
+  }
+
   export type AdminCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
     role?: SortOrder
+    passwordHash?: SortOrder
   }
 
   export type AdminMaxOrderByAggregateInput = {
@@ -15776,6 +15825,7 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     role?: SortOrder
+    passwordHash?: SortOrder
   }
 
   export type AdminMinOrderByAggregateInput = {
@@ -15783,6 +15833,17 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     role?: SortOrder
+    passwordHash?: SortOrder
+  }
+
+  export type EnumAdminRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AdminRole | EnumAdminRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.AdminRole[] | ListEnumAdminRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AdminRole[] | ListEnumAdminRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumAdminRoleWithAggregatesFilter<$PrismaModel> | $Enums.AdminRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAdminRoleFilter<$PrismaModel>
+    _max?: NestedEnumAdminRoleFilter<$PrismaModel>
   }
 
   export type CompanyScalarRelationFilter = {
@@ -16460,6 +16521,10 @@ export namespace Prisma {
     connect?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
   }
 
+  export type EnumAdminRoleFieldUpdateOperationsInput = {
+    set?: $Enums.AdminRole
+  }
+
   export type RouteUpdateManyWithoutAdminNestedInput = {
     create?: XOR<RouteCreateWithoutAdminInput, RouteUncheckedCreateWithoutAdminInput> | RouteCreateWithoutAdminInput[] | RouteUncheckedCreateWithoutAdminInput[]
     connectOrCreate?: RouteCreateOrConnectWithoutAdminInput | RouteCreateOrConnectWithoutAdminInput[]
@@ -17062,6 +17127,23 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumPaymentMethodFilter<$PrismaModel>
     _max?: NestedEnumPaymentMethodFilter<$PrismaModel>
+  }
+
+  export type NestedEnumAdminRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.AdminRole | EnumAdminRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.AdminRole[] | ListEnumAdminRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AdminRole[] | ListEnumAdminRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumAdminRoleFilter<$PrismaModel> | $Enums.AdminRole
+  }
+
+  export type NestedEnumAdminRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AdminRole | EnumAdminRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.AdminRole[] | ListEnumAdminRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AdminRole[] | ListEnumAdminRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumAdminRoleWithAggregatesFilter<$PrismaModel> | $Enums.AdminRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAdminRoleFilter<$PrismaModel>
+    _max?: NestedEnumAdminRoleFilter<$PrismaModel>
   }
 
   export type BookingCreateWithoutRiderInput = {
@@ -18314,14 +18396,16 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
-    role: string
+    role: $Enums.AdminRole
+    passwordHash: string
   }
 
   export type AdminUncheckedCreateWithoutRoutesInput = {
     id?: string
     name: string
     email: string
-    role: string
+    role: $Enums.AdminRole
+    passwordHash: string
   }
 
   export type AdminCreateOrConnectWithoutRoutesInput = {
@@ -18447,14 +18531,16 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    role?: EnumAdminRoleFieldUpdateOperationsInput | $Enums.AdminRole
+    passwordHash?: StringFieldUpdateOperationsInput | string
   }
 
   export type AdminUncheckedUpdateWithoutRoutesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    role?: EnumAdminRoleFieldUpdateOperationsInput | $Enums.AdminRole
+    passwordHash?: StringFieldUpdateOperationsInput | string
   }
 
   export type LocationUpsertWithoutStartRoutesInput = {

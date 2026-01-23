@@ -185,7 +185,8 @@ exports.Prisma.AdminScalarFieldEnum = {
   id: 'id',
   name: 'name',
   email: 'email',
-  role: 'role'
+  role: 'role',
+  passwordHash: 'passwordHash'
 };
 
 exports.Prisma.LocationScalarFieldEnum = {
@@ -246,7 +247,8 @@ exports.Prisma.NullsOrder = {
 exports.Role = exports.$Enums.Role = {
   driver: 'driver',
   rider: 'rider',
-  both: 'both'
+  both: 'both',
+  admin: 'admin'
 };
 
 exports.RideStatus = exports.$Enums.RideStatus = {
@@ -275,6 +277,11 @@ exports.PaymentMethod = exports.$Enums.PaymentMethod = {
   stripe: 'stripe',
   mpesa: 'mpesa',
   paypal: 'paypal'
+};
+
+exports.AdminRole = exports.$Enums.AdminRole = {
+  admin: 'admin',
+  superadmin: 'superadmin'
 };
 
 exports.Prisma.ModelName = {

@@ -87,11 +87,12 @@ model Company {
 }
 
 model Admin {
-  id     String  @id @default(uuid())
-  name   String
-  email  String  @unique
-  role   String
-  routes Route[]
+  id           String    @id @default(uuid())
+  name         String
+  email        String    @unique
+  role         AdminRole
+  passwordHash String // <-- add this
+  routes       Route[]
 }
 
 model Location {
@@ -149,6 +150,7 @@ enum Role {
   driver
   rider
   both
+  admin
 }
 
 enum RideStatus {
