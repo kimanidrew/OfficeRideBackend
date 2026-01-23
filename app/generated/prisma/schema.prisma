@@ -75,35 +75,74 @@ model Feedback {
   ride      Ride     @relation(fields: [rideId], references: [id])
 }
 
-model Admin {
-  id           String    @id @default(uuid())
-  name         String
-  email        String    @unique
-  passwordHash String
-  role         AdminRole @default(admin)
-  createdAt    DateTime  @default(now())
-  routes       Route[]
-}
+// prisma/schema.prisma
 
 model Company {
-  id          String   @id @default(uuid())
+  id          String     @id @default(uuid())
   companyName String
-  domainName  String   @unique
-  createdAt   DateTime @default(now())
+  domainName  String     @unique
+  createdAt   DateTime   @default(now())
   routes      Route[]
+  locations   Location[]
+}
+
+model Admin {
+  id     String  @id @default(uuid())
+  name   String
+  email  String  @unique
+  role   String
+  routes Route[]
+}
+
+model Location {
+  id        String  @id @default(uuid())
+  companyId String
+  company   Company @relation(fields: [companyId], references: [id])
+
+  name      String // formatted address from Google
+  latitude  Float
+  longitude Float
+
+  createdAt DateTime @default(now())
+
+  // reverse relations
+  startRoutes Route[]     @relation("StartLocation")
+  endRoutes   Route[]     @relation("EndLocation")
+  routeStops  RouteStop[]
 }
 
 model Route {
-  id        String   @id @default(uuid())
+  id        String  @id @default(uuid())
   companyId String
-  company   Company  @relation(fields: [companyId], references: [id])
-  start     String
-  via       String[]
-  end       String
+  company   Company @relation(fields: [companyId], references: [id])
+
+  adminId String
+  admin   Admin  @relation(fields: [adminId], references: [id])
+
+  startLocationId String
+  startLocation   Location @relation("StartLocation", fields: [startLocationId], references: [id])
+
+  endLocationId String
+  endLocation   Location @relation("EndLocation", fields: [endLocationId], references: [id])
+
   distance  Float
-  adminId   String
-  admin     Admin    @relation(fields: [adminId], references: [id])
   createdAt DateTime @default(now())
+
+  // ordered via stops
+  stops RouteStop[]
+}
+
+model RouteStop {
+  id      String @id @default(uuid())
+  routeId String
+  route   Route  @relation(fields: [routeId], references: [id])
+
+  locationId String
+  location   Location @relation(fields: [locationId], references: [id])
+
+  order Int // 0,1,2... to keep via order
+
+  @@unique([routeId, order]) // one stop per position
 }
 
 enum Role {

@@ -174,15 +174,6 @@ exports.Prisma.FeedbackScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
-exports.Prisma.AdminScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  email: 'email',
-  passwordHash: 'passwordHash',
-  role: 'role',
-  createdAt: 'createdAt'
-};
-
 exports.Prisma.CompanyScalarFieldEnum = {
   id: 'id',
   companyName: 'companyName',
@@ -190,15 +181,37 @@ exports.Prisma.CompanyScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.AdminScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  email: 'email',
+  role: 'role'
+};
+
+exports.Prisma.LocationScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  name: 'name',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.RouteScalarFieldEnum = {
   id: 'id',
   companyId: 'companyId',
-  start: 'start',
-  via: 'via',
-  end: 'end',
-  distance: 'distance',
   adminId: 'adminId',
+  startLocationId: 'startLocationId',
+  endLocationId: 'endLocationId',
+  distance: 'distance',
   createdAt: 'createdAt'
+};
+
+exports.Prisma.RouteStopScalarFieldEnum = {
+  id: 'id',
+  routeId: 'routeId',
+  locationId: 'locationId',
+  order: 'order'
 };
 
 exports.Prisma.SortOrder = {
@@ -264,20 +277,17 @@ exports.PaymentMethod = exports.$Enums.PaymentMethod = {
   paypal: 'paypal'
 };
 
-exports.AdminRole = exports.$Enums.AdminRole = {
-  admin: 'admin',
-  superadmin: 'superadmin'
-};
-
 exports.Prisma.ModelName = {
   User: 'User',
   Ride: 'Ride',
   Booking: 'Booking',
   Payment: 'Payment',
   Feedback: 'Feedback',
-  Admin: 'Admin',
   Company: 'Company',
-  Route: 'Route'
+  Admin: 'Admin',
+  Location: 'Location',
+  Route: 'Route',
+  RouteStop: 'RouteStop'
 };
 
 /**

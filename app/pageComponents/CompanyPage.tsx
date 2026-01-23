@@ -15,7 +15,7 @@ function CompanyList({ companies }: { companies: Company[] }) {
       {companies.length === 0 ? (
         <p>No companies found.</p>
       ) : (
-        <ul className="divide-y divide-gray-200">
+        <div className="divide-y divide-gray-200">
           {companies.map((company) => (
             <li key={company.id} className="py-2">
               <p className="font-semibold">{company.companyName}</p>
@@ -25,7 +25,7 @@ function CompanyList({ companies }: { companies: Company[] }) {
               </p>
             </li>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );
