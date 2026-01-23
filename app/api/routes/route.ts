@@ -2,7 +2,6 @@
 import { prisma } from "../../../lib/prisma";
 import { NextResponse } from "next/server";
 
-
 async function geocode(query: string, apiKey: string) {
   const res = await fetch(
     `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
@@ -38,23 +37,57 @@ async function findOrCreateLocation(companyId: string, query: string, apiKey: st
   });
 }
 
+async function calculateDistance(
+  start: { latitude: number; longitude: number },
+  end: { latitude: number; longitude: number },
+  via: { latitude: number; longitude: number }[],
+  apiKey: string
+) {
+  const waypoints = via.map((v) => `${v.latitude},${v.longitude}`).join("|");
+  const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${start.latitude},${start.longitude}&destination=${end.latitude},${end.longitude}&key=${apiKey}${
+    waypoints ? `&waypoints=${waypoints}` : ""
+  }`;
+
+  const res = await fetch(url);
+  const data = await res.json();
+
+  if (!data.routes?.length) return 0;
+
+  const meters = data.routes[0].legs.reduce(
+    (sum: number, leg: any) => sum + leg.distance.value,
+    0
+  );
+  return meters / 1000; // km
+}
+
 export async function POST(req: Request) {
   try {
     const apiKey = process.env.GOOGLE_MAPS_API_KEY!;
     const body = await req.json();
-    const { companyId, adminId, startQuery, viaQueries, endQuery, distance } = body;
+    const { companyId, adminId, startQuery, viaQueries, endQuery } = body;
 
     const startLoc = await findOrCreateLocation(companyId, startQuery, apiKey);
     const endLoc = await findOrCreateLocation(companyId, endQuery, apiKey);
     if (!startLoc || !endLoc) {
-      return NextResponse.json({ error: "Failed to resolve start or end location" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Failed to resolve start or end location" },
+        { status: 400 }
+      );
     }
 
-    const viaLocs: { id: string }[] = [];
+    const viaLocs: { id: string; latitude: number; longitude: number }[] = [];
     for (const q of viaQueries || []) {
       const loc = await findOrCreateLocation(companyId, q, apiKey);
-      if (loc) viaLocs.push({ id: loc.id });
+      if (loc) viaLocs.push({ id: loc.id, latitude: loc.latitude, longitude: loc.longitude });
     }
+
+    // calculate distance server-side
+    const distance = await calculateDistance(
+      { latitude: startLoc.latitude, longitude: startLoc.longitude },
+      { latitude: endLoc.latitude, longitude: endLoc.longitude },
+      viaLocs,
+      apiKey
+    );
 
     const route = await prisma.route.create({
       data: {

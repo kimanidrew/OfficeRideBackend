@@ -87,12 +87,14 @@ model Company {
 }
 
 model Admin {
-  id      String   @id @default(uuid())
-  name    String
-  email   String   @unique
-  role    String
-  routes  Route[]
+  id           String   @id @default(uuid())
+  name         String
+  email        String   @unique
+  role         AdminRole
+  passwordHash String   // <-- add this
+  routes       Route[]
 }
+
 
 model Location {
   id         String   @id @default(uuid())
@@ -145,13 +147,13 @@ model RouteStop {
   @@unique([routeId, order]) // one stop per position
 }
 
-
-
 enum Role {
   driver
   rider
   both
+  admin
 }
+
 
 enum RideStatus {
   open

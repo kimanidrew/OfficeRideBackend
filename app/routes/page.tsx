@@ -1,8 +1,14 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import { useUser } from "@/context/UserContext";
+import LocationSearch from "@/components/LocationSearch"; // your autocomplete component
+
+interface Company {
+  id: string;
+  companyName: string;
+}
 
 interface Location {
-  id: string;
   name: string;
   latitude: number;
   longitude: number;
@@ -19,13 +25,13 @@ interface Route {
 }
 
 export default function RoutesPage() {
+  const { user } = useUser();
   const [routes, setRoutes] = useState<Route[]>([]);
+  const [companies, setCompanies] = useState<Company[]>([]);
   const [companyId, setCompanyId] = useState("");
-  const [adminId, setAdminId] = useState("");
-  const [startQuery, setStartQuery] = useState("");
-  const [viaQueries, setViaQueries] = useState<string[]>([]);
-  const [newStop, setNewStop] = useState("");
-  const [endQuery, setEndQuery] = useState("");
+  const [startLocation, setStartLocation] = useState<Location | null>(null);
+  const [viaLocations, setViaLocations] = useState<Location[]>([]);
+  const [endLocation, setEndLocation] = useState<Location | null>(null);
   const [distance, setDistance] = useState<number>(0);
 
   const loadRoutes = async () => {
@@ -33,108 +39,135 @@ export default function RoutesPage() {
     if (res.ok) setRoutes(await res.json());
   };
 
+  const loadCompanies = async () => {
+    const res = await fetch("/api/company");
+    if (res.ok) setCompanies(await res.json());
+  };
+
   useEffect(() => {
     loadRoutes();
+    loadCompanies();
   }, []);
 
-  const addStop = () => {
-    if (newStop.trim()) {
-      setViaQueries([...viaQueries, newStop.trim()]);
-      setNewStop("");
+  // Calculate distance using Google Directions API
+  const calculateDistance = async () => {
+    if (!startLocation || !endLocation) return;
+
+    const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+    const waypoints = viaLocations
+      .map((v) => `${v.latitude},${v.longitude}`)
+      .join("|");
+
+    const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${startLocation.latitude},${startLocation.longitude}&destination=${endLocation.latitude},${endLocation.longitude}&key=${apiKey}${
+      waypoints ? `&waypoints=${waypoints}` : ""
+    }`;
+
+    const res = await fetch(`/api/proxy?url=${encodeURIComponent(url)}`); 
+    // 👆 use a backend proxy to avoid exposing API key directly
+    const data = await res.json();
+
+    if (data.routes?.length) {
+      const meters = data.routes[0].legs.reduce(
+        (sum: number, leg: any) => sum + leg.distance.value,
+        0
+      );
+      setDistance(meters / 1000); // convert to km
     }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!user?.id) {
+      alert("No admin logged in");
+      return;
+    }
+    if (!startLocation || !endLocation) {
+      alert("Please select start and end locations");
+      return;
+    }
+
+    await calculateDistance();
+
     const res = await fetch("/api/routes", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         companyId,
-        adminId,
-        startQuery,
-        viaQueries,
-        endQuery,
+        adminId: user.id,
+        start: startLocation,
+        via: viaLocations,
+        end: endLocation,
         distance,
       }),
     });
     if (res.ok) {
       await loadRoutes();
       setCompanyId("");
-      setAdminId("");
-      setStartQuery("");
-      setViaQueries([]);
-      setEndQuery("");
+      setStartLocation(null);
+      setViaLocations([]);
+      setEndLocation(null);
       setDistance(0);
     }
   };
 
   return (
-    <div className="flex space-x-20">
+    <div className="flex space-x-20 px-20">
       {/* Form */}
       <form onSubmit={handleSubmit} className="space-y-4 w-1/3">
-        <input
-          placeholder="Company ID"
+        <label className="block">Company</label>
+        <select
           value={companyId}
           onChange={(e) => setCompanyId(e.target.value)}
           className="border p-2 w-full"
           required
-        />
-        <input
-          placeholder="Admin ID"
-          value={adminId}
-          onChange={(e) => setAdminId(e.target.value)}
-          className="border p-2 w-full"
-          required
-        />
-        <input
-          placeholder="Start Location"
-          value={startQuery}
-          onChange={(e) => setStartQuery(e.target.value)}
-          className="border p-2 w-full"
-          required
+        >
+          <option value="">Select a company</option>
+          {companies.map((c) => (
+            <option key={c.id} value={c.id}>
+              {c.companyName}
+            </option>
+          ))}
+        </select>
+
+        <LocationSearch
+          label="Start Location"
+          value=""
+          onSelect={(loc) => setStartLocation(loc)}
         />
 
         <div>
           <label className="block">Stops (via)</label>
-          <div className="flex space-x-2">
-            <input
-              type="text"
-              value={newStop}
-              onChange={(e) => setNewStop(e.target.value)}
-              className="border p-2 flex-1"
-            />
-            <button
-              type="button"
-              onClick={addStop}
-              className="bg-green-600 text-white px-4 py-2 rounded"
-            >
-              Add Stop
-            </button>
-          </div>
-          <ul className="mt-2 list-disc pl-5">
-            {viaQueries.map((stop, i) => (
-              <li key={i}>{stop}</li>
-            ))}
-          </ul>
+          {viaLocations.map((stop, i) => (
+            <div key={i} className="mb-2">
+              <LocationSearch
+                label={`Stop ${i + 1}`}
+                value={stop.name}
+                onSelect={(loc) => {
+                  const updated = [...viaLocations];
+                  updated[i] = loc;
+                  setViaLocations(updated);
+                }}
+              />
+            </div>
+          ))}
+          <button
+            type="button"
+            onClick={() => setViaLocations([...viaLocations, { name: "", latitude: 0, longitude: 0 }])}
+            className="bg-green-600 text-white px-4 py-2 rounded mt-2"
+          >
+            + Add Stop
+          </button>
         </div>
 
-        <input
-          placeholder="End Location"
-          value={endQuery}
-          onChange={(e) => setEndQuery(e.target.value)}
-          className="border p-2 w-full"
-          required
+        <LocationSearch
+          label="End Location"
+          value=""
+          onSelect={(loc) => setEndLocation(loc)}
         />
 
-        <input
-          type="number"
-          placeholder="Total Distance (km)"
-          value={distance}
-          onChange={(e) => setDistance(parseFloat(e.target.value))}
-          className="border p-2 w-full"
-          required
-        />
+        <p className="text-sm text-gray-600">
+          Calculated Distance: {distance ? `${distance} km` : "—"}
+        </p>
 
         <button
           type="submit"
