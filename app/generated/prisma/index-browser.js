@@ -192,12 +192,13 @@ exports.Prisma.CompanyScalarFieldEnum = {
 
 exports.Prisma.RouteScalarFieldEnum = {
   id: 'id',
-  startPoint: 'startPoint',
-  endPoint: 'endPoint',
-  distanceKm: 'distanceKm',
   companyId: 'companyId',
-  createdAt: 'createdAt',
-  adminId: 'adminId'
+  start: 'start',
+  via: 'via',
+  end: 'end',
+  distance: 'distance',
+  adminId: 'adminId',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.SortOrder = {

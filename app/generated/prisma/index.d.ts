@@ -9690,81 +9690,83 @@ export namespace Prisma {
   }
 
   export type RouteAvgAggregateOutputType = {
-    distanceKm: number | null
+    distance: number | null
   }
 
   export type RouteSumAggregateOutputType = {
-    distanceKm: number | null
+    distance: number | null
   }
 
   export type RouteMinAggregateOutputType = {
     id: string | null
-    startPoint: string | null
-    endPoint: string | null
-    distanceKm: number | null
     companyId: string | null
-    createdAt: Date | null
+    start: string | null
+    end: string | null
+    distance: number | null
     adminId: string | null
+    createdAt: Date | null
   }
 
   export type RouteMaxAggregateOutputType = {
     id: string | null
-    startPoint: string | null
-    endPoint: string | null
-    distanceKm: number | null
     companyId: string | null
-    createdAt: Date | null
+    start: string | null
+    end: string | null
+    distance: number | null
     adminId: string | null
+    createdAt: Date | null
   }
 
   export type RouteCountAggregateOutputType = {
     id: number
-    startPoint: number
-    endPoint: number
-    distanceKm: number
     companyId: number
-    createdAt: number
+    start: number
+    via: number
+    end: number
+    distance: number
     adminId: number
+    createdAt: number
     _all: number
   }
 
 
   export type RouteAvgAggregateInputType = {
-    distanceKm?: true
+    distance?: true
   }
 
   export type RouteSumAggregateInputType = {
-    distanceKm?: true
+    distance?: true
   }
 
   export type RouteMinAggregateInputType = {
     id?: true
-    startPoint?: true
-    endPoint?: true
-    distanceKm?: true
     companyId?: true
-    createdAt?: true
+    start?: true
+    end?: true
+    distance?: true
     adminId?: true
+    createdAt?: true
   }
 
   export type RouteMaxAggregateInputType = {
     id?: true
-    startPoint?: true
-    endPoint?: true
-    distanceKm?: true
     companyId?: true
-    createdAt?: true
+    start?: true
+    end?: true
+    distance?: true
     adminId?: true
+    createdAt?: true
   }
 
   export type RouteCountAggregateInputType = {
     id?: true
-    startPoint?: true
-    endPoint?: true
-    distanceKm?: true
     companyId?: true
-    createdAt?: true
+    start?: true
+    via?: true
+    end?: true
+    distance?: true
     adminId?: true
+    createdAt?: true
     _all?: true
   }
 
@@ -9856,12 +9858,13 @@ export namespace Prisma {
 
   export type RouteGroupByOutputType = {
     id: string
-    startPoint: string
-    endPoint: string
-    distanceKm: number | null
     companyId: string
+    start: string
+    via: string[]
+    end: string
+    distance: number
+    adminId: string
     createdAt: Date
-    adminId: string | null
     _count: RouteCountAggregateOutputType | null
     _avg: RouteAvgAggregateOutputType | null
     _sum: RouteSumAggregateOutputType | null
@@ -9885,78 +9888,83 @@ export namespace Prisma {
 
   export type RouteSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    startPoint?: boolean
-    endPoint?: boolean
-    distanceKm?: boolean
     companyId?: boolean
-    createdAt?: boolean
+    start?: boolean
+    via?: boolean
+    end?: boolean
+    distance?: boolean
     adminId?: boolean
-    admin?: boolean | Route$adminArgs<ExtArgs>
+    createdAt?: boolean
     company?: boolean | CompanyDefaultArgs<ExtArgs>
+    admin?: boolean | AdminDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["route"]>
 
   export type RouteSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    startPoint?: boolean
-    endPoint?: boolean
-    distanceKm?: boolean
     companyId?: boolean
-    createdAt?: boolean
+    start?: boolean
+    via?: boolean
+    end?: boolean
+    distance?: boolean
     adminId?: boolean
-    admin?: boolean | Route$adminArgs<ExtArgs>
+    createdAt?: boolean
     company?: boolean | CompanyDefaultArgs<ExtArgs>
+    admin?: boolean | AdminDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["route"]>
 
   export type RouteSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    startPoint?: boolean
-    endPoint?: boolean
-    distanceKm?: boolean
     companyId?: boolean
-    createdAt?: boolean
+    start?: boolean
+    via?: boolean
+    end?: boolean
+    distance?: boolean
     adminId?: boolean
-    admin?: boolean | Route$adminArgs<ExtArgs>
+    createdAt?: boolean
     company?: boolean | CompanyDefaultArgs<ExtArgs>
+    admin?: boolean | AdminDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["route"]>
 
   export type RouteSelectScalar = {
     id?: boolean
-    startPoint?: boolean
-    endPoint?: boolean
-    distanceKm?: boolean
     companyId?: boolean
-    createdAt?: boolean
+    start?: boolean
+    via?: boolean
+    end?: boolean
+    distance?: boolean
     adminId?: boolean
+    createdAt?: boolean
   }
 
-  export type RouteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "startPoint" | "endPoint" | "distanceKm" | "companyId" | "createdAt" | "adminId", ExtArgs["result"]["route"]>
+  export type RouteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "companyId" | "start" | "via" | "end" | "distance" | "adminId" | "createdAt", ExtArgs["result"]["route"]>
   export type RouteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    admin?: boolean | Route$adminArgs<ExtArgs>
     company?: boolean | CompanyDefaultArgs<ExtArgs>
+    admin?: boolean | AdminDefaultArgs<ExtArgs>
   }
   export type RouteIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    admin?: boolean | Route$adminArgs<ExtArgs>
     company?: boolean | CompanyDefaultArgs<ExtArgs>
+    admin?: boolean | AdminDefaultArgs<ExtArgs>
   }
   export type RouteIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    admin?: boolean | Route$adminArgs<ExtArgs>
     company?: boolean | CompanyDefaultArgs<ExtArgs>
+    admin?: boolean | AdminDefaultArgs<ExtArgs>
   }
 
   export type $RoutePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Route"
     objects: {
-      admin: Prisma.$AdminPayload<ExtArgs> | null
       company: Prisma.$CompanyPayload<ExtArgs>
+      admin: Prisma.$AdminPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      startPoint: string
-      endPoint: string
-      distanceKm: number | null
       companyId: string
+      start: string
+      via: string[]
+      end: string
+      distance: number
+      adminId: string
       createdAt: Date
-      adminId: string | null
     }, ExtArgs["result"]["route"]>
     composites: {}
   }
@@ -10351,8 +10359,8 @@ export namespace Prisma {
    */
   export interface Prisma__RouteClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    admin<T extends Route$adminArgs<ExtArgs> = {}>(args?: Subset<T, Route$adminArgs<ExtArgs>>): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     company<T extends CompanyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CompanyDefaultArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    admin<T extends AdminDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AdminDefaultArgs<ExtArgs>>): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10383,12 +10391,13 @@ export namespace Prisma {
    */
   interface RouteFieldRefs {
     readonly id: FieldRef<"Route", 'String'>
-    readonly startPoint: FieldRef<"Route", 'String'>
-    readonly endPoint: FieldRef<"Route", 'String'>
-    readonly distanceKm: FieldRef<"Route", 'Float'>
     readonly companyId: FieldRef<"Route", 'String'>
-    readonly createdAt: FieldRef<"Route", 'DateTime'>
+    readonly start: FieldRef<"Route", 'String'>
+    readonly via: FieldRef<"Route", 'String[]'>
+    readonly end: FieldRef<"Route", 'String'>
+    readonly distance: FieldRef<"Route", 'Float'>
     readonly adminId: FieldRef<"Route", 'String'>
+    readonly createdAt: FieldRef<"Route", 'DateTime'>
   }
     
 
@@ -10785,25 +10794,6 @@ export namespace Prisma {
   }
 
   /**
-   * Route.admin
-   */
-  export type Route$adminArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Admin
-     */
-    select?: AdminSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Admin
-     */
-    omit?: AdminOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AdminInclude<ExtArgs> | null
-    where?: AdminWhereInput
-  }
-
-  /**
    * Route without action
    */
   export type RouteDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10929,12 +10919,13 @@ export namespace Prisma {
 
   export const RouteScalarFieldEnum: {
     id: 'id',
-    startPoint: 'startPoint',
-    endPoint: 'endPoint',
-    distanceKm: 'distanceKm',
     companyId: 'companyId',
-    createdAt: 'createdAt',
-    adminId: 'adminId'
+    start: 'start',
+    via: 'via',
+    end: 'end',
+    distance: 'distance',
+    adminId: 'adminId',
+    createdAt: 'createdAt'
   };
 
   export type RouteScalarFieldEnum = (typeof RouteScalarFieldEnum)[keyof typeof RouteScalarFieldEnum]
@@ -11645,26 +11636,28 @@ export namespace Prisma {
     OR?: RouteWhereInput[]
     NOT?: RouteWhereInput | RouteWhereInput[]
     id?: StringFilter<"Route"> | string
-    startPoint?: StringFilter<"Route"> | string
-    endPoint?: StringFilter<"Route"> | string
-    distanceKm?: FloatNullableFilter<"Route"> | number | null
     companyId?: StringFilter<"Route"> | string
+    start?: StringFilter<"Route"> | string
+    via?: StringNullableListFilter<"Route">
+    end?: StringFilter<"Route"> | string
+    distance?: FloatFilter<"Route"> | number
+    adminId?: StringFilter<"Route"> | string
     createdAt?: DateTimeFilter<"Route"> | Date | string
-    adminId?: StringNullableFilter<"Route"> | string | null
-    admin?: XOR<AdminNullableScalarRelationFilter, AdminWhereInput> | null
     company?: XOR<CompanyScalarRelationFilter, CompanyWhereInput>
+    admin?: XOR<AdminScalarRelationFilter, AdminWhereInput>
   }
 
   export type RouteOrderByWithRelationInput = {
     id?: SortOrder
-    startPoint?: SortOrder
-    endPoint?: SortOrder
-    distanceKm?: SortOrderInput | SortOrder
     companyId?: SortOrder
+    start?: SortOrder
+    via?: SortOrder
+    end?: SortOrder
+    distance?: SortOrder
+    adminId?: SortOrder
     createdAt?: SortOrder
-    adminId?: SortOrderInput | SortOrder
-    admin?: AdminOrderByWithRelationInput
     company?: CompanyOrderByWithRelationInput
+    admin?: AdminOrderByWithRelationInput
   }
 
   export type RouteWhereUniqueInput = Prisma.AtLeast<{
@@ -11672,24 +11665,26 @@ export namespace Prisma {
     AND?: RouteWhereInput | RouteWhereInput[]
     OR?: RouteWhereInput[]
     NOT?: RouteWhereInput | RouteWhereInput[]
-    startPoint?: StringFilter<"Route"> | string
-    endPoint?: StringFilter<"Route"> | string
-    distanceKm?: FloatNullableFilter<"Route"> | number | null
     companyId?: StringFilter<"Route"> | string
+    start?: StringFilter<"Route"> | string
+    via?: StringNullableListFilter<"Route">
+    end?: StringFilter<"Route"> | string
+    distance?: FloatFilter<"Route"> | number
+    adminId?: StringFilter<"Route"> | string
     createdAt?: DateTimeFilter<"Route"> | Date | string
-    adminId?: StringNullableFilter<"Route"> | string | null
-    admin?: XOR<AdminNullableScalarRelationFilter, AdminWhereInput> | null
     company?: XOR<CompanyScalarRelationFilter, CompanyWhereInput>
+    admin?: XOR<AdminScalarRelationFilter, AdminWhereInput>
   }, "id">
 
   export type RouteOrderByWithAggregationInput = {
     id?: SortOrder
-    startPoint?: SortOrder
-    endPoint?: SortOrder
-    distanceKm?: SortOrderInput | SortOrder
     companyId?: SortOrder
+    start?: SortOrder
+    via?: SortOrder
+    end?: SortOrder
+    distance?: SortOrder
+    adminId?: SortOrder
     createdAt?: SortOrder
-    adminId?: SortOrderInput | SortOrder
     _count?: RouteCountOrderByAggregateInput
     _avg?: RouteAvgOrderByAggregateInput
     _max?: RouteMaxOrderByAggregateInput
@@ -11702,12 +11697,13 @@ export namespace Prisma {
     OR?: RouteScalarWhereWithAggregatesInput[]
     NOT?: RouteScalarWhereWithAggregatesInput | RouteScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Route"> | string
-    startPoint?: StringWithAggregatesFilter<"Route"> | string
-    endPoint?: StringWithAggregatesFilter<"Route"> | string
-    distanceKm?: FloatNullableWithAggregatesFilter<"Route"> | number | null
     companyId?: StringWithAggregatesFilter<"Route"> | string
+    start?: StringWithAggregatesFilter<"Route"> | string
+    via?: StringNullableListFilter<"Route">
+    end?: StringWithAggregatesFilter<"Route"> | string
+    distance?: FloatWithAggregatesFilter<"Route"> | number
+    adminId?: StringWithAggregatesFilter<"Route"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Route"> | Date | string
-    adminId?: StringNullableWithAggregatesFilter<"Route"> | string | null
   }
 
   export type UserCreateInput = {
@@ -12231,70 +12227,77 @@ export namespace Prisma {
 
   export type RouteCreateInput = {
     id?: string
-    startPoint: string
-    endPoint: string
-    distanceKm?: number | null
+    start: string
+    via?: RouteCreateviaInput | string[]
+    end: string
+    distance: number
     createdAt?: Date | string
-    admin?: AdminCreateNestedOneWithoutRoutesInput
     company: CompanyCreateNestedOneWithoutRoutesInput
+    admin: AdminCreateNestedOneWithoutRoutesInput
   }
 
   export type RouteUncheckedCreateInput = {
     id?: string
-    startPoint: string
-    endPoint: string
-    distanceKm?: number | null
     companyId: string
+    start: string
+    via?: RouteCreateviaInput | string[]
+    end: string
+    distance: number
+    adminId: string
     createdAt?: Date | string
-    adminId?: string | null
   }
 
   export type RouteUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    startPoint?: StringFieldUpdateOperationsInput | string
-    endPoint?: StringFieldUpdateOperationsInput | string
-    distanceKm?: NullableFloatFieldUpdateOperationsInput | number | null
+    start?: StringFieldUpdateOperationsInput | string
+    via?: RouteUpdateviaInput | string[]
+    end?: StringFieldUpdateOperationsInput | string
+    distance?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    admin?: AdminUpdateOneWithoutRoutesNestedInput
     company?: CompanyUpdateOneRequiredWithoutRoutesNestedInput
+    admin?: AdminUpdateOneRequiredWithoutRoutesNestedInput
   }
 
   export type RouteUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    startPoint?: StringFieldUpdateOperationsInput | string
-    endPoint?: StringFieldUpdateOperationsInput | string
-    distanceKm?: NullableFloatFieldUpdateOperationsInput | number | null
     companyId?: StringFieldUpdateOperationsInput | string
+    start?: StringFieldUpdateOperationsInput | string
+    via?: RouteUpdateviaInput | string[]
+    end?: StringFieldUpdateOperationsInput | string
+    distance?: FloatFieldUpdateOperationsInput | number
+    adminId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    adminId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type RouteCreateManyInput = {
     id?: string
-    startPoint: string
-    endPoint: string
-    distanceKm?: number | null
     companyId: string
+    start: string
+    via?: RouteCreateviaInput | string[]
+    end: string
+    distance: number
+    adminId: string
     createdAt?: Date | string
-    adminId?: string | null
   }
 
   export type RouteUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    startPoint?: StringFieldUpdateOperationsInput | string
-    endPoint?: StringFieldUpdateOperationsInput | string
-    distanceKm?: NullableFloatFieldUpdateOperationsInput | number | null
+    start?: StringFieldUpdateOperationsInput | string
+    via?: RouteUpdateviaInput | string[]
+    end?: StringFieldUpdateOperationsInput | string
+    distance?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type RouteUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    startPoint?: StringFieldUpdateOperationsInput | string
-    endPoint?: StringFieldUpdateOperationsInput | string
-    distanceKm?: NullableFloatFieldUpdateOperationsInput | number | null
     companyId?: StringFieldUpdateOperationsInput | string
+    start?: StringFieldUpdateOperationsInput | string
+    via?: RouteUpdateviaInput | string[]
+    end?: StringFieldUpdateOperationsInput | string
+    distance?: FloatFieldUpdateOperationsInput | number
+    adminId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    adminId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -12968,9 +12971,12 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
-  export type AdminNullableScalarRelationFilter = {
-    is?: AdminWhereInput | null
-    isNot?: AdminWhereInput | null
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
   }
 
   export type CompanyScalarRelationFilter = {
@@ -12978,42 +12984,48 @@ export namespace Prisma {
     isNot?: CompanyWhereInput
   }
 
+  export type AdminScalarRelationFilter = {
+    is?: AdminWhereInput
+    isNot?: AdminWhereInput
+  }
+
   export type RouteCountOrderByAggregateInput = {
     id?: SortOrder
-    startPoint?: SortOrder
-    endPoint?: SortOrder
-    distanceKm?: SortOrder
     companyId?: SortOrder
-    createdAt?: SortOrder
+    start?: SortOrder
+    via?: SortOrder
+    end?: SortOrder
+    distance?: SortOrder
     adminId?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type RouteAvgOrderByAggregateInput = {
-    distanceKm?: SortOrder
+    distance?: SortOrder
   }
 
   export type RouteMaxOrderByAggregateInput = {
     id?: SortOrder
-    startPoint?: SortOrder
-    endPoint?: SortOrder
-    distanceKm?: SortOrder
     companyId?: SortOrder
-    createdAt?: SortOrder
+    start?: SortOrder
+    end?: SortOrder
+    distance?: SortOrder
     adminId?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type RouteMinOrderByAggregateInput = {
     id?: SortOrder
-    startPoint?: SortOrder
-    endPoint?: SortOrder
-    distanceKm?: SortOrder
     companyId?: SortOrder
-    createdAt?: SortOrder
+    start?: SortOrder
+    end?: SortOrder
+    distance?: SortOrder
     adminId?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type RouteSumOrderByAggregateInput = {
-    distanceKm?: SortOrder
+    distance?: SortOrder
   }
 
   export type BookingCreateNestedManyWithoutRiderInput = {
@@ -13542,10 +13554,8 @@ export namespace Prisma {
     deleteMany?: RouteScalarWhereInput | RouteScalarWhereInput[]
   }
 
-  export type AdminCreateNestedOneWithoutRoutesInput = {
-    create?: XOR<AdminCreateWithoutRoutesInput, AdminUncheckedCreateWithoutRoutesInput>
-    connectOrCreate?: AdminCreateOrConnectWithoutRoutesInput
-    connect?: AdminWhereUniqueInput
+  export type RouteCreateviaInput = {
+    set: string[]
   }
 
   export type CompanyCreateNestedOneWithoutRoutesInput = {
@@ -13554,14 +13564,15 @@ export namespace Prisma {
     connect?: CompanyWhereUniqueInput
   }
 
-  export type AdminUpdateOneWithoutRoutesNestedInput = {
+  export type AdminCreateNestedOneWithoutRoutesInput = {
     create?: XOR<AdminCreateWithoutRoutesInput, AdminUncheckedCreateWithoutRoutesInput>
     connectOrCreate?: AdminCreateOrConnectWithoutRoutesInput
-    upsert?: AdminUpsertWithoutRoutesInput
-    disconnect?: AdminWhereInput | boolean
-    delete?: AdminWhereInput | boolean
     connect?: AdminWhereUniqueInput
-    update?: XOR<XOR<AdminUpdateToOneWithWhereWithoutRoutesInput, AdminUpdateWithoutRoutesInput>, AdminUncheckedUpdateWithoutRoutesInput>
+  }
+
+  export type RouteUpdateviaInput = {
+    set?: string[]
+    push?: string | string[]
   }
 
   export type CompanyUpdateOneRequiredWithoutRoutesNestedInput = {
@@ -13570,6 +13581,14 @@ export namespace Prisma {
     upsert?: CompanyUpsertWithoutRoutesInput
     connect?: CompanyWhereUniqueInput
     update?: XOR<XOR<CompanyUpdateToOneWithWhereWithoutRoutesInput, CompanyUpdateWithoutRoutesInput>, CompanyUncheckedUpdateWithoutRoutesInput>
+  }
+
+  export type AdminUpdateOneRequiredWithoutRoutesNestedInput = {
+    create?: XOR<AdminCreateWithoutRoutesInput, AdminUncheckedCreateWithoutRoutesInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutRoutesInput
+    upsert?: AdminUpsertWithoutRoutesInput
+    connect?: AdminWhereUniqueInput
+    update?: XOR<XOR<AdminUpdateToOneWithWhereWithoutRoutesInput, AdminUpdateWithoutRoutesInput>, AdminUncheckedUpdateWithoutRoutesInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -14773,19 +14792,21 @@ export namespace Prisma {
 
   export type RouteCreateWithoutAdminInput = {
     id?: string
-    startPoint: string
-    endPoint: string
-    distanceKm?: number | null
+    start: string
+    via?: RouteCreateviaInput | string[]
+    end: string
+    distance: number
     createdAt?: Date | string
     company: CompanyCreateNestedOneWithoutRoutesInput
   }
 
   export type RouteUncheckedCreateWithoutAdminInput = {
     id?: string
-    startPoint: string
-    endPoint: string
-    distanceKm?: number | null
     companyId: string
+    start: string
+    via?: RouteCreateviaInput | string[]
+    end: string
+    distance: number
     createdAt?: Date | string
   }
 
@@ -14820,30 +14841,33 @@ export namespace Prisma {
     OR?: RouteScalarWhereInput[]
     NOT?: RouteScalarWhereInput | RouteScalarWhereInput[]
     id?: StringFilter<"Route"> | string
-    startPoint?: StringFilter<"Route"> | string
-    endPoint?: StringFilter<"Route"> | string
-    distanceKm?: FloatNullableFilter<"Route"> | number | null
     companyId?: StringFilter<"Route"> | string
+    start?: StringFilter<"Route"> | string
+    via?: StringNullableListFilter<"Route">
+    end?: StringFilter<"Route"> | string
+    distance?: FloatFilter<"Route"> | number
+    adminId?: StringFilter<"Route"> | string
     createdAt?: DateTimeFilter<"Route"> | Date | string
-    adminId?: StringNullableFilter<"Route"> | string | null
   }
 
   export type RouteCreateWithoutCompanyInput = {
     id?: string
-    startPoint: string
-    endPoint: string
-    distanceKm?: number | null
+    start: string
+    via?: RouteCreateviaInput | string[]
+    end: string
+    distance: number
     createdAt?: Date | string
-    admin?: AdminCreateNestedOneWithoutRoutesInput
+    admin: AdminCreateNestedOneWithoutRoutesInput
   }
 
   export type RouteUncheckedCreateWithoutCompanyInput = {
     id?: string
-    startPoint: string
-    endPoint: string
-    distanceKm?: number | null
+    start: string
+    via?: RouteCreateviaInput | string[]
+    end: string
+    distance: number
+    adminId: string
     createdAt?: Date | string
-    adminId?: string | null
   }
 
   export type RouteCreateOrConnectWithoutCompanyInput = {
@@ -14872,6 +14896,25 @@ export namespace Prisma {
     data: XOR<RouteUpdateManyMutationInput, RouteUncheckedUpdateManyWithoutCompanyInput>
   }
 
+  export type CompanyCreateWithoutRoutesInput = {
+    id?: string
+    companyName: string
+    domainName: string
+    createdAt?: Date | string
+  }
+
+  export type CompanyUncheckedCreateWithoutRoutesInput = {
+    id?: string
+    companyName: string
+    domainName: string
+    createdAt?: Date | string
+  }
+
+  export type CompanyCreateOrConnectWithoutRoutesInput = {
+    where: CompanyWhereUniqueInput
+    create: XOR<CompanyCreateWithoutRoutesInput, CompanyUncheckedCreateWithoutRoutesInput>
+  }
+
   export type AdminCreateWithoutRoutesInput = {
     id?: string
     name: string
@@ -14895,23 +14938,29 @@ export namespace Prisma {
     create: XOR<AdminCreateWithoutRoutesInput, AdminUncheckedCreateWithoutRoutesInput>
   }
 
-  export type CompanyCreateWithoutRoutesInput = {
-    id?: string
-    companyName: string
-    domainName: string
-    createdAt?: Date | string
-  }
-
-  export type CompanyUncheckedCreateWithoutRoutesInput = {
-    id?: string
-    companyName: string
-    domainName: string
-    createdAt?: Date | string
-  }
-
-  export type CompanyCreateOrConnectWithoutRoutesInput = {
-    where: CompanyWhereUniqueInput
+  export type CompanyUpsertWithoutRoutesInput = {
+    update: XOR<CompanyUpdateWithoutRoutesInput, CompanyUncheckedUpdateWithoutRoutesInput>
     create: XOR<CompanyCreateWithoutRoutesInput, CompanyUncheckedCreateWithoutRoutesInput>
+    where?: CompanyWhereInput
+  }
+
+  export type CompanyUpdateToOneWithWhereWithoutRoutesInput = {
+    where?: CompanyWhereInput
+    data: XOR<CompanyUpdateWithoutRoutesInput, CompanyUncheckedUpdateWithoutRoutesInput>
+  }
+
+  export type CompanyUpdateWithoutRoutesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    companyName?: StringFieldUpdateOperationsInput | string
+    domainName?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CompanyUncheckedUpdateWithoutRoutesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    companyName?: StringFieldUpdateOperationsInput | string
+    domainName?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AdminUpsertWithoutRoutesInput = {
@@ -14940,31 +14989,6 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumAdminRoleFieldUpdateOperationsInput | $Enums.AdminRole
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type CompanyUpsertWithoutRoutesInput = {
-    update: XOR<CompanyUpdateWithoutRoutesInput, CompanyUncheckedUpdateWithoutRoutesInput>
-    create: XOR<CompanyCreateWithoutRoutesInput, CompanyUncheckedCreateWithoutRoutesInput>
-    where?: CompanyWhereInput
-  }
-
-  export type CompanyUpdateToOneWithWhereWithoutRoutesInput = {
-    where?: CompanyWhereInput
-    data: XOR<CompanyUpdateWithoutRoutesInput, CompanyUncheckedUpdateWithoutRoutesInput>
-  }
-
-  export type CompanyUpdateWithoutRoutesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    companyName?: StringFieldUpdateOperationsInput | string
-    domainName?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type CompanyUncheckedUpdateWithoutRoutesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    companyName?: StringFieldUpdateOperationsInput | string
-    domainName?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -15194,74 +15218,82 @@ export namespace Prisma {
 
   export type RouteCreateManyAdminInput = {
     id?: string
-    startPoint: string
-    endPoint: string
-    distanceKm?: number | null
     companyId: string
+    start: string
+    via?: RouteCreateviaInput | string[]
+    end: string
+    distance: number
     createdAt?: Date | string
   }
 
   export type RouteUpdateWithoutAdminInput = {
     id?: StringFieldUpdateOperationsInput | string
-    startPoint?: StringFieldUpdateOperationsInput | string
-    endPoint?: StringFieldUpdateOperationsInput | string
-    distanceKm?: NullableFloatFieldUpdateOperationsInput | number | null
+    start?: StringFieldUpdateOperationsInput | string
+    via?: RouteUpdateviaInput | string[]
+    end?: StringFieldUpdateOperationsInput | string
+    distance?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     company?: CompanyUpdateOneRequiredWithoutRoutesNestedInput
   }
 
   export type RouteUncheckedUpdateWithoutAdminInput = {
     id?: StringFieldUpdateOperationsInput | string
-    startPoint?: StringFieldUpdateOperationsInput | string
-    endPoint?: StringFieldUpdateOperationsInput | string
-    distanceKm?: NullableFloatFieldUpdateOperationsInput | number | null
     companyId?: StringFieldUpdateOperationsInput | string
+    start?: StringFieldUpdateOperationsInput | string
+    via?: RouteUpdateviaInput | string[]
+    end?: StringFieldUpdateOperationsInput | string
+    distance?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type RouteUncheckedUpdateManyWithoutAdminInput = {
     id?: StringFieldUpdateOperationsInput | string
-    startPoint?: StringFieldUpdateOperationsInput | string
-    endPoint?: StringFieldUpdateOperationsInput | string
-    distanceKm?: NullableFloatFieldUpdateOperationsInput | number | null
     companyId?: StringFieldUpdateOperationsInput | string
+    start?: StringFieldUpdateOperationsInput | string
+    via?: RouteUpdateviaInput | string[]
+    end?: StringFieldUpdateOperationsInput | string
+    distance?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type RouteCreateManyCompanyInput = {
     id?: string
-    startPoint: string
-    endPoint: string
-    distanceKm?: number | null
+    start: string
+    via?: RouteCreateviaInput | string[]
+    end: string
+    distance: number
+    adminId: string
     createdAt?: Date | string
-    adminId?: string | null
   }
 
   export type RouteUpdateWithoutCompanyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    startPoint?: StringFieldUpdateOperationsInput | string
-    endPoint?: StringFieldUpdateOperationsInput | string
-    distanceKm?: NullableFloatFieldUpdateOperationsInput | number | null
+    start?: StringFieldUpdateOperationsInput | string
+    via?: RouteUpdateviaInput | string[]
+    end?: StringFieldUpdateOperationsInput | string
+    distance?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    admin?: AdminUpdateOneWithoutRoutesNestedInput
+    admin?: AdminUpdateOneRequiredWithoutRoutesNestedInput
   }
 
   export type RouteUncheckedUpdateWithoutCompanyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    startPoint?: StringFieldUpdateOperationsInput | string
-    endPoint?: StringFieldUpdateOperationsInput | string
-    distanceKm?: NullableFloatFieldUpdateOperationsInput | number | null
+    start?: StringFieldUpdateOperationsInput | string
+    via?: RouteUpdateviaInput | string[]
+    end?: StringFieldUpdateOperationsInput | string
+    distance?: FloatFieldUpdateOperationsInput | number
+    adminId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    adminId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type RouteUncheckedUpdateManyWithoutCompanyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    startPoint?: StringFieldUpdateOperationsInput | string
-    endPoint?: StringFieldUpdateOperationsInput | string
-    distanceKm?: NullableFloatFieldUpdateOperationsInput | number | null
+    start?: StringFieldUpdateOperationsInput | string
+    via?: RouteUpdateviaInput | string[]
+    end?: StringFieldUpdateOperationsInput | string
+    distance?: FloatFieldUpdateOperationsInput | number
+    adminId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    adminId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 

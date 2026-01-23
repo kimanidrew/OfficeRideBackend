@@ -29,21 +29,24 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [token, setTokenState] = useState<string | null>(null);
 
   // Hydrate from localStorage on mount
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    const storedToken = localStorage.getItem("token");
+useEffect(() => {
+  const storedUser = localStorage.getItem("user");
+  const storedToken = localStorage.getItem("token");
 
-    if (storedUser) {
-      setUserState(JSON.parse(storedUser));
-    } else {
-      // no user found, redirect to login
+  if (storedUser) {
+    setUserState(JSON.parse(storedUser));
+  } else {
+    // only redirect if not already on /login
+    if (window.location.pathname !== "/login") {
       window.location.href = "/login";
     }
+  }
 
-    if (storedToken) {
-      setTokenState(storedToken);
-    }
-  }, []);
+  if (storedToken) {
+    setTokenState(storedToken);
+  }
+}, []);
+
 
   const setUser = (user: User | null) => {
     setUserState(user);

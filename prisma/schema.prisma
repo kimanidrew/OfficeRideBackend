@@ -94,15 +94,16 @@ model Company {
 }
 
 model Route {
-  id          String   @id @default(uuid())
-  startPoint  String
-  endPoint    String
-  distanceKm  Float?
-  companyId   String
-  createdAt   DateTime @default(now())
-  adminId     String?
-  admin       Admin?   @relation(fields: [adminId], references: [id])
-  company     Company  @relation(fields: [companyId], references: [id])
+  id        String   @id @default(uuid())
+  companyId String
+  company   Company  @relation(fields: [companyId], references: [id])
+  start     String
+  via       String[]
+  end       String
+  distance  Float
+  adminId   String
+  admin     Admin    @relation(fields: [adminId], references: [id])
+  createdAt DateTime @default(now())
 }
 
 enum Role {
