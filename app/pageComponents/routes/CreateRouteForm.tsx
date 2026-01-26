@@ -64,7 +64,7 @@ export default function CreateRouteForm({ userId, onCreated }: { userId?: string
 
   return (
     <form onSubmit={submit} className="bg-white/70 rounded-xl shadow-2xl px-6 py-8 space-y-5 w-full max-w-md">
-      <h2 className="text-3xl font-bold text-indigo-700">Create Route</h2>
+      <h2 className="text-3xl font-semibold text-indigo-700">Create Route</h2>
 
       <CustomSelect
         value={companyId}
@@ -75,7 +75,7 @@ export default function CreateRouteForm({ userId, onCreated }: { userId?: string
 
       <div className="flex gap-2">
         <CustomRadio value="office" selected={startType} label="Office" onChange={setStartType} />
-        <CustomRadio value="custom" selected={startType} label="Custom" onChange={setStartType} />
+        <CustomRadio value="custom" selected={startType} label="Other lcations" onChange={setStartType} />
       </div>
 
       {startType === "office" ? (
@@ -89,7 +89,7 @@ export default function CreateRouteForm({ userId, onCreated }: { userId?: string
           <LocationSearch label="Add New Office Location" value="" onSelect={loc => setStartLocation({ ...loc, type: "office" })} resetSignal={resetSearch} />
         </>
       ) : (
-        <LocationSearch label="Custom Start" value="" onSelect={loc => setStartLocation({ ...loc, type: "custom" })} resetSignal={resetSearch} />
+        <LocationSearch label="Other locations" value="" onSelect={loc => setStartLocation({ ...loc, type: "custom" })} resetSignal={resetSearch} />
       )}
 
       {viaLocations.map((_, i) => (
@@ -100,7 +100,7 @@ export default function CreateRouteForm({ userId, onCreated }: { userId?: string
         }} resetSignal={resetSearch} />
       ))}
 
-      <button type="button" onClick={() => setViaLocations([...viaLocations, { name: "", latitude: 0, longitude: 0 }])} className="text-sm font-bold text-indigo-600">
+      <button type="button" onClick={() => setViaLocations([...viaLocations, { name: "", latitude: 0, longitude: 0 }])} className="text-sm font-bold text-indigo-600 border-2 border-indigo-600 rounded-full px-3 py-2">
         + Add Stop
       </button>
 

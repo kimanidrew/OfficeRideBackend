@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import LocationSearch from "@/components/LocationSearch";
 
 interface Location {
@@ -33,8 +33,18 @@ export default function RoutesList({
   const [currentPage, setCurrentPage] = useState(1);
   const [savingId, setSavingId] = useState<string | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true); // Loading state for initial fetch
 
   const routesPerPage = 5;
+
+  // Show loading while routes prop is empty or updating
+  useEffect(() => {
+    setLoading(true);
+    const timeout = setTimeout(() => {
+      setLoading(false);
+    }, 200); // small delay for smoother UX
+    return () => clearTimeout(timeout);
+  }, [routes]);
 
   const startEdit = (r: Route) => {
     setEditingId(r.id);
@@ -43,7 +53,6 @@ export default function RoutesList({
     setEditStops(r.stops.map((s) => s.location));
   };
 
-  // Helper: calculate distance using Google Directions API
   const calculateDistance = async (
     start: Location,
     end: Location,
@@ -63,7 +72,7 @@ export default function RoutesList({
         (sum: number, leg: any) => sum + leg.distance.value,
         0
       );
-      return meters / 1000; // km
+      return meters / 1000;
     }
     return 0;
   };
@@ -74,7 +83,6 @@ export default function RoutesList({
     setSavingId(r.id);
     try {
       const distance = await calculateDistance(editStart, editEnd, editStops);
-
       await fetch("/api/routes", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -83,10 +91,9 @@ export default function RoutesList({
           start: editStart,
           end: editEnd,
           via: editStops,
-          distance, // include recalculated distance
+          distance,
         }),
       });
-
       setEditingId(null);
       reload();
     } finally {
@@ -104,18 +111,19 @@ export default function RoutesList({
     }
   };
 
-  // Filter routes based on search query
-  const filteredRoutes = routes.filter((r) => {
-    const q = searchQuery.toLowerCase();
-    return (
-      r.startLocation.name.toLowerCase().includes(q) ||
-      r.endLocation.name.toLowerCase().includes(q) ||
-      r.stops.some((s) => s.location.name.toLowerCase().includes(q)) ||
-      r.company.companyName.toLowerCase().includes(q)
-    );
-  });
+ const filteredRoutes = Array.isArray(routes)
+  ? routes.filter((r) => {
+      const q = searchQuery.toLowerCase();
+      return (
+        r.startLocation.name.toLowerCase().includes(q) ||
+        r.endLocation.name.toLowerCase().includes(q) ||
+        r.stops.some((s) => s.location.name.toLowerCase().includes(q)) ||
+        r.company.companyName.toLowerCase().includes(q)
+      );
+    })
+  : [];
 
-  // Pagination logic
+
   const totalPages = Math.ceil(filteredRoutes.length / routesPerPage);
   const startIndex = (currentPage - 1) * routesPerPage;
   const currentRoutes = filteredRoutes.slice(
@@ -131,11 +139,12 @@ export default function RoutesList({
     if (currentPage < totalPages) setCurrentPage(currentPage + 1);
   };
 
+
   return (
     <div className="space-y-6">
-      {/* Header with pagination controls */}
+      {/* Header */}
       <div className="flex justify-between items-center">
-        <h2 className="text-3xl font-bold">Routes</h2>
+        <h2 className="text-3xl font-bold text-indigo-700">Routes</h2>
         <div className="flex items-center gap-2">
           <button
             onClick={goToPrevPage}
@@ -163,7 +172,7 @@ export default function RoutesList({
         </div>
       </div>
 
-      {/* Search bar */}
+      {/* Search */}
       <div className="w-full">
         <input
           type="text"
@@ -171,13 +180,18 @@ export default function RoutesList({
           value={searchQuery}
           onChange={(e) => {
             setSearchQuery(e.target.value);
-            setCurrentPage(1); // reset to first page when searching
+            setCurrentPage(1);
           }}
           className="bg-white text-md font-semibold rounded-md px-5 py-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm"
         />
       </div>
 
-      {currentRoutes.length === 0 && (
+      {loading && (
+        <div className="flex justify-center items-center h-40">
+        <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+       )}
+      {!loading && currentRoutes.length === 0 && (
         <p className="text-gray-500 text-sm">No routes match your search.</p>
       )}
 
@@ -237,9 +251,7 @@ export default function RoutesList({
                 {r.stops.map((s) => s.location.name).join(" → ")} →{" "}
                 {r.endLocation.name}
               </p>
-              <p className="text-sm text-gray-500 font-medium">
-                {r.distance} km
-              </p>
+              <p className="text-sm text-gray-500 font-medium">{r.distance} km</p>
 
               <div className="flex gap-2 mt-2">
                 <button

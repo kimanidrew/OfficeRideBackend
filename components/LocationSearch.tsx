@@ -108,7 +108,7 @@ export default function LocationSearch({
           {options.map((o) => (
             <li
               key={o.placeId}
-              className="px-3 py-2 cursor-pointer hover:bg-blue-50 text-sm text-gray-700 transition-colors"
+              className="px-3 py-2 cursor-pointer hover:bg-blue-50 text-sm font-semibold text-gray-700 transition-colors"
               onMouseDown={() => handleSelect(o.placeId, o.description)}
             >
               {o.description}

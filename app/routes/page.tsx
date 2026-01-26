@@ -25,7 +25,7 @@ export default function RoutesPage() {
         <CreateRouteForm userId={user?.id} onCreated={loadRoutes} />
         </div>
         <div className="lg:col-span-2">
-          <RoutesList routes={routes} reload={loadRoutes} />
+          <RoutesList routes={routes || []} reload={loadRoutes} />
         </div>
       </div>
     </div>
