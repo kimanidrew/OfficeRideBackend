@@ -68,7 +68,15 @@ export type RouteStop = $Result.DefaultSelection<Prisma.$RouteStopPayload>
  * Enums
  */
 export namespace $Enums {
-  export const Role: {
+  export const LocationType: {
+  office: 'office',
+  custom: 'custom'
+};
+
+export type LocationType = (typeof LocationType)[keyof typeof LocationType]
+
+
+export const Role: {
   driver: 'driver',
   rider: 'rider',
   both: 'both',
@@ -126,6 +134,10 @@ export const AdminRole: {
 export type AdminRole = (typeof AdminRole)[keyof typeof AdminRole]
 
 }
+
+export type LocationType = $Enums.LocationType
+
+export const LocationType: typeof $Enums.LocationType
 
 export type Role = $Enums.Role
 
@@ -9992,6 +10004,7 @@ export namespace Prisma {
     name: string | null
     latitude: number | null
     longitude: number | null
+    type: $Enums.LocationType | null
     createdAt: Date | null
   }
 
@@ -10001,6 +10014,7 @@ export namespace Prisma {
     name: string | null
     latitude: number | null
     longitude: number | null
+    type: $Enums.LocationType | null
     createdAt: Date | null
   }
 
@@ -10010,6 +10024,7 @@ export namespace Prisma {
     name: number
     latitude: number
     longitude: number
+    type: number
     createdAt: number
     _all: number
   }
@@ -10031,6 +10046,7 @@ export namespace Prisma {
     name?: true
     latitude?: true
     longitude?: true
+    type?: true
     createdAt?: true
   }
 
@@ -10040,6 +10056,7 @@ export namespace Prisma {
     name?: true
     latitude?: true
     longitude?: true
+    type?: true
     createdAt?: true
   }
 
@@ -10049,6 +10066,7 @@ export namespace Prisma {
     name?: true
     latitude?: true
     longitude?: true
+    type?: true
     createdAt?: true
     _all?: true
   }
@@ -10145,6 +10163,7 @@ export namespace Prisma {
     name: string
     latitude: number
     longitude: number
+    type: $Enums.LocationType
     createdAt: Date
     _count: LocationCountAggregateOutputType | null
     _avg: LocationAvgAggregateOutputType | null
@@ -10173,6 +10192,7 @@ export namespace Prisma {
     name?: boolean
     latitude?: boolean
     longitude?: boolean
+    type?: boolean
     createdAt?: boolean
     company?: boolean | CompanyDefaultArgs<ExtArgs>
     startRoutes?: boolean | Location$startRoutesArgs<ExtArgs>
@@ -10187,6 +10207,7 @@ export namespace Prisma {
     name?: boolean
     latitude?: boolean
     longitude?: boolean
+    type?: boolean
     createdAt?: boolean
     company?: boolean | CompanyDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["location"]>
@@ -10197,6 +10218,7 @@ export namespace Prisma {
     name?: boolean
     latitude?: boolean
     longitude?: boolean
+    type?: boolean
     createdAt?: boolean
     company?: boolean | CompanyDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["location"]>
@@ -10207,10 +10229,11 @@ export namespace Prisma {
     name?: boolean
     latitude?: boolean
     longitude?: boolean
+    type?: boolean
     createdAt?: boolean
   }
 
-  export type LocationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "companyId" | "name" | "latitude" | "longitude" | "createdAt", ExtArgs["result"]["location"]>
+  export type LocationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "companyId" | "name" | "latitude" | "longitude" | "type" | "createdAt", ExtArgs["result"]["location"]>
   export type LocationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     company?: boolean | CompanyDefaultArgs<ExtArgs>
     startRoutes?: boolean | Location$startRoutesArgs<ExtArgs>
@@ -10239,6 +10262,7 @@ export namespace Prisma {
       name: string
       latitude: number
       longitude: number
+      type: $Enums.LocationType
       createdAt: Date
     }, ExtArgs["result"]["location"]>
     composites: {}
@@ -10672,6 +10696,7 @@ export namespace Prisma {
     readonly name: FieldRef<"Location", 'String'>
     readonly latitude: FieldRef<"Location", 'Float'>
     readonly longitude: FieldRef<"Location", 'Float'>
+    readonly type: FieldRef<"Location", 'LocationType'>
     readonly createdAt: FieldRef<"Location", 'DateTime'>
   }
     
@@ -13528,6 +13553,7 @@ export namespace Prisma {
     name: 'name',
     latitude: 'latitude',
     longitude: 'longitude',
+    type: 'type',
     createdAt: 'createdAt'
   };
 
@@ -13761,6 +13787,20 @@ export namespace Prisma {
    * Reference to a field of type 'AdminRole[]'
    */
   export type ListEnumAdminRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AdminRole[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'LocationType'
+   */
+  export type EnumLocationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LocationType'>
+    
+
+
+  /**
+   * Reference to a field of type 'LocationType[]'
+   */
+  export type ListEnumLocationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LocationType[]'>
     
   /**
    * Deep Input Types
@@ -14264,6 +14304,7 @@ export namespace Prisma {
     name?: StringFilter<"Location"> | string
     latitude?: FloatFilter<"Location"> | number
     longitude?: FloatFilter<"Location"> | number
+    type?: EnumLocationTypeFilter<"Location"> | $Enums.LocationType
     createdAt?: DateTimeFilter<"Location"> | Date | string
     company?: XOR<CompanyScalarRelationFilter, CompanyWhereInput>
     startRoutes?: RouteListRelationFilter
@@ -14277,6 +14318,7 @@ export namespace Prisma {
     name?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
+    type?: SortOrder
     createdAt?: SortOrder
     company?: CompanyOrderByWithRelationInput
     startRoutes?: RouteOrderByRelationAggregateInput
@@ -14293,6 +14335,7 @@ export namespace Prisma {
     name?: StringFilter<"Location"> | string
     latitude?: FloatFilter<"Location"> | number
     longitude?: FloatFilter<"Location"> | number
+    type?: EnumLocationTypeFilter<"Location"> | $Enums.LocationType
     createdAt?: DateTimeFilter<"Location"> | Date | string
     company?: XOR<CompanyScalarRelationFilter, CompanyWhereInput>
     startRoutes?: RouteListRelationFilter
@@ -14306,6 +14349,7 @@ export namespace Prisma {
     name?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
+    type?: SortOrder
     createdAt?: SortOrder
     _count?: LocationCountOrderByAggregateInput
     _avg?: LocationAvgOrderByAggregateInput
@@ -14323,6 +14367,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Location"> | string
     latitude?: FloatWithAggregatesFilter<"Location"> | number
     longitude?: FloatWithAggregatesFilter<"Location"> | number
+    type?: EnumLocationTypeWithAggregatesFilter<"Location"> | $Enums.LocationType
     createdAt?: DateTimeWithAggregatesFilter<"Location"> | Date | string
   }
 
@@ -14982,6 +15027,7 @@ export namespace Prisma {
     name: string
     latitude: number
     longitude: number
+    type?: $Enums.LocationType
     createdAt?: Date | string
     company: CompanyCreateNestedOneWithoutLocationsInput
     startRoutes?: RouteCreateNestedManyWithoutStartLocationInput
@@ -14995,6 +15041,7 @@ export namespace Prisma {
     name: string
     latitude: number
     longitude: number
+    type?: $Enums.LocationType
     createdAt?: Date | string
     startRoutes?: RouteUncheckedCreateNestedManyWithoutStartLocationInput
     endRoutes?: RouteUncheckedCreateNestedManyWithoutEndLocationInput
@@ -15006,6 +15053,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     latitude?: FloatFieldUpdateOperationsInput | number
     longitude?: FloatFieldUpdateOperationsInput | number
+    type?: EnumLocationTypeFieldUpdateOperationsInput | $Enums.LocationType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     company?: CompanyUpdateOneRequiredWithoutLocationsNestedInput
     startRoutes?: RouteUpdateManyWithoutStartLocationNestedInput
@@ -15019,6 +15067,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     latitude?: FloatFieldUpdateOperationsInput | number
     longitude?: FloatFieldUpdateOperationsInput | number
+    type?: EnumLocationTypeFieldUpdateOperationsInput | $Enums.LocationType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startRoutes?: RouteUncheckedUpdateManyWithoutStartLocationNestedInput
     endRoutes?: RouteUncheckedUpdateManyWithoutEndLocationNestedInput
@@ -15031,6 +15080,7 @@ export namespace Prisma {
     name: string
     latitude: number
     longitude: number
+    type?: $Enums.LocationType
     createdAt?: Date | string
   }
 
@@ -15039,6 +15089,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     latitude?: FloatFieldUpdateOperationsInput | number
     longitude?: FloatFieldUpdateOperationsInput | number
+    type?: EnumLocationTypeFieldUpdateOperationsInput | $Enums.LocationType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -15048,6 +15099,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     latitude?: FloatFieldUpdateOperationsInput | number
     longitude?: FloatFieldUpdateOperationsInput | number
+    type?: EnumLocationTypeFieldUpdateOperationsInput | $Enums.LocationType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -15846,6 +15898,13 @@ export namespace Prisma {
     _max?: NestedEnumAdminRoleFilter<$PrismaModel>
   }
 
+  export type EnumLocationTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.LocationType | EnumLocationTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.LocationType[] | ListEnumLocationTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.LocationType[] | ListEnumLocationTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumLocationTypeFilter<$PrismaModel> | $Enums.LocationType
+  }
+
   export type CompanyScalarRelationFilter = {
     is?: CompanyWhereInput
     isNot?: CompanyWhereInput
@@ -15867,6 +15926,7 @@ export namespace Prisma {
     name?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
+    type?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -15881,6 +15941,7 @@ export namespace Prisma {
     name?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
+    type?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -15890,12 +15951,23 @@ export namespace Prisma {
     name?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
+    type?: SortOrder
     createdAt?: SortOrder
   }
 
   export type LocationSumOrderByAggregateInput = {
     latitude?: SortOrder
     longitude?: SortOrder
+  }
+
+  export type EnumLocationTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.LocationType | EnumLocationTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.LocationType[] | ListEnumLocationTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.LocationType[] | ListEnumLocationTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumLocationTypeWithAggregatesFilter<$PrismaModel> | $Enums.LocationType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumLocationTypeFilter<$PrismaModel>
+    _max?: NestedEnumLocationTypeFilter<$PrismaModel>
   }
 
   export type AdminScalarRelationFilter = {
@@ -16601,6 +16673,10 @@ export namespace Prisma {
     connect?: RouteStopWhereUniqueInput | RouteStopWhereUniqueInput[]
   }
 
+  export type EnumLocationTypeFieldUpdateOperationsInput = {
+    set?: $Enums.LocationType
+  }
+
   export type CompanyUpdateOneRequiredWithoutLocationsNestedInput = {
     create?: XOR<CompanyCreateWithoutLocationsInput, CompanyUncheckedCreateWithoutLocationsInput>
     connectOrCreate?: CompanyCreateOrConnectWithoutLocationsInput
@@ -17144,6 +17220,23 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumAdminRoleFilter<$PrismaModel>
     _max?: NestedEnumAdminRoleFilter<$PrismaModel>
+  }
+
+  export type NestedEnumLocationTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.LocationType | EnumLocationTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.LocationType[] | ListEnumLocationTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.LocationType[] | ListEnumLocationTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumLocationTypeFilter<$PrismaModel> | $Enums.LocationType
+  }
+
+  export type NestedEnumLocationTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.LocationType | EnumLocationTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.LocationType[] | ListEnumLocationTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.LocationType[] | ListEnumLocationTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumLocationTypeWithAggregatesFilter<$PrismaModel> | $Enums.LocationType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumLocationTypeFilter<$PrismaModel>
+    _max?: NestedEnumLocationTypeFilter<$PrismaModel>
   }
 
   export type BookingCreateWithoutRiderInput = {
@@ -18053,6 +18146,7 @@ export namespace Prisma {
     name: string
     latitude: number
     longitude: number
+    type?: $Enums.LocationType
     createdAt?: Date | string
     startRoutes?: RouteCreateNestedManyWithoutStartLocationInput
     endRoutes?: RouteCreateNestedManyWithoutEndLocationInput
@@ -18064,6 +18158,7 @@ export namespace Prisma {
     name: string
     latitude: number
     longitude: number
+    type?: $Enums.LocationType
     createdAt?: Date | string
     startRoutes?: RouteUncheckedCreateNestedManyWithoutStartLocationInput
     endRoutes?: RouteUncheckedCreateNestedManyWithoutEndLocationInput
@@ -18134,6 +18229,7 @@ export namespace Prisma {
     name?: StringFilter<"Location"> | string
     latitude?: FloatFilter<"Location"> | number
     longitude?: FloatFilter<"Location"> | number
+    type?: EnumLocationTypeFilter<"Location"> | $Enums.LocationType
     createdAt?: DateTimeFilter<"Location"> | Date | string
   }
 
@@ -18418,6 +18514,7 @@ export namespace Prisma {
     name: string
     latitude: number
     longitude: number
+    type?: $Enums.LocationType
     createdAt?: Date | string
     company: CompanyCreateNestedOneWithoutLocationsInput
     endRoutes?: RouteCreateNestedManyWithoutEndLocationInput
@@ -18430,6 +18527,7 @@ export namespace Prisma {
     name: string
     latitude: number
     longitude: number
+    type?: $Enums.LocationType
     createdAt?: Date | string
     endRoutes?: RouteUncheckedCreateNestedManyWithoutEndLocationInput
     routeStops?: RouteStopUncheckedCreateNestedManyWithoutLocationInput
@@ -18445,6 +18543,7 @@ export namespace Prisma {
     name: string
     latitude: number
     longitude: number
+    type?: $Enums.LocationType
     createdAt?: Date | string
     company: CompanyCreateNestedOneWithoutLocationsInput
     startRoutes?: RouteCreateNestedManyWithoutStartLocationInput
@@ -18457,6 +18556,7 @@ export namespace Prisma {
     name: string
     latitude: number
     longitude: number
+    type?: $Enums.LocationType
     createdAt?: Date | string
     startRoutes?: RouteUncheckedCreateNestedManyWithoutStartLocationInput
     routeStops?: RouteStopUncheckedCreateNestedManyWithoutLocationInput
@@ -18559,6 +18659,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     latitude?: FloatFieldUpdateOperationsInput | number
     longitude?: FloatFieldUpdateOperationsInput | number
+    type?: EnumLocationTypeFieldUpdateOperationsInput | $Enums.LocationType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     company?: CompanyUpdateOneRequiredWithoutLocationsNestedInput
     endRoutes?: RouteUpdateManyWithoutEndLocationNestedInput
@@ -18571,6 +18672,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     latitude?: FloatFieldUpdateOperationsInput | number
     longitude?: FloatFieldUpdateOperationsInput | number
+    type?: EnumLocationTypeFieldUpdateOperationsInput | $Enums.LocationType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     endRoutes?: RouteUncheckedUpdateManyWithoutEndLocationNestedInput
     routeStops?: RouteStopUncheckedUpdateManyWithoutLocationNestedInput
@@ -18592,6 +18694,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     latitude?: FloatFieldUpdateOperationsInput | number
     longitude?: FloatFieldUpdateOperationsInput | number
+    type?: EnumLocationTypeFieldUpdateOperationsInput | $Enums.LocationType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     company?: CompanyUpdateOneRequiredWithoutLocationsNestedInput
     startRoutes?: RouteUpdateManyWithoutStartLocationNestedInput
@@ -18604,6 +18707,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     latitude?: FloatFieldUpdateOperationsInput | number
     longitude?: FloatFieldUpdateOperationsInput | number
+    type?: EnumLocationTypeFieldUpdateOperationsInput | $Enums.LocationType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startRoutes?: RouteUncheckedUpdateManyWithoutStartLocationNestedInput
     routeStops?: RouteStopUncheckedUpdateManyWithoutLocationNestedInput
@@ -18655,6 +18759,7 @@ export namespace Prisma {
     name: string
     latitude: number
     longitude: number
+    type?: $Enums.LocationType
     createdAt?: Date | string
     company: CompanyCreateNestedOneWithoutLocationsInput
     startRoutes?: RouteCreateNestedManyWithoutStartLocationInput
@@ -18667,6 +18772,7 @@ export namespace Prisma {
     name: string
     latitude: number
     longitude: number
+    type?: $Enums.LocationType
     createdAt?: Date | string
     startRoutes?: RouteUncheckedCreateNestedManyWithoutStartLocationInput
     endRoutes?: RouteUncheckedCreateNestedManyWithoutEndLocationInput
@@ -18724,6 +18830,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     latitude?: FloatFieldUpdateOperationsInput | number
     longitude?: FloatFieldUpdateOperationsInput | number
+    type?: EnumLocationTypeFieldUpdateOperationsInput | $Enums.LocationType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     company?: CompanyUpdateOneRequiredWithoutLocationsNestedInput
     startRoutes?: RouteUpdateManyWithoutStartLocationNestedInput
@@ -18736,6 +18843,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     latitude?: FloatFieldUpdateOperationsInput | number
     longitude?: FloatFieldUpdateOperationsInput | number
+    type?: EnumLocationTypeFieldUpdateOperationsInput | $Enums.LocationType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startRoutes?: RouteUncheckedUpdateManyWithoutStartLocationNestedInput
     endRoutes?: RouteUncheckedUpdateManyWithoutEndLocationNestedInput
@@ -18979,6 +19087,7 @@ export namespace Prisma {
     name: string
     latitude: number
     longitude: number
+    type?: $Enums.LocationType
     createdAt?: Date | string
   }
 
@@ -19016,6 +19125,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     latitude?: FloatFieldUpdateOperationsInput | number
     longitude?: FloatFieldUpdateOperationsInput | number
+    type?: EnumLocationTypeFieldUpdateOperationsInput | $Enums.LocationType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startRoutes?: RouteUpdateManyWithoutStartLocationNestedInput
     endRoutes?: RouteUpdateManyWithoutEndLocationNestedInput
@@ -19027,6 +19137,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     latitude?: FloatFieldUpdateOperationsInput | number
     longitude?: FloatFieldUpdateOperationsInput | number
+    type?: EnumLocationTypeFieldUpdateOperationsInput | $Enums.LocationType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startRoutes?: RouteUncheckedUpdateManyWithoutStartLocationNestedInput
     endRoutes?: RouteUncheckedUpdateManyWithoutEndLocationNestedInput
@@ -19038,6 +19149,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     latitude?: FloatFieldUpdateOperationsInput | number
     longitude?: FloatFieldUpdateOperationsInput | number
+    type?: EnumLocationTypeFieldUpdateOperationsInput | $Enums.LocationType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

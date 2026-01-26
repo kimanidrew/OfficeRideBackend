@@ -95,6 +95,11 @@ model Admin {
   routes       Route[]
 }
 
+enum LocationType {
+  office // default start location
+  custom // user-added or route-specific
+}
+
 model Location {
   id        String  @id @default(uuid())
   companyId String
@@ -103,6 +108,7 @@ model Location {
   name      String // formatted address from Google
   latitude  Float
   longitude Float
+  type      LocationType @default(custom) // <-- new field
 
   createdAt DateTime @default(now())
 

@@ -195,6 +195,7 @@ exports.Prisma.LocationScalarFieldEnum = {
   name: 'name',
   latitude: 'latitude',
   longitude: 'longitude',
+  type: 'type',
   createdAt: 'createdAt'
 };
 
@@ -282,6 +283,11 @@ exports.PaymentMethod = exports.$Enums.PaymentMethod = {
 exports.AdminRole = exports.$Enums.AdminRole = {
   admin: 'admin',
   superadmin: 'superadmin'
+};
+
+exports.LocationType = exports.$Enums.LocationType = {
+  office: 'office',
+  custom: 'custom'
 };
 
 exports.Prisma.ModelName = {

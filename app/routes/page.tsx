@@ -9,9 +9,11 @@ interface Company {
 }
 
 interface Location {
+  id?: string;
   name: string;
   latitude: number;
   longitude: number;
+  type?: "office" | "custom";
 }
 
 interface Route {
@@ -29,6 +31,7 @@ export default function RoutesPage() {
   const [routes, setRoutes] = useState<Route[]>([]);
   const [companies, setCompanies] = useState<Company[]>([]);
   const [companyId, setCompanyId] = useState("");
+  const [officeLocations, setOfficeLocations] = useState<Location[]>([]);
   const [startLocation, setStartLocation] = useState<Location | null>(null);
   const [viaLocations, setViaLocations] = useState<Location[]>([]);
   const [endLocation, setEndLocation] = useState<Location | null>(null);
@@ -38,6 +41,7 @@ export default function RoutesPage() {
   // Loading states
   const [loadingRoutes, setLoadingRoutes] = useState(false);
   const [loadingCompanies, setLoadingCompanies] = useState(false);
+  const [loadingOffices, setLoadingOffices] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [deletingId, setDeletingId] = useState<string | null>(null);
 
@@ -61,10 +65,28 @@ export default function RoutesPage() {
     }
   };
 
+  const loadOfficeLocations = async (companyId: string) => {
+    setLoadingOffices(true);
+    try {
+      const res = await fetch(`/api/company/${companyId}/offices`);
+      if (res.ok) setOfficeLocations(await res.json());
+    } finally {
+      setLoadingOffices(false);
+    }
+  };
+
   useEffect(() => {
     loadRoutes();
     loadCompanies();
   }, []);
+
+  useEffect(() => {
+    if (companyId) {
+      loadOfficeLocations(companyId);
+    } else {
+      setOfficeLocations([]);
+    }
+  }, [companyId]);
 
   // Calculate distance using Google Directions API
   const calculateDistance = async (): Promise<number> => {
@@ -174,13 +196,41 @@ export default function RoutesPage() {
           </select>
         )}
 
+        {/* Office Locations Dropdown */}
+        {loadingOffices ? (
+          <div className="flex items-center space-x-2 text-gray-500">
+            <div className="w-4 h-4 border-2 border-gray-400 border-t-transparent rounded-full animate-spin"></div>
+            <span>Loading office locations...</span>
+          </div>
+        ) : officeLocations.length > 0 ? (
+          <div>
+            <label className="block">Default Office Start Location</label>
+            <select
+              onChange={(e) => {
+                const loc = officeLocations.find((l) => l.id === e.target.value);
+                if (loc) setStartLocation({ ...loc, type: "office" });
+              }}
+              className="border p-2 w-full"
+            >
+              <option value="">Select office</option>
+              {officeLocations.map((loc) => (
+                <option key={loc.id} value={loc.id}>
+                  {loc.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        ) : null}
+
+        {/* Custom Start Location */}
         <LocationSearch
-          label="Start Location"
+          label="Custom Start Location"
           value=""
-          onSelect={(loc) => setStartLocation(loc)}
+          onSelect={(loc) => setStartLocation({ ...loc, type: "custom" })}
           resetSignal={resetSearch}
         />
 
+        {/* Stops */}
         <div>
           <label className="block">Stops (via)</label>
           {viaLocations.map((stop, i) => (
@@ -211,6 +261,7 @@ export default function RoutesPage() {
           </button>
         </div>
 
+        {/* End Location */}
         <LocationSearch
           label="End Location"
           value=""
@@ -221,6 +272,7 @@ export default function RoutesPage() {
         <p className="text-sm text-gray-600">
           Calculated Distance: {distance ? `${distance} km` : "—"}
         </p>
+
 
         <button
           type="submit"
