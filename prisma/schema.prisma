@@ -95,23 +95,29 @@ model Admin {
   routes       Route[]
 }
 
+enum LocationType {
+  office     // default start location
+  custom     // user-added or route-specific
+}
 
 model Location {
-  id         String   @id @default(uuid())
+  id         String       @id @default(uuid())
   companyId  String
-  company    Company  @relation(fields: [companyId], references: [id])
+  company    Company      @relation(fields: [companyId], references: [id])
 
-  name       String   // formatted address from Google
+  name       String       // formatted address from Google
   latitude   Float
   longitude  Float
+  type       LocationType @default(custom)  // <-- new field
 
-  createdAt  DateTime @default(now())
+  createdAt  DateTime     @default(now())
 
   // reverse relations
-  startRoutes Route[] @relation("StartLocation")
-  endRoutes   Route[] @relation("EndLocation")
+  startRoutes Route[]     @relation("StartLocation")
+  endRoutes   Route[]     @relation("EndLocation")
   routeStops  RouteStop[]
 }
+
 
 model Route {
   id               String    @id @default(uuid())

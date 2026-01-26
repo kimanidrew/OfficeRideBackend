@@ -2,57 +2,20 @@
 import { prisma } from "../../../lib/prisma";
 import { NextResponse } from "next/server";
 
-async function geocode(query: string, apiKey: string) {
-  const res = await fetch(
-    `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
-      query
-    )}&key=${apiKey}`
-  );
-  const data = await res.json();
-  if (!data.results?.length) return null;
-  const r = data.results[0];
-  return {
-    name: r.formatted_address as string,
-    latitude: r.geometry.location.lat as number,
-    longitude: r.geometry.location.lng as number,
-  };
-}
-
-async function findOrCreateLocation(companyId: string, query: string, apiKey: string) {
-  const geo = await geocode(query, apiKey);
-  if (!geo) return null;
-
-  const existing = await prisma.location.findFirst({
-    where: { companyId, name: geo.name },
-  });
-  if (existing) return existing;
-
-  return prisma.location.create({
-    data: {
-      companyId,
-      name: geo.name,
-      latitude: geo.latitude,
-      longitude: geo.longitude,
-    },
-  });
-}
-
+// Helper: calculate distance using Google Directions API
 async function calculateDistance(
   start: { latitude: number; longitude: number },
   end: { latitude: number; longitude: number },
   via: { latitude: number; longitude: number }[],
   apiKey: string
-) {
-  const waypoints = via.map((v) => `${v.latitude},${v.longitude}`).join("|");
-  const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${start.latitude},${start.longitude}&destination=${end.latitude},${end.longitude}&key=${apiKey}${
-    waypoints ? `&waypoints=${waypoints}` : ""
-  }`;
+): Promise<number> {
+  const waypoints = via.map(v => `${v.latitude},${v.longitude}`).join("|");
+  const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${start.latitude},${start.longitude}&destination=${end.latitude},${end.longitude}&key=${apiKey}${waypoints ? `&waypoints=${waypoints}` : ""}`;
 
   const res = await fetch(url);
   const data = await res.json();
 
   if (!data.routes?.length) return 0;
-
   const meters = data.routes[0].legs.reduce(
     (sum: number, leg: any) => sum + leg.distance.value,
     0
@@ -60,28 +23,51 @@ async function calculateDistance(
   return meters / 1000; // km
 }
 
+// Helper: normalize address names (example override for Garden City Business Park)
+function normalizeAddress(name: string): string {
+  if (name.includes("QV7F+QR2")) {
+    return "Garden City Business Park";
+  }
+  return name;
+}
+
+// Helper: find or create location
+async function findOrCreateLocation(companyId: string, loc: { name: string; latitude: number; longitude: number }) {
+  const normalizedName = normalizeAddress(loc.name);
+  const existing = await prisma.location.findFirst({
+    where: { companyId, name: normalizedName },
+  });
+  if (existing) return existing;
+  return prisma.location.create({
+    data: {
+      companyId,
+      name: normalizedName,
+      latitude: loc.latitude,
+      longitude: loc.longitude,
+    },
+  });
+}
+
 export async function POST(req: Request) {
   try {
     const apiKey = process.env.GOOGLE_MAPS_API_KEY!;
     const body = await req.json();
-    const { companyId, adminId, startQuery, viaQueries, endQuery } = body;
+    const { companyId, adminId, start, via, end } = body;
 
-    const startLoc = await findOrCreateLocation(companyId, startQuery, apiKey);
-    const endLoc = await findOrCreateLocation(companyId, endQuery, apiKey);
-    if (!startLoc || !endLoc) {
-      return NextResponse.json(
-        { error: "Failed to resolve start or end location" },
-        { status: 400 }
-      );
+    if (!companyId || !adminId || !start || !end) {
+      return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
+    const startLoc = await findOrCreateLocation(companyId, start);
+    const endLoc = await findOrCreateLocation(companyId, end);
+
     const viaLocs: { id: string; latitude: number; longitude: number }[] = [];
-    for (const q of viaQueries || []) {
-      const loc = await findOrCreateLocation(companyId, q, apiKey);
+    for (const v of via || []) {
+      const loc = await findOrCreateLocation(companyId, v);
       if (loc) viaLocs.push({ id: loc.id, latitude: loc.latitude, longitude: loc.longitude });
     }
 
-    // calculate distance server-side
+    // Calculate distance server-side
     const distance = await calculateDistance(
       { latitude: startLoc.latitude, longitude: startLoc.longitude },
       { latitude: endLoc.latitude, longitude: endLoc.longitude },
@@ -143,5 +129,67 @@ export async function GET() {
   } catch (error) {
     console.error(error);
     return NextResponse.json({ error: "Failed to fetch routes" }, { status: 500 });
+  }
+}
+
+
+export async function DELETE(req: Request) {
+  try {
+    const { searchParams } = new URL(req.url);
+    const routeId = searchParams.get("id");
+
+    if (!routeId) {
+      return NextResponse.json({ error: "Route ID is required" }, { status: 400 });
+    }
+
+    // Find the route with its locations and stops
+    const route = await prisma.route.findUnique({
+      where: { id: routeId },
+      include: {
+        startLocation: true,
+        endLocation: true,
+        stops: { include: { location: true } },
+      },
+    });
+
+    if (!route) {
+      return NextResponse.json({ error: "Route not found" }, { status: 404 });
+    }
+
+    // Delete stops first
+    await prisma.routeStop.deleteMany({
+      where: { routeId },
+    });
+
+    // Delete the route itself
+    await prisma.route.delete({
+      where: { id: routeId },
+    });
+
+    // Optionally delete associated locations
+    // ⚠️ Only do this if locations are unique to this route.
+    const locationIds: string[] = [
+      route.startLocation?.id,
+      route.endLocation?.id,
+      ...route.stops.map((s) => s.location.id),
+    ].filter(Boolean);
+
+    if (locationIds.length > 0) {
+      try {
+        await prisma.location.deleteMany({
+          where: { id: { in: locationIds } },
+        });
+      } catch (err) {
+        console.warn("Some locations could not be deleted (likely shared):", err);
+      }
+    }
+
+    return NextResponse.json(
+      { message: "Route deleted successfully" },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Failed to delete route:", error);
+    return NextResponse.json({ error: "Failed to delete route" }, { status: 500 });
   }
 }

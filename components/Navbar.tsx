@@ -60,28 +60,18 @@ const Navbar = () => {
           </Link>
         </li>
         <li>
-          <Link href="/rides" className={linkClass}>
-            Rides
+          <Link href="/routes" className={linkClass}>
+          Routes
           </Link>
         </li>
         <li>
           <Link href="/bookings" className={linkClass}>
-            Bookings
+            Companies
           </Link>
         </li>
-        <li>
-          <Link href="/profile" className={linkClass}>
-            About
-          </Link>
-        </li>
-        <li>
-          <Link href="/profile" className={linkClass}>
-            Contact us
-          </Link>
-        </li>
-        <li>
-          <Link href="/profile" className={linkClass}>
-            Help
+         <li>
+          <Link href="/bookings" className={linkClass}>
+            Drivers
           </Link>
         </li>
       </ul>
