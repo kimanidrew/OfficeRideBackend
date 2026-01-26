@@ -2,7 +2,9 @@
 import { prisma } from "../../../lib/prisma";
 import { NextResponse } from "next/server";
 
+// -----------------------------
 // Helper: calculate distance using Google Directions API
+// -----------------------------
 async function calculateDistance(
   start: { latitude: number; longitude: number },
   end: { latitude: number; longitude: number },
@@ -23,7 +25,9 @@ async function calculateDistance(
   return meters / 1000; // km
 }
 
-// Helper: normalize address names (example override for Garden City Business Park)
+// -----------------------------
+// Helper: normalize address names
+// -----------------------------
 function normalizeAddress(name: string): string {
   if (name.includes("QV7F+QR2")) {
     return "Garden City Business Park";
@@ -31,8 +35,14 @@ function normalizeAddress(name: string): string {
   return name;
 }
 
+// -----------------------------
 // Helper: find or create location
-async function findOrCreateLocation(companyId: string, loc: { name: string; latitude: number; longitude: number }) {
+// -----------------------------
+// Helper: find or create location with type
+async function findOrCreateLocation(
+  companyId: string,
+  loc: { name: string; latitude: number; longitude: number; type?: "office" | "custom" }
+) {
   const normalizedName = normalizeAddress(loc.name);
   const existing = await prisma.location.findFirst({
     where: { companyId, name: normalizedName },
@@ -44,10 +54,15 @@ async function findOrCreateLocation(companyId: string, loc: { name: string; lati
       name: normalizedName,
       latitude: loc.latitude,
       longitude: loc.longitude,
+      type: loc.type ?? "custom", // default to custom if not provided
     },
   });
 }
 
+
+// -----------------------------
+// POST: Create a new route
+// -----------------------------
 export async function POST(req: Request) {
   try {
     const apiKey = process.env.GOOGLE_MAPS_API_KEY!;
@@ -58,12 +73,12 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
-    const startLoc = await findOrCreateLocation(companyId, start);
-    const endLoc = await findOrCreateLocation(companyId, end);
+    const startLoc = await findOrCreateLocation(companyId, { ...start, type: start.type });
+    const endLoc = await findOrCreateLocation(companyId, { ...end, type: end.type });
 
     const viaLocs: { id: string; latitude: number; longitude: number }[] = [];
     for (const v of via || []) {
-      const loc = await findOrCreateLocation(companyId, v);
+      const loc = await findOrCreateLocation(companyId, { ...v, type: v.type });
       if (loc) viaLocs.push({ id: loc.id, latitude: loc.latitude, longitude: loc.longitude });
     }
 
@@ -113,6 +128,10 @@ export async function POST(req: Request) {
   }
 }
 
+
+// -----------------------------
+// GET: Fetch all routes
+// -----------------------------
 export async function GET() {
   try {
     const routes = await prisma.route.findMany({
@@ -132,7 +151,9 @@ export async function GET() {
   }
 }
 
-
+// -----------------------------
+// DELETE: Remove a route
+// -----------------------------
 export async function DELETE(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
