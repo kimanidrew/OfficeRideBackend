@@ -43,6 +43,8 @@ export default function RoutesPage() {
   const [loadingCompanies, setLoadingCompanies] = useState(false);
   const [loadingOffices, setLoadingOffices] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
+
 
   const loadRoutes = async () => {
     setLoadingRoutes(true);
@@ -146,6 +148,29 @@ export default function RoutesPage() {
       setSubmitting(false);
     }
   };
+
+
+  const handleDelete = async (id: string) => {
+  setDeletingId(id);
+  try {
+    const res = await fetch(`/api/routes?id=${id}`, {
+      method: "DELETE",
+    });
+    if (res.ok) {
+      // reload routes after deletion
+      await loadRoutes();
+    } else {
+      const err = await res.json();
+      alert(err.error || "Failed to delete route");
+    }
+  } catch (error) {
+    console.error("Delete failed:", error);
+    alert("Error deleting route");
+  } finally {
+    setDeletingId(null);
+  }
+};
+
 
   return (
     <div className="flex space-x-20 px-20 py-10">
