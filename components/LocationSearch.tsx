@@ -86,8 +86,10 @@ export default function LocationSearch({
   };
 
   return (
-    <div className="space-y-1 relative">
-      <label className="block">{label}</label>
+    <div className="space-y-2 relative w-full">
+      <label className="block font-semibold text-gray-700 text-sm mb-2">
+        {label}
+      </label>
       <input
         ref={inputRef}
         type="text"
@@ -98,20 +100,26 @@ export default function LocationSearch({
           setTimeout(() => setIsFocused(false), 100);
         }}
         onChange={(e) => setQuery(e.target.value)}
-        className="border p-2 w-full"
+        placeholder="Search location..."
+        className="text-sm font-semibold rounded-md px-3 py-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm transition"
       />
       {isFocused && options.length > 0 && (
-        <ul className="absolute z-10 border bg-white w-full max-h-60 overflow-y-auto">
+        <ul className="absolute z-20 mt-1 py-2 border border-gray-200 bg-white w-full max-h-60 overflow-y-auto rounded-lg shadow-lg">
           {options.map((o) => (
             <li
               key={o.placeId}
-              className="p-2 cursor-pointer hover:bg-gray-100"
+              className="px-3 py-2 cursor-pointer hover:bg-blue-50 text-sm text-gray-700 transition-colors"
               onMouseDown={() => handleSelect(o.placeId, o.description)}
             >
               {o.description}
             </li>
           ))}
         </ul>
+      )}
+      {isFocused && query.length >= 3 && options.length === 0 && (
+        <div className="absolute z-20 mt-1 border border-gray-200 bg-white w-full rounded-lg shadow-lg px-3 py-2 text-sm text-gray-500">
+          No results found
+        </div>
       )}
     </div>
   );

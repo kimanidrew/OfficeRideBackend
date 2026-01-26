@@ -151,6 +151,82 @@ export async function GET() {
   }
 }
 
+/* ================= PUT (EDIT ROUTE) ================= */
+
+export async function PUT(req: Request) {
+  try {
+    const apiKey = process.env.GOOGLE_MAPS_API_KEY!;
+    const { routeId, start, end, via } = await req.json();
+
+    if (!routeId || !start || !end) {
+      return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+    }
+
+    const route = await prisma.route.findUnique({
+      where: { id: routeId },
+    });
+
+    if (!route) {
+      return NextResponse.json({ error: "Route not found" }, { status: 404 });
+    }
+
+    const startLoc = await findOrCreateLocation(route.companyId, start);
+    const endLoc = await findOrCreateLocation(route.companyId, end);
+
+    const viaLocs = [];
+    for (const v of via || []) {
+      const loc = await findOrCreateLocation(route.companyId, v);
+      viaLocs.push(loc);
+    }
+
+    const distance = await calculateDistance(
+      startLoc,
+      endLoc,
+      viaLocs,
+      apiKey
+    );
+
+    await prisma.route.update({
+      where: { id: routeId },
+      data: {
+        startLocationId: startLoc.id,
+        endLocationId: endLoc.id,
+        distance,
+      },
+    });
+
+    await prisma.routeStop.deleteMany({
+      where: { routeId },
+    });
+
+    for (let i = 0; i < viaLocs.length; i++) {
+      await prisma.routeStop.create({
+        data: {
+          routeId,
+          locationId: viaLocs[i].id,
+          order: i,
+        },
+      });
+    }
+
+    const full = await prisma.route.findUnique({
+      where: { id: routeId },
+      include: {
+        company: true,
+        admin: true,
+        startLocation: true,
+        endLocation: true,
+        stops: { include: { location: true }, orderBy: { order: "asc" } },
+      },
+    });
+
+    return NextResponse.json(full);
+  } catch (err) {
+    console.error("PUT failed:", err);
+    return NextResponse.json({ error: "Failed to update route" }, { status: 500 });
+  }
+}
+
 // -----------------------------
 // DELETE: Remove a route
 // -----------------------------

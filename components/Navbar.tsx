@@ -20,7 +20,7 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const transparentPages = ["/", "/login", "/signup", "/about"];
+  const transparentPages = ["/n", "/n", "/n", "/about"];
   const isTransparentPage = transparentPages.includes(pathname);
   const isTransparent = isTransparentPage && isTop;
 

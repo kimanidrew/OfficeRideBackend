@@ -1,67 +1,101 @@
 "use client";
-import React, { useState } from "react";
-import { IoChevronDown, IoChevronUp } from "react-icons/io5"; // Ionicons chevrons
+import React, { useState, useRef, useEffect } from "react";
+
+interface Option {
+  value: string;
+  label: string;
+}
 
 interface CustomSelectProps {
-  options: string[];
+  value: string;
+  options: Option[];
   placeholder?: string;
-  onChange?: (value: string) => void;
-  bgColor?: string;   // Tailwind background color class
-  textColor?: string; // Tailwind text color class
-  icon?: React.ReactNode;
+  onChange: (v: string) => void;
+  searchable?: boolean; // optional search input
 }
 
 export default function CustomSelect({
+  value,
   options,
-  placeholder,
+  placeholder = "Select",
   onChange,
-  bgColor = "bg-white",
-  textColor = "text-black",
-  icon,
+  searchable = false,
 }: CustomSelectProps) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState<string>("");
+  const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const [filteredOptions, setFilteredOptions] = useState(options);
+  const ref = useRef<HTMLDivElement>(null);
 
-  const handleSelect = (option: string) => {
-    setSelected(option);
-    setIsOpen(false);
-    if (onChange) onChange(option);
-  };
+  const selected = options.find((o) => o.value === value);
+
+  // Filter options if searchable
+  useEffect(() => {
+    if (searchable && query) {
+      setFilteredOptions(
+        options.filter((o) =>
+          o.label.toLowerCase().includes(query.toLowerCase())
+        )
+      );
+    } else {
+      setFilteredOptions(options);
+    }
+  }, [query, options, searchable]);
+
+  // Close dropdown if clicked outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
-    <div className="relative w-full">
-      {/* Button */}
+    <div className="relative w-full" ref={ref}>
       <button
         type="button"
-        onClick={() => setIsOpen(!isOpen)}
-        className={`w-full pl-5 pr-10 py-4 flex items-center justify-between border-2 border-gray-700 focus:border-white rounded-full font-[600] text-left focus:outline-none focus:ring-2 focus:ring-green-600 bg-transparent text-gray-500 focus:${textColor}`}
+        onClick={() => setOpen((prev) => !prev)}
+        className="w-full flex justify-between items-center px-4 py-3 text-sm font-semibold rounded-md shadow-sm bg-white text-gray-700 hover:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1 transition"
       >
-        <span className="flex items-center space-x-2">
-          {icon && <span>{icon}</span>}
-          <span>{selected || placeholder || "Select an option"}</span>
+        <span className={selected ? "text-gray-900" : "text-gray-400"}>
+          {selected?.label || placeholder}
         </span>
-        {isOpen ? (
-          <IoChevronUp className="ml-2 text-gray-500" size={20} />
-        ) : (
-          <IoChevronDown className="ml-2 text-gray-500" size={20} />
-        )}
+        <span className={`transition-transform ${open ? "rotate-180" : ""}`}>▾</span>
       </button>
 
-      {/* Dropdown */}
-      {isOpen && (
-        <ul
-          className={`absolute mt-2 py-3 w-full shadow-lg rounded-lg z-10 ${bgColor} backdrop-opacity-90 backdrop-blur-3xl ${textColor}`}
-        >
-          {options.map((option, idx) => (
-            <li
-              key={idx}
-              onClick={() => handleSelect(option)}
-              className={`px-6 py-3 cursor-pointer bg-transparent hover:bg-[#2e7d32] transition`}
-            >
-              {option}
-            </li>
-          ))}
-        </ul>
+      {open && (
+        <div className="absolute z-50 w-full mt-1 bg-white border border-gray-200 rounded-md shadow-lg max-h-60 overflow-y-auto">
+          {searchable && (
+            <div className="p-2">
+              <input
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search..."
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 shadow-sm text-sm"
+              />
+            </div>
+          )}
+          {filteredOptions.length > 0 ? (
+            filteredOptions.map((o) => (
+              <div
+                key={o.value}
+                className="font-semibold text-sm px-4 py-2 cursor-pointer hover:bg-indigo-50 hover:text-indigo-700 text-sm transition-colors"
+                onMouseDown={() => {
+                  onChange(o.value);
+                  setOpen(false);
+                  setQuery("");
+                }}
+              >
+                {o.label}
+              </div>
+            ))
+          ) : (
+            <div className="px-4 py-2 text-gray-500 text-sm">No options found</div>
+          )}
+        </div>
       )}
     </div>
   );
