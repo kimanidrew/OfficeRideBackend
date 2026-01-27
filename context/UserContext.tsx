@@ -29,24 +29,45 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [token, setTokenState] = useState<string | null>(null);
 
   // Hydrate from localStorage on mount
-useEffect(() => {
-  const storedUser = localStorage.getItem("user");
-  const storedToken = localStorage.getItem("token");
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    const storedToken = localStorage.getItem("token");
 
-  if (storedUser) {
-    setUserState(JSON.parse(storedUser));
-  } else {
-    // only redirect if not already on /login
-    if (window.location.pathname !== "/login") {
-      window.location.href = "/login";
+    if (storedUser) {
+      const parsedUser = JSON.parse(storedUser);
+      setUserState(parsedUser);
+    } else {
+      if (window.location.pathname !== "/login") {
+        window.location.href = "/login";
+      }
     }
-  }
 
-  if (storedToken) {
-    setTokenState(storedToken);
-  }
-}, []);
+    if (storedToken) {
+      setTokenState(storedToken);
+    }
 
+    // 🔹 Validate user against backend
+    if (storedToken) {
+      fetch("/api/auth/user", {
+        headers: {
+          Authorization: `Bearer ${storedToken}`,
+        },
+      })
+        .then((res) => {
+          if (!res.ok) throw new Error("Invalid user");
+          return res.json();
+        })
+        .then((data) => {
+          // backend should return user object
+          if (!data?.user) {
+            logout();
+          }
+        })
+        .catch(() => {
+          logout();
+        });
+    }
+  }, []);
 
   const setUser = (user: User | null) => {
     setUserState(user);
@@ -54,7 +75,6 @@ useEffect(() => {
       localStorage.setItem("user", JSON.stringify(user));
     } else {
       localStorage.removeItem("user");
-      // redirect if user is cleared
       window.location.href = "/login";
     }
   };

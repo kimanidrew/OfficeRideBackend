@@ -111,18 +111,15 @@ export default function RoutesList({
     }
   };
 
- const filteredRoutes = Array.isArray(routes)
-  ? routes.filter((r) => {
-      const q = searchQuery.toLowerCase();
-      return (
-        r.startLocation.name.toLowerCase().includes(q) ||
-        r.endLocation.name.toLowerCase().includes(q) ||
-        r.stops.some((s) => s.location.name.toLowerCase().includes(q)) ||
-        r.company.companyName.toLowerCase().includes(q)
-      );
-    })
-  : [];
-
+  const filteredRoutes = routes.filter((r) => {
+    const q = searchQuery.toLowerCase();
+    return (
+      r.startLocation.name.toLowerCase().includes(q) ||
+      r.endLocation.name.toLowerCase().includes(q) ||
+      r.stops.some((s) => s.location.name.toLowerCase().includes(q)) ||
+      r.company.companyName.toLowerCase().includes(q)
+    );
+  });
 
   const totalPages = Math.ceil(filteredRoutes.length / routesPerPage);
   const startIndex = (currentPage - 1) * routesPerPage;

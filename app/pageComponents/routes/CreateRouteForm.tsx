@@ -89,7 +89,7 @@ export default function CreateRouteForm({ userId, onCreated }: { userId?: string
           <LocationSearch label="Add New Office Location" value="" onSelect={loc => setStartLocation({ ...loc, type: "office" })} resetSignal={resetSearch} />
         </>
       ) : (
-        <LocationSearch label="Other locations" value="" onSelect={loc => setStartLocation({ ...loc, type: "custom" })} resetSignal={resetSearch} />
+        <LocationSearch label="Other location" value="" onSelect={loc => setStartLocation({ ...loc, type: "custom" })} resetSignal={resetSearch} />
       )}
 
       {viaLocations.map((_, i) => (
