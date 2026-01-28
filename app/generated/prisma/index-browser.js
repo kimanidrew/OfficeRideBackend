@@ -128,7 +128,8 @@ exports.Prisma.UserScalarFieldEnum = {
   email: 'email',
   passwordHash: 'passwordHash',
   role: 'role',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  profilePicUrl: 'profilePicUrl'
 };
 
 exports.Prisma.DriverScalarFieldEnum = {

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function DriversPage() {
   const [drivers, setDrivers] = useState<any[]>([]);
@@ -12,6 +13,7 @@ export default function DriversPage() {
     password: "",
     licenseNumber: "",
   });
+  const router = useRouter();
 
   const loadDrivers = async () => {
     const res = await fetch("/api/drivers");
@@ -53,6 +55,7 @@ export default function DriversPage() {
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">Driver Management</h1>
 
+      {/* Create Driver Form */}
       <div className="mb-6 space-y-2">
         <input
           placeholder="First Name"
@@ -99,10 +102,15 @@ export default function DriversPage() {
         </button>
       </div>
 
+      {/* Driver List */}
       <h2 className="text-xl font-semibold mb-2">Driver List</h2>
       <ul className="space-y-3">
         {drivers.map((d) => (
-          <li key={d.id} className="border p-3 rounded flex justify-between items-center">
+          <li
+            key={d.id}
+            className="border p-3 rounded flex justify-between items-center cursor-pointer hover:bg-gray-100"
+            onClick={() => router.push(`/drivers/driver?driverId=${d.id}`)}
+          >
             <div>
               <p className="font-bold">
                 {d.user.firstName}
@@ -119,7 +127,10 @@ export default function DriversPage() {
             </div>
             {!d.verified && (
               <button
-                onClick={() => verifyDriver(d.id)}
+                onClick={(e) => {
+                  e.stopPropagation(); // prevent navigation
+                  verifyDriver(d.id);
+                }}
                 className="bg-green-600 text-white px-3 py-1 rounded"
               >
                 Verify

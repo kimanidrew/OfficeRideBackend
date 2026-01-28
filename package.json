@@ -17,9 +17,10 @@
     "next": "16.1.4",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "react-icons": "^5.5.0"
+    "react-icons": "^5.5.0",
+    "uuid": "^13.0.0"
   },
-  "devDependencies": { 
+  "devDependencies": {
     "@prisma/client": "^7.2.0",
     "@tailwindcss/postcss": "^4",
     "@types/jsonwebtoken": "^9.0.10",

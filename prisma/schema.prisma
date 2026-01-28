@@ -16,6 +16,7 @@ model User {
   passwordHash String?
   role         Role
   createdAt    DateTime @default(now())
+  profilePicUrl String?
   driverProfile Driver?
   bookings     Booking[]  @relation("RiderBookings")
   feedbackReceived Feedback[] @relation("FeedbackReceived")

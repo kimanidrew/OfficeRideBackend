@@ -2374,6 +2374,7 @@ export namespace Prisma {
     passwordHash: string | null
     role: $Enums.Role | null
     createdAt: Date | null
+    profilePicUrl: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -2385,6 +2386,7 @@ export namespace Prisma {
     passwordHash: string | null
     role: $Enums.Role | null
     createdAt: Date | null
+    profilePicUrl: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -2396,6 +2398,7 @@ export namespace Prisma {
     passwordHash: number
     role: number
     createdAt: number
+    profilePicUrl: number
     _all: number
   }
 
@@ -2409,6 +2412,7 @@ export namespace Prisma {
     passwordHash?: true
     role?: true
     createdAt?: true
+    profilePicUrl?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -2420,6 +2424,7 @@ export namespace Prisma {
     passwordHash?: true
     role?: true
     createdAt?: true
+    profilePicUrl?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -2431,6 +2436,7 @@ export namespace Prisma {
     passwordHash?: true
     role?: true
     createdAt?: true
+    profilePicUrl?: true
     _all?: true
   }
 
@@ -2515,6 +2521,7 @@ export namespace Prisma {
     passwordHash: string | null
     role: $Enums.Role
     createdAt: Date
+    profilePicUrl: string | null
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -2543,6 +2550,7 @@ export namespace Prisma {
     passwordHash?: boolean
     role?: boolean
     createdAt?: boolean
+    profilePicUrl?: boolean
     driverProfile?: boolean | User$driverProfileArgs<ExtArgs>
     bookings?: boolean | User$bookingsArgs<ExtArgs>
     feedbackReceived?: boolean | User$feedbackReceivedArgs<ExtArgs>
@@ -2559,6 +2567,7 @@ export namespace Prisma {
     passwordHash?: boolean
     role?: boolean
     createdAt?: boolean
+    profilePicUrl?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2570,6 +2579,7 @@ export namespace Prisma {
     passwordHash?: boolean
     role?: boolean
     createdAt?: boolean
+    profilePicUrl?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -2581,9 +2591,10 @@ export namespace Prisma {
     passwordHash?: boolean
     role?: boolean
     createdAt?: boolean
+    profilePicUrl?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "firstName" | "middleName" | "lastName" | "email" | "passwordHash" | "role" | "createdAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "firstName" | "middleName" | "lastName" | "email" | "passwordHash" | "role" | "createdAt" | "profilePicUrl", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     driverProfile?: boolean | User$driverProfileArgs<ExtArgs>
     bookings?: boolean | User$bookingsArgs<ExtArgs>
@@ -2611,6 +2622,7 @@ export namespace Prisma {
       passwordHash: string | null
       role: $Enums.Role
       createdAt: Date
+      profilePicUrl: string | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -3046,6 +3058,7 @@ export namespace Prisma {
     readonly passwordHash: FieldRef<"User", 'String'>
     readonly role: FieldRef<"User", 'Role'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
+    readonly profilePicUrl: FieldRef<"User", 'String'>
   }
     
 
@@ -17085,7 +17098,8 @@ export namespace Prisma {
     email: 'email',
     passwordHash: 'passwordHash',
     role: 'role',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    profilePicUrl: 'profilePicUrl'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -17487,6 +17501,7 @@ export namespace Prisma {
     passwordHash?: StringNullableFilter<"User"> | string | null
     role?: EnumRoleFilter<"User"> | $Enums.Role
     createdAt?: DateTimeFilter<"User"> | Date | string
+    profilePicUrl?: StringNullableFilter<"User"> | string | null
     driverProfile?: XOR<DriverNullableScalarRelationFilter, DriverWhereInput> | null
     bookings?: BookingListRelationFilter
     feedbackReceived?: FeedbackListRelationFilter
@@ -17502,6 +17517,7 @@ export namespace Prisma {
     passwordHash?: SortOrderInput | SortOrder
     role?: SortOrder
     createdAt?: SortOrder
+    profilePicUrl?: SortOrderInput | SortOrder
     driverProfile?: DriverOrderByWithRelationInput
     bookings?: BookingOrderByRelationAggregateInput
     feedbackReceived?: FeedbackOrderByRelationAggregateInput
@@ -17520,6 +17536,7 @@ export namespace Prisma {
     passwordHash?: StringNullableFilter<"User"> | string | null
     role?: EnumRoleFilter<"User"> | $Enums.Role
     createdAt?: DateTimeFilter<"User"> | Date | string
+    profilePicUrl?: StringNullableFilter<"User"> | string | null
     driverProfile?: XOR<DriverNullableScalarRelationFilter, DriverWhereInput> | null
     bookings?: BookingListRelationFilter
     feedbackReceived?: FeedbackListRelationFilter
@@ -17535,6 +17552,7 @@ export namespace Prisma {
     passwordHash?: SortOrderInput | SortOrder
     role?: SortOrder
     createdAt?: SortOrder
+    profilePicUrl?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -17552,6 +17570,7 @@ export namespace Prisma {
     passwordHash?: StringNullableWithAggregatesFilter<"User"> | string | null
     role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    profilePicUrl?: StringNullableWithAggregatesFilter<"User"> | string | null
   }
 
   export type DriverWhereInput = {
@@ -18367,6 +18386,7 @@ export namespace Prisma {
     passwordHash?: string | null
     role: $Enums.Role
     createdAt?: Date | string
+    profilePicUrl?: string | null
     driverProfile?: DriverCreateNestedOneWithoutUserInput
     bookings?: BookingCreateNestedManyWithoutRiderInput
     feedbackReceived?: FeedbackCreateNestedManyWithoutRateeInput
@@ -18382,6 +18402,7 @@ export namespace Prisma {
     passwordHash?: string | null
     role: $Enums.Role
     createdAt?: Date | string
+    profilePicUrl?: string | null
     driverProfile?: DriverUncheckedCreateNestedOneWithoutUserInput
     bookings?: BookingUncheckedCreateNestedManyWithoutRiderInput
     feedbackReceived?: FeedbackUncheckedCreateNestedManyWithoutRateeInput
@@ -18397,6 +18418,7 @@ export namespace Prisma {
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    profilePicUrl?: NullableStringFieldUpdateOperationsInput | string | null
     driverProfile?: DriverUpdateOneWithoutUserNestedInput
     bookings?: BookingUpdateManyWithoutRiderNestedInput
     feedbackReceived?: FeedbackUpdateManyWithoutRateeNestedInput
@@ -18412,6 +18434,7 @@ export namespace Prisma {
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    profilePicUrl?: NullableStringFieldUpdateOperationsInput | string | null
     driverProfile?: DriverUncheckedUpdateOneWithoutUserNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutRiderNestedInput
     feedbackReceived?: FeedbackUncheckedUpdateManyWithoutRateeNestedInput
@@ -18427,6 +18450,7 @@ export namespace Prisma {
     passwordHash?: string | null
     role: $Enums.Role
     createdAt?: Date | string
+    profilePicUrl?: string | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -18438,6 +18462,7 @@ export namespace Prisma {
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    profilePicUrl?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -18449,6 +18474,7 @@ export namespace Prisma {
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    profilePicUrl?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type DriverCreateInput = {
@@ -19350,6 +19376,7 @@ export namespace Prisma {
     passwordHash?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
+    profilePicUrl?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -19361,6 +19388,7 @@ export namespace Prisma {
     passwordHash?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
+    profilePicUrl?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -19372,6 +19400,7 @@ export namespace Prisma {
     passwordHash?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
+    profilePicUrl?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -21706,6 +21735,7 @@ export namespace Prisma {
     passwordHash?: string | null
     role: $Enums.Role
     createdAt?: Date | string
+    profilePicUrl?: string | null
     bookings?: BookingCreateNestedManyWithoutRiderInput
     feedbackReceived?: FeedbackCreateNestedManyWithoutRateeInput
     feedbackGiven?: FeedbackCreateNestedManyWithoutRaterInput
@@ -21720,6 +21750,7 @@ export namespace Prisma {
     passwordHash?: string | null
     role: $Enums.Role
     createdAt?: Date | string
+    profilePicUrl?: string | null
     bookings?: BookingUncheckedCreateNestedManyWithoutRiderInput
     feedbackReceived?: FeedbackUncheckedCreateNestedManyWithoutRateeInput
     feedbackGiven?: FeedbackUncheckedCreateNestedManyWithoutRaterInput
@@ -21844,6 +21875,7 @@ export namespace Prisma {
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    profilePicUrl?: NullableStringFieldUpdateOperationsInput | string | null
     bookings?: BookingUpdateManyWithoutRiderNestedInput
     feedbackReceived?: FeedbackUpdateManyWithoutRateeNestedInput
     feedbackGiven?: FeedbackUpdateManyWithoutRaterNestedInput
@@ -21858,6 +21890,7 @@ export namespace Prisma {
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    profilePicUrl?: NullableStringFieldUpdateOperationsInput | string | null
     bookings?: BookingUncheckedUpdateManyWithoutRiderNestedInput
     feedbackReceived?: FeedbackUncheckedUpdateManyWithoutRateeNestedInput
     feedbackGiven?: FeedbackUncheckedUpdateManyWithoutRaterNestedInput
@@ -22237,6 +22270,7 @@ export namespace Prisma {
     passwordHash?: string | null
     role: $Enums.Role
     createdAt?: Date | string
+    profilePicUrl?: string | null
     driverProfile?: DriverCreateNestedOneWithoutUserInput
     feedbackReceived?: FeedbackCreateNestedManyWithoutRateeInput
     feedbackGiven?: FeedbackCreateNestedManyWithoutRaterInput
@@ -22251,6 +22285,7 @@ export namespace Prisma {
     passwordHash?: string | null
     role: $Enums.Role
     createdAt?: Date | string
+    profilePicUrl?: string | null
     driverProfile?: DriverUncheckedCreateNestedOneWithoutUserInput
     feedbackReceived?: FeedbackUncheckedCreateNestedManyWithoutRateeInput
     feedbackGiven?: FeedbackUncheckedCreateNestedManyWithoutRaterInput
@@ -22341,6 +22376,7 @@ export namespace Prisma {
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    profilePicUrl?: NullableStringFieldUpdateOperationsInput | string | null
     driverProfile?: DriverUpdateOneWithoutUserNestedInput
     feedbackReceived?: FeedbackUpdateManyWithoutRateeNestedInput
     feedbackGiven?: FeedbackUpdateManyWithoutRaterNestedInput
@@ -22355,6 +22391,7 @@ export namespace Prisma {
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    profilePicUrl?: NullableStringFieldUpdateOperationsInput | string | null
     driverProfile?: DriverUncheckedUpdateOneWithoutUserNestedInput
     feedbackReceived?: FeedbackUncheckedUpdateManyWithoutRateeNestedInput
     feedbackGiven?: FeedbackUncheckedUpdateManyWithoutRaterNestedInput
@@ -22450,6 +22487,7 @@ export namespace Prisma {
     passwordHash?: string | null
     role: $Enums.Role
     createdAt?: Date | string
+    profilePicUrl?: string | null
     driverProfile?: DriverCreateNestedOneWithoutUserInput
     bookings?: BookingCreateNestedManyWithoutRiderInput
     feedbackGiven?: FeedbackCreateNestedManyWithoutRaterInput
@@ -22464,6 +22502,7 @@ export namespace Prisma {
     passwordHash?: string | null
     role: $Enums.Role
     createdAt?: Date | string
+    profilePicUrl?: string | null
     driverProfile?: DriverUncheckedCreateNestedOneWithoutUserInput
     bookings?: BookingUncheckedCreateNestedManyWithoutRiderInput
     feedbackGiven?: FeedbackUncheckedCreateNestedManyWithoutRaterInput
@@ -22483,6 +22522,7 @@ export namespace Prisma {
     passwordHash?: string | null
     role: $Enums.Role
     createdAt?: Date | string
+    profilePicUrl?: string | null
     driverProfile?: DriverCreateNestedOneWithoutUserInput
     bookings?: BookingCreateNestedManyWithoutRiderInput
     feedbackReceived?: FeedbackCreateNestedManyWithoutRateeInput
@@ -22497,6 +22537,7 @@ export namespace Prisma {
     passwordHash?: string | null
     role: $Enums.Role
     createdAt?: Date | string
+    profilePicUrl?: string | null
     driverProfile?: DriverUncheckedCreateNestedOneWithoutUserInput
     bookings?: BookingUncheckedCreateNestedManyWithoutRiderInput
     feedbackReceived?: FeedbackUncheckedCreateNestedManyWithoutRateeInput
@@ -22558,6 +22599,7 @@ export namespace Prisma {
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    profilePicUrl?: NullableStringFieldUpdateOperationsInput | string | null
     driverProfile?: DriverUpdateOneWithoutUserNestedInput
     bookings?: BookingUpdateManyWithoutRiderNestedInput
     feedbackGiven?: FeedbackUpdateManyWithoutRaterNestedInput
@@ -22572,6 +22614,7 @@ export namespace Prisma {
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    profilePicUrl?: NullableStringFieldUpdateOperationsInput | string | null
     driverProfile?: DriverUncheckedUpdateOneWithoutUserNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutRiderNestedInput
     feedbackGiven?: FeedbackUncheckedUpdateManyWithoutRaterNestedInput
@@ -22597,6 +22640,7 @@ export namespace Prisma {
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    profilePicUrl?: NullableStringFieldUpdateOperationsInput | string | null
     driverProfile?: DriverUpdateOneWithoutUserNestedInput
     bookings?: BookingUpdateManyWithoutRiderNestedInput
     feedbackReceived?: FeedbackUpdateManyWithoutRateeNestedInput
@@ -22611,6 +22655,7 @@ export namespace Prisma {
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    profilePicUrl?: NullableStringFieldUpdateOperationsInput | string | null
     driverProfile?: DriverUncheckedUpdateOneWithoutUserNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutRiderNestedInput
     feedbackReceived?: FeedbackUncheckedUpdateManyWithoutRateeNestedInput
