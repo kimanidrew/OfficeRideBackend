@@ -109,7 +109,7 @@ export default function DriversPage() {
           <li
             key={d.id}
             className="border p-3 rounded flex justify-between items-center cursor-pointer hover:bg-gray-100"
-            onClick={() => router.push(`/drivers/driver?driverId=${d.id}`)}
+            onClick={() => router.push(`/drivers/${d.id}`)}
           >
             <div>
               <p className="font-bold">

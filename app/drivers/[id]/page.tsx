@@ -1,12 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
-import { FaUserCircle, FaFileAlt, FaCheckCircle, FaTimesCircle, FaUpload, FaEdit } from "react-icons/fa";
+import {
+  FaUserCircle,
+  FaFileAlt,
+  FaCheckCircle,
+  FaTimesCircle,
+  FaUpload,
+  FaEdit,
+} from "react-icons/fa";
 
-export default function DriverDetailPage() {
-  const searchParams = useSearchParams();
-  const driverId = searchParams.get("driverId");
+export default function DriverDetailPage({ params }: { params: { id: string } }) {
+  const driverId = params.id;
   const [driver, setDriver] = useState<any>(null);
   const [form, setForm] = useState({
     firstName: "",
@@ -20,7 +25,6 @@ export default function DriverDetailPage() {
   const [newDoc, setNewDoc] = useState({ type: "", file: null as File | null });
 
   useEffect(() => {
-    if (!driverId) return;
     const loadDriver = async () => {
       const res = await fetch(`/api/drivers/detail?driverId=${driverId}`);
       const data = await res.json();
@@ -43,7 +47,11 @@ export default function DriverDetailPage() {
     if (form.profilePicFile) {
       const fd = new FormData();
       fd.append("file", form.profilePicFile);
-      const uploadRes = await fetch("/api/upload", { method: "POST", body: fd });
+      fd.append("userId", driver.user.id);
+      const uploadRes = await fetch("/api/upload-profile-picture", {
+        method: "POST",
+        body: fd,
+      });
       const uploadData = await uploadRes.json();
       profilePicUrl = uploadData.url;
     }
@@ -89,7 +97,6 @@ export default function DriverDetailPage() {
     setDriver(await res.json());
   };
 
-  if (!driverId) return <p>No driver selected</p>;
   if (!driver) return <p>Loading...</p>;
 
   return (
