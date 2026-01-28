@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
       lastName,
       email,
       passwordHash: hashedPassword,
-      role: "driver",
+      role: "driver", // ✅ must match Role enum
       driverProfile: {
         create: { licenseNumber },
       },
@@ -28,7 +28,39 @@ export async function POST(req: NextRequest) {
 
 export async function GET() {
   const drivers = await prisma.driver.findMany({
-    include: { user: true, documents: true },
+    include: {
+      user: {
+        select: {
+          id: true,
+          firstName: true,
+          middleName: true,
+          lastName: true,
+          email: true,
+          profilePicUrl: true,
+        },
+      },
+      documents: {
+        select: {
+          id: true,
+          type: true,
+          fileUrl: true,
+          verified: true,
+          uploadedAt: true,
+        },
+      },
+      vehicles: {
+        select: {
+          id: true,
+          make: true,
+          model: true,
+          year: true,
+          plateNumber: true,
+          color: true,
+          verified: true,
+        },
+      },
+    },
   });
+
   return NextResponse.json(drivers);
 }
