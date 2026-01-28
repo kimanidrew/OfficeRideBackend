@@ -2116,15 +2116,15 @@ export namespace Prisma {
    */
 
   export type DriverCountOutputType = {
+    documents: number
     rides: number
     vehicles: number
-    documents: number
   }
 
   export type DriverCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    documents?: boolean | DriverCountOutputTypeCountDocumentsArgs
     rides?: boolean | DriverCountOutputTypeCountRidesArgs
     vehicles?: boolean | DriverCountOutputTypeCountVehiclesArgs
-    documents?: boolean | DriverCountOutputTypeCountDocumentsArgs
   }
 
   // Custom InputTypes
@@ -2141,6 +2141,13 @@ export namespace Prisma {
   /**
    * DriverCountOutputType without action
    */
+  export type DriverCountOutputTypeCountDocumentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DriverDocumentWhereInput
+  }
+
+  /**
+   * DriverCountOutputType without action
+   */
   export type DriverCountOutputTypeCountRidesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: RideWhereInput
   }
@@ -2150,13 +2157,6 @@ export namespace Prisma {
    */
   export type DriverCountOutputTypeCountVehiclesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: VehicleWhereInput
-  }
-
-  /**
-   * DriverCountOutputType without action
-   */
-  export type DriverCountOutputTypeCountDocumentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: DriverDocumentWhereInput
   }
 
 
@@ -2361,18 +2361,8 @@ export namespace Prisma {
 
   export type AggregateUser = {
     _count: UserCountAggregateOutputType | null
-    _avg: UserAvgAggregateOutputType | null
-    _sum: UserSumAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
-  }
-
-  export type UserAvgAggregateOutputType = {
-    rating: number | null
-  }
-
-  export type UserSumAggregateOutputType = {
-    rating: number | null
   }
 
   export type UserMinAggregateOutputType = {
@@ -2383,8 +2373,6 @@ export namespace Prisma {
     email: string | null
     passwordHash: string | null
     role: $Enums.Role | null
-    profilePicUrl: string | null
-    rating: number | null
     createdAt: Date | null
   }
 
@@ -2396,8 +2384,6 @@ export namespace Prisma {
     email: string | null
     passwordHash: string | null
     role: $Enums.Role | null
-    profilePicUrl: string | null
-    rating: number | null
     createdAt: Date | null
   }
 
@@ -2409,23 +2395,10 @@ export namespace Prisma {
     email: number
     passwordHash: number
     role: number
-    profilePicUrl: number
-    homeLocation: number
-    workLocation: number
-    schedule: number
-    rating: number
     createdAt: number
     _all: number
   }
 
-
-  export type UserAvgAggregateInputType = {
-    rating?: true
-  }
-
-  export type UserSumAggregateInputType = {
-    rating?: true
-  }
 
   export type UserMinAggregateInputType = {
     id?: true
@@ -2435,8 +2408,6 @@ export namespace Prisma {
     email?: true
     passwordHash?: true
     role?: true
-    profilePicUrl?: true
-    rating?: true
     createdAt?: true
   }
 
@@ -2448,8 +2419,6 @@ export namespace Prisma {
     email?: true
     passwordHash?: true
     role?: true
-    profilePicUrl?: true
-    rating?: true
     createdAt?: true
   }
 
@@ -2461,11 +2430,6 @@ export namespace Prisma {
     email?: true
     passwordHash?: true
     role?: true
-    profilePicUrl?: true
-    homeLocation?: true
-    workLocation?: true
-    schedule?: true
-    rating?: true
     createdAt?: true
     _all?: true
   }
@@ -2508,18 +2472,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: UserAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: UserSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: UserMinAggregateInputType
@@ -2550,8 +2502,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: UserCountAggregateInputType | true
-    _avg?: UserAvgAggregateInputType
-    _sum?: UserSumAggregateInputType
     _min?: UserMinAggregateInputType
     _max?: UserMaxAggregateInputType
   }
@@ -2564,15 +2514,8 @@ export namespace Prisma {
     email: string
     passwordHash: string | null
     role: $Enums.Role
-    profilePicUrl: string | null
-    homeLocation: JsonValue | null
-    workLocation: JsonValue | null
-    schedule: JsonValue | null
-    rating: number | null
     createdAt: Date
     _count: UserCountAggregateOutputType | null
-    _avg: UserAvgAggregateOutputType | null
-    _sum: UserSumAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
   }
@@ -2599,16 +2542,11 @@ export namespace Prisma {
     email?: boolean
     passwordHash?: boolean
     role?: boolean
-    profilePicUrl?: boolean
-    homeLocation?: boolean
-    workLocation?: boolean
-    schedule?: boolean
-    rating?: boolean
     createdAt?: boolean
+    driverProfile?: boolean | User$driverProfileArgs<ExtArgs>
     bookings?: boolean | User$bookingsArgs<ExtArgs>
     feedbackReceived?: boolean | User$feedbackReceivedArgs<ExtArgs>
     feedbackGiven?: boolean | User$feedbackGivenArgs<ExtArgs>
-    driverProfile?: boolean | User$driverProfileArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2620,11 +2558,6 @@ export namespace Prisma {
     email?: boolean
     passwordHash?: boolean
     role?: boolean
-    profilePicUrl?: boolean
-    homeLocation?: boolean
-    workLocation?: boolean
-    schedule?: boolean
-    rating?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["user"]>
 
@@ -2636,11 +2569,6 @@ export namespace Prisma {
     email?: boolean
     passwordHash?: boolean
     role?: boolean
-    profilePicUrl?: boolean
-    homeLocation?: boolean
-    workLocation?: boolean
-    schedule?: boolean
-    rating?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["user"]>
 
@@ -2652,20 +2580,15 @@ export namespace Prisma {
     email?: boolean
     passwordHash?: boolean
     role?: boolean
-    profilePicUrl?: boolean
-    homeLocation?: boolean
-    workLocation?: boolean
-    schedule?: boolean
-    rating?: boolean
     createdAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "firstName" | "middleName" | "lastName" | "email" | "passwordHash" | "role" | "profilePicUrl" | "homeLocation" | "workLocation" | "schedule" | "rating" | "createdAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "firstName" | "middleName" | "lastName" | "email" | "passwordHash" | "role" | "createdAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    driverProfile?: boolean | User$driverProfileArgs<ExtArgs>
     bookings?: boolean | User$bookingsArgs<ExtArgs>
     feedbackReceived?: boolean | User$feedbackReceivedArgs<ExtArgs>
     feedbackGiven?: boolean | User$feedbackGivenArgs<ExtArgs>
-    driverProfile?: boolean | User$driverProfileArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2674,10 +2597,10 @@ export namespace Prisma {
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
+      driverProfile: Prisma.$DriverPayload<ExtArgs> | null
       bookings: Prisma.$BookingPayload<ExtArgs>[]
       feedbackReceived: Prisma.$FeedbackPayload<ExtArgs>[]
       feedbackGiven: Prisma.$FeedbackPayload<ExtArgs>[]
-      driverProfile: Prisma.$DriverPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2687,11 +2610,6 @@ export namespace Prisma {
       email: string
       passwordHash: string | null
       role: $Enums.Role
-      profilePicUrl: string | null
-      homeLocation: Prisma.JsonValue | null
-      workLocation: Prisma.JsonValue | null
-      schedule: Prisma.JsonValue | null
-      rating: number | null
       createdAt: Date
     }, ExtArgs["result"]["user"]>
     composites: {}
@@ -3087,10 +3005,10 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    driverProfile<T extends User$driverProfileArgs<ExtArgs> = {}>(args?: Subset<T, User$driverProfileArgs<ExtArgs>>): Prisma__DriverClient<$Result.GetResult<Prisma.$DriverPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     bookings<T extends User$bookingsArgs<ExtArgs> = {}>(args?: Subset<T, User$bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     feedbackReceived<T extends User$feedbackReceivedArgs<ExtArgs> = {}>(args?: Subset<T, User$feedbackReceivedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FeedbackPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     feedbackGiven<T extends User$feedbackGivenArgs<ExtArgs> = {}>(args?: Subset<T, User$feedbackGivenArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FeedbackPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    driverProfile<T extends User$driverProfileArgs<ExtArgs> = {}>(args?: Subset<T, User$driverProfileArgs<ExtArgs>>): Prisma__DriverClient<$Result.GetResult<Prisma.$DriverPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3127,11 +3045,6 @@ export namespace Prisma {
     readonly email: FieldRef<"User", 'String'>
     readonly passwordHash: FieldRef<"User", 'String'>
     readonly role: FieldRef<"User", 'Role'>
-    readonly profilePicUrl: FieldRef<"User", 'String'>
-    readonly homeLocation: FieldRef<"User", 'Json'>
-    readonly workLocation: FieldRef<"User", 'Json'>
-    readonly schedule: FieldRef<"User", 'Json'>
-    readonly rating: FieldRef<"User", 'Float'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
   }
     
@@ -3521,6 +3434,25 @@ export namespace Prisma {
   }
 
   /**
+   * User.driverProfile
+   */
+  export type User$driverProfileArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Driver
+     */
+    select?: DriverSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Driver
+     */
+    omit?: DriverOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DriverInclude<ExtArgs> | null
+    where?: DriverWhereInput
+  }
+
+  /**
    * User.bookings
    */
   export type User$bookingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3593,25 +3525,6 @@ export namespace Prisma {
   }
 
   /**
-   * User.driverProfile
-   */
-  export type User$driverProfileArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Driver
-     */
-    select?: DriverSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Driver
-     */
-    omit?: DriverOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: DriverInclude<ExtArgs> | null
-    where?: DriverWhereInput
-  }
-
-  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3645,7 +3558,6 @@ export namespace Prisma {
     userId: string | null
     licenseNumber: string | null
     verified: boolean | null
-    joinedAt: Date | null
   }
 
   export type DriverMaxAggregateOutputType = {
@@ -3653,7 +3565,6 @@ export namespace Prisma {
     userId: string | null
     licenseNumber: string | null
     verified: boolean | null
-    joinedAt: Date | null
   }
 
   export type DriverCountAggregateOutputType = {
@@ -3661,7 +3572,6 @@ export namespace Prisma {
     userId: number
     licenseNumber: number
     verified: number
-    joinedAt: number
     _all: number
   }
 
@@ -3671,7 +3581,6 @@ export namespace Prisma {
     userId?: true
     licenseNumber?: true
     verified?: true
-    joinedAt?: true
   }
 
   export type DriverMaxAggregateInputType = {
@@ -3679,7 +3588,6 @@ export namespace Prisma {
     userId?: true
     licenseNumber?: true
     verified?: true
-    joinedAt?: true
   }
 
   export type DriverCountAggregateInputType = {
@@ -3687,7 +3595,6 @@ export namespace Prisma {
     userId?: true
     licenseNumber?: true
     verified?: true
-    joinedAt?: true
     _all?: true
   }
 
@@ -3768,7 +3675,6 @@ export namespace Prisma {
     userId: string
     licenseNumber: string | null
     verified: boolean
-    joinedAt: Date
     _count: DriverCountAggregateOutputType | null
     _min: DriverMinAggregateOutputType | null
     _max: DriverMaxAggregateOutputType | null
@@ -3793,11 +3699,10 @@ export namespace Prisma {
     userId?: boolean
     licenseNumber?: boolean
     verified?: boolean
-    joinedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
+    documents?: boolean | Driver$documentsArgs<ExtArgs>
     rides?: boolean | Driver$ridesArgs<ExtArgs>
     vehicles?: boolean | Driver$vehiclesArgs<ExtArgs>
-    documents?: boolean | Driver$documentsArgs<ExtArgs>
     _count?: boolean | DriverCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["driver"]>
 
@@ -3806,7 +3711,6 @@ export namespace Prisma {
     userId?: boolean
     licenseNumber?: boolean
     verified?: boolean
-    joinedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["driver"]>
 
@@ -3815,7 +3719,6 @@ export namespace Prisma {
     userId?: boolean
     licenseNumber?: boolean
     verified?: boolean
-    joinedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["driver"]>
 
@@ -3824,15 +3727,14 @@ export namespace Prisma {
     userId?: boolean
     licenseNumber?: boolean
     verified?: boolean
-    joinedAt?: boolean
   }
 
-  export type DriverOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "licenseNumber" | "verified" | "joinedAt", ExtArgs["result"]["driver"]>
+  export type DriverOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "licenseNumber" | "verified", ExtArgs["result"]["driver"]>
   export type DriverInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
+    documents?: boolean | Driver$documentsArgs<ExtArgs>
     rides?: boolean | Driver$ridesArgs<ExtArgs>
     vehicles?: boolean | Driver$vehiclesArgs<ExtArgs>
-    documents?: boolean | Driver$documentsArgs<ExtArgs>
     _count?: boolean | DriverCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type DriverIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3846,16 +3748,15 @@ export namespace Prisma {
     name: "Driver"
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
+      documents: Prisma.$DriverDocumentPayload<ExtArgs>[]
       rides: Prisma.$RidePayload<ExtArgs>[]
       vehicles: Prisma.$VehiclePayload<ExtArgs>[]
-      documents: Prisma.$DriverDocumentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       userId: string
       licenseNumber: string | null
       verified: boolean
-      joinedAt: Date
     }, ExtArgs["result"]["driver"]>
     composites: {}
   }
@@ -4251,9 +4152,9 @@ export namespace Prisma {
   export interface Prisma__DriverClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    documents<T extends Driver$documentsArgs<ExtArgs> = {}>(args?: Subset<T, Driver$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DriverDocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     rides<T extends Driver$ridesArgs<ExtArgs> = {}>(args?: Subset<T, Driver$ridesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RidePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     vehicles<T extends Driver$vehiclesArgs<ExtArgs> = {}>(args?: Subset<T, Driver$vehiclesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VehiclePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    documents<T extends Driver$documentsArgs<ExtArgs> = {}>(args?: Subset<T, Driver$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DriverDocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4287,7 +4188,6 @@ export namespace Prisma {
     readonly userId: FieldRef<"Driver", 'String'>
     readonly licenseNumber: FieldRef<"Driver", 'String'>
     readonly verified: FieldRef<"Driver", 'Boolean'>
-    readonly joinedAt: FieldRef<"Driver", 'DateTime'>
   }
     
 
@@ -4684,6 +4584,30 @@ export namespace Prisma {
   }
 
   /**
+   * Driver.documents
+   */
+  export type Driver$documentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DriverDocument
+     */
+    select?: DriverDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DriverDocument
+     */
+    omit?: DriverDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DriverDocumentInclude<ExtArgs> | null
+    where?: DriverDocumentWhereInput
+    orderBy?: DriverDocumentOrderByWithRelationInput | DriverDocumentOrderByWithRelationInput[]
+    cursor?: DriverDocumentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DriverDocumentScalarFieldEnum | DriverDocumentScalarFieldEnum[]
+  }
+
+  /**
    * Driver.rides
    */
   export type Driver$ridesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4729,30 +4653,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: VehicleScalarFieldEnum | VehicleScalarFieldEnum[]
-  }
-
-  /**
-   * Driver.documents
-   */
-  export type Driver$documentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the DriverDocument
-     */
-    select?: DriverDocumentSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the DriverDocument
-     */
-    omit?: DriverDocumentOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: DriverDocumentInclude<ExtArgs> | null
-    where?: DriverDocumentWhereInput
-    orderBy?: DriverDocumentOrderByWithRelationInput | DriverDocumentOrderByWithRelationInput[]
-    cursor?: DriverDocumentWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: DriverDocumentScalarFieldEnum | DriverDocumentScalarFieldEnum[]
   }
 
   /**
@@ -17185,11 +17085,6 @@ export namespace Prisma {
     email: 'email',
     passwordHash: 'passwordHash',
     role: 'role',
-    profilePicUrl: 'profilePicUrl',
-    homeLocation: 'homeLocation',
-    workLocation: 'workLocation',
-    schedule: 'schedule',
-    rating: 'rating',
     createdAt: 'createdAt'
   };
 
@@ -17200,8 +17095,7 @@ export namespace Prisma {
     id: 'id',
     userId: 'userId',
     licenseNumber: 'licenseNumber',
-    verified: 'verified',
-    joinedAt: 'joinedAt'
+    verified: 'verified'
   };
 
   export type DriverScalarFieldEnum = (typeof DriverScalarFieldEnum)[keyof typeof DriverScalarFieldEnum]
@@ -17352,14 +17246,6 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
-  export const NullableJsonNullValueInput: {
-    DbNull: typeof DbNull,
-    JsonNull: typeof JsonNull
-  };
-
-  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
-
-
   export const JsonNullValueInput: {
     JsonNull: typeof JsonNull
   };
@@ -17375,6 +17261,14 @@ export namespace Prisma {
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
 
 
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
   export const JsonNullValueFilter: {
     DbNull: typeof DbNull,
     JsonNull: typeof JsonNull,
@@ -17382,14 +17276,6 @@ export namespace Prisma {
   };
 
   export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
-
-
-  export const NullsOrder: {
-    first: 'first',
-    last: 'last'
-  };
-
-  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   /**
@@ -17422,34 +17308,6 @@ export namespace Prisma {
    * Reference to a field of type 'Role[]'
    */
   export type ListEnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Json'
-   */
-  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
-    
-
-
-  /**
-   * Reference to a field of type 'QueryMode'
-   */
-  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
-    
-
-
-  /**
-   * Reference to a field of type 'Float'
-   */
-  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
-    
-
-
-  /**
-   * Reference to a field of type 'Float[]'
-   */
-  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
 
 
@@ -17499,6 +17357,34 @@ export namespace Prisma {
    * Reference to a field of type 'DocumentType[]'
    */
   export type ListEnumDocumentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DocumentType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
 
 
@@ -17600,16 +17486,11 @@ export namespace Prisma {
     email?: StringFilter<"User"> | string
     passwordHash?: StringNullableFilter<"User"> | string | null
     role?: EnumRoleFilter<"User"> | $Enums.Role
-    profilePicUrl?: StringNullableFilter<"User"> | string | null
-    homeLocation?: JsonNullableFilter<"User">
-    workLocation?: JsonNullableFilter<"User">
-    schedule?: JsonNullableFilter<"User">
-    rating?: FloatNullableFilter<"User"> | number | null
     createdAt?: DateTimeFilter<"User"> | Date | string
+    driverProfile?: XOR<DriverNullableScalarRelationFilter, DriverWhereInput> | null
     bookings?: BookingListRelationFilter
     feedbackReceived?: FeedbackListRelationFilter
     feedbackGiven?: FeedbackListRelationFilter
-    driverProfile?: XOR<DriverNullableScalarRelationFilter, DriverWhereInput> | null
   }
 
   export type UserOrderByWithRelationInput = {
@@ -17620,16 +17501,11 @@ export namespace Prisma {
     email?: SortOrder
     passwordHash?: SortOrderInput | SortOrder
     role?: SortOrder
-    profilePicUrl?: SortOrderInput | SortOrder
-    homeLocation?: SortOrderInput | SortOrder
-    workLocation?: SortOrderInput | SortOrder
-    schedule?: SortOrderInput | SortOrder
-    rating?: SortOrderInput | SortOrder
     createdAt?: SortOrder
+    driverProfile?: DriverOrderByWithRelationInput
     bookings?: BookingOrderByRelationAggregateInput
     feedbackReceived?: FeedbackOrderByRelationAggregateInput
     feedbackGiven?: FeedbackOrderByRelationAggregateInput
-    driverProfile?: DriverOrderByWithRelationInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -17643,16 +17519,11 @@ export namespace Prisma {
     lastName?: StringNullableFilter<"User"> | string | null
     passwordHash?: StringNullableFilter<"User"> | string | null
     role?: EnumRoleFilter<"User"> | $Enums.Role
-    profilePicUrl?: StringNullableFilter<"User"> | string | null
-    homeLocation?: JsonNullableFilter<"User">
-    workLocation?: JsonNullableFilter<"User">
-    schedule?: JsonNullableFilter<"User">
-    rating?: FloatNullableFilter<"User"> | number | null
     createdAt?: DateTimeFilter<"User"> | Date | string
+    driverProfile?: XOR<DriverNullableScalarRelationFilter, DriverWhereInput> | null
     bookings?: BookingListRelationFilter
     feedbackReceived?: FeedbackListRelationFilter
     feedbackGiven?: FeedbackListRelationFilter
-    driverProfile?: XOR<DriverNullableScalarRelationFilter, DriverWhereInput> | null
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -17663,17 +17534,10 @@ export namespace Prisma {
     email?: SortOrder
     passwordHash?: SortOrderInput | SortOrder
     role?: SortOrder
-    profilePicUrl?: SortOrderInput | SortOrder
-    homeLocation?: SortOrderInput | SortOrder
-    workLocation?: SortOrderInput | SortOrder
-    schedule?: SortOrderInput | SortOrder
-    rating?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
-    _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
-    _sum?: UserSumOrderByAggregateInput
   }
 
   export type UserScalarWhereWithAggregatesInput = {
@@ -17687,11 +17551,6 @@ export namespace Prisma {
     email?: StringWithAggregatesFilter<"User"> | string
     passwordHash?: StringNullableWithAggregatesFilter<"User"> | string | null
     role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
-    profilePicUrl?: StringNullableWithAggregatesFilter<"User"> | string | null
-    homeLocation?: JsonNullableWithAggregatesFilter<"User">
-    workLocation?: JsonNullableWithAggregatesFilter<"User">
-    schedule?: JsonNullableWithAggregatesFilter<"User">
-    rating?: FloatNullableWithAggregatesFilter<"User"> | number | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
 
@@ -17703,11 +17562,10 @@ export namespace Prisma {
     userId?: StringFilter<"Driver"> | string
     licenseNumber?: StringNullableFilter<"Driver"> | string | null
     verified?: BoolFilter<"Driver"> | boolean
-    joinedAt?: DateTimeFilter<"Driver"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    documents?: DriverDocumentListRelationFilter
     rides?: RideListRelationFilter
     vehicles?: VehicleListRelationFilter
-    documents?: DriverDocumentListRelationFilter
   }
 
   export type DriverOrderByWithRelationInput = {
@@ -17715,11 +17573,10 @@ export namespace Prisma {
     userId?: SortOrder
     licenseNumber?: SortOrderInput | SortOrder
     verified?: SortOrder
-    joinedAt?: SortOrder
     user?: UserOrderByWithRelationInput
+    documents?: DriverDocumentOrderByRelationAggregateInput
     rides?: RideOrderByRelationAggregateInput
     vehicles?: VehicleOrderByRelationAggregateInput
-    documents?: DriverDocumentOrderByRelationAggregateInput
   }
 
   export type DriverWhereUniqueInput = Prisma.AtLeast<{
@@ -17730,11 +17587,10 @@ export namespace Prisma {
     NOT?: DriverWhereInput | DriverWhereInput[]
     licenseNumber?: StringNullableFilter<"Driver"> | string | null
     verified?: BoolFilter<"Driver"> | boolean
-    joinedAt?: DateTimeFilter<"Driver"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    documents?: DriverDocumentListRelationFilter
     rides?: RideListRelationFilter
     vehicles?: VehicleListRelationFilter
-    documents?: DriverDocumentListRelationFilter
   }, "id" | "userId">
 
   export type DriverOrderByWithAggregationInput = {
@@ -17742,7 +17598,6 @@ export namespace Prisma {
     userId?: SortOrder
     licenseNumber?: SortOrderInput | SortOrder
     verified?: SortOrder
-    joinedAt?: SortOrder
     _count?: DriverCountOrderByAggregateInput
     _max?: DriverMaxOrderByAggregateInput
     _min?: DriverMinOrderByAggregateInput
@@ -17756,7 +17611,6 @@ export namespace Prisma {
     userId?: StringWithAggregatesFilter<"Driver"> | string
     licenseNumber?: StringNullableWithAggregatesFilter<"Driver"> | string | null
     verified?: BoolWithAggregatesFilter<"Driver"> | boolean
-    joinedAt?: DateTimeWithAggregatesFilter<"Driver"> | Date | string
   }
 
   export type VehicleWhereInput = {
@@ -18512,16 +18366,11 @@ export namespace Prisma {
     email: string
     passwordHash?: string | null
     role: $Enums.Role
-    profilePicUrl?: string | null
-    homeLocation?: NullableJsonNullValueInput | InputJsonValue
-    workLocation?: NullableJsonNullValueInput | InputJsonValue
-    schedule?: NullableJsonNullValueInput | InputJsonValue
-    rating?: number | null
     createdAt?: Date | string
+    driverProfile?: DriverCreateNestedOneWithoutUserInput
     bookings?: BookingCreateNestedManyWithoutRiderInput
     feedbackReceived?: FeedbackCreateNestedManyWithoutRateeInput
     feedbackGiven?: FeedbackCreateNestedManyWithoutRaterInput
-    driverProfile?: DriverCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -18532,16 +18381,11 @@ export namespace Prisma {
     email: string
     passwordHash?: string | null
     role: $Enums.Role
-    profilePicUrl?: string | null
-    homeLocation?: NullableJsonNullValueInput | InputJsonValue
-    workLocation?: NullableJsonNullValueInput | InputJsonValue
-    schedule?: NullableJsonNullValueInput | InputJsonValue
-    rating?: number | null
     createdAt?: Date | string
+    driverProfile?: DriverUncheckedCreateNestedOneWithoutUserInput
     bookings?: BookingUncheckedCreateNestedManyWithoutRiderInput
     feedbackReceived?: FeedbackUncheckedCreateNestedManyWithoutRateeInput
     feedbackGiven?: FeedbackUncheckedCreateNestedManyWithoutRaterInput
-    driverProfile?: DriverUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -18552,16 +18396,11 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    profilePicUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    homeLocation?: NullableJsonNullValueInput | InputJsonValue
-    workLocation?: NullableJsonNullValueInput | InputJsonValue
-    schedule?: NullableJsonNullValueInput | InputJsonValue
-    rating?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    driverProfile?: DriverUpdateOneWithoutUserNestedInput
     bookings?: BookingUpdateManyWithoutRiderNestedInput
     feedbackReceived?: FeedbackUpdateManyWithoutRateeNestedInput
     feedbackGiven?: FeedbackUpdateManyWithoutRaterNestedInput
-    driverProfile?: DriverUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -18572,16 +18411,11 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    profilePicUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    homeLocation?: NullableJsonNullValueInput | InputJsonValue
-    workLocation?: NullableJsonNullValueInput | InputJsonValue
-    schedule?: NullableJsonNullValueInput | InputJsonValue
-    rating?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    driverProfile?: DriverUncheckedUpdateOneWithoutUserNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutRiderNestedInput
     feedbackReceived?: FeedbackUncheckedUpdateManyWithoutRateeNestedInput
     feedbackGiven?: FeedbackUncheckedUpdateManyWithoutRaterNestedInput
-    driverProfile?: DriverUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -18592,11 +18426,6 @@ export namespace Prisma {
     email: string
     passwordHash?: string | null
     role: $Enums.Role
-    profilePicUrl?: string | null
-    homeLocation?: NullableJsonNullValueInput | InputJsonValue
-    workLocation?: NullableJsonNullValueInput | InputJsonValue
-    schedule?: NullableJsonNullValueInput | InputJsonValue
-    rating?: number | null
     createdAt?: Date | string
   }
 
@@ -18608,11 +18437,6 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    profilePicUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    homeLocation?: NullableJsonNullValueInput | InputJsonValue
-    workLocation?: NullableJsonNullValueInput | InputJsonValue
-    schedule?: NullableJsonNullValueInput | InputJsonValue
-    rating?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -18624,11 +18448,6 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    profilePicUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    homeLocation?: NullableJsonNullValueInput | InputJsonValue
-    workLocation?: NullableJsonNullValueInput | InputJsonValue
-    schedule?: NullableJsonNullValueInput | InputJsonValue
-    rating?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -18636,11 +18455,10 @@ export namespace Prisma {
     id?: string
     licenseNumber?: string | null
     verified?: boolean
-    joinedAt?: Date | string
     user: UserCreateNestedOneWithoutDriverProfileInput
+    documents?: DriverDocumentCreateNestedManyWithoutDriverInput
     rides?: RideCreateNestedManyWithoutDriverInput
     vehicles?: VehicleCreateNestedManyWithoutDriverInput
-    documents?: DriverDocumentCreateNestedManyWithoutDriverInput
   }
 
   export type DriverUncheckedCreateInput = {
@@ -18648,21 +18466,19 @@ export namespace Prisma {
     userId: string
     licenseNumber?: string | null
     verified?: boolean
-    joinedAt?: Date | string
+    documents?: DriverDocumentUncheckedCreateNestedManyWithoutDriverInput
     rides?: RideUncheckedCreateNestedManyWithoutDriverInput
     vehicles?: VehicleUncheckedCreateNestedManyWithoutDriverInput
-    documents?: DriverDocumentUncheckedCreateNestedManyWithoutDriverInput
   }
 
   export type DriverUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     licenseNumber?: NullableStringFieldUpdateOperationsInput | string | null
     verified?: BoolFieldUpdateOperationsInput | boolean
-    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutDriverProfileNestedInput
+    documents?: DriverDocumentUpdateManyWithoutDriverNestedInput
     rides?: RideUpdateManyWithoutDriverNestedInput
     vehicles?: VehicleUpdateManyWithoutDriverNestedInput
-    documents?: DriverDocumentUpdateManyWithoutDriverNestedInput
   }
 
   export type DriverUncheckedUpdateInput = {
@@ -18670,10 +18486,9 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     licenseNumber?: NullableStringFieldUpdateOperationsInput | string | null
     verified?: BoolFieldUpdateOperationsInput | boolean
-    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    documents?: DriverDocumentUncheckedUpdateManyWithoutDriverNestedInput
     rides?: RideUncheckedUpdateManyWithoutDriverNestedInput
     vehicles?: VehicleUncheckedUpdateManyWithoutDriverNestedInput
-    documents?: DriverDocumentUncheckedUpdateManyWithoutDriverNestedInput
   }
 
   export type DriverCreateManyInput = {
@@ -18681,14 +18496,12 @@ export namespace Prisma {
     userId: string
     licenseNumber?: string | null
     verified?: boolean
-    joinedAt?: Date | string
   }
 
   export type DriverUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     licenseNumber?: NullableStringFieldUpdateOperationsInput | string | null
     verified?: BoolFieldUpdateOperationsInput | boolean
-    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type DriverUncheckedUpdateManyInput = {
@@ -18696,7 +18509,6 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     licenseNumber?: NullableStringFieldUpdateOperationsInput | string | null
     verified?: BoolFieldUpdateOperationsInput | boolean
-    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type VehicleCreateInput = {
@@ -19487,40 +19299,6 @@ export namespace Prisma {
     notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
     not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
   }
-  export type JsonNullableFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonNullableFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonNullableFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-  }
-
-  export type FloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
 
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
@@ -19533,6 +19311,11 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type DriverNullableScalarRelationFilter = {
+    is?: DriverWhereInput | null
+    isNot?: DriverWhereInput | null
+  }
+
   export type BookingListRelationFilter = {
     every?: BookingWhereInput
     some?: BookingWhereInput
@@ -19543,11 +19326,6 @@ export namespace Prisma {
     every?: FeedbackWhereInput
     some?: FeedbackWhereInput
     none?: FeedbackWhereInput
-  }
-
-  export type DriverNullableScalarRelationFilter = {
-    is?: DriverWhereInput | null
-    isNot?: DriverWhereInput | null
   }
 
   export type SortOrderInput = {
@@ -19571,16 +19349,7 @@ export namespace Prisma {
     email?: SortOrder
     passwordHash?: SortOrder
     role?: SortOrder
-    profilePicUrl?: SortOrder
-    homeLocation?: SortOrder
-    workLocation?: SortOrder
-    schedule?: SortOrder
-    rating?: SortOrder
     createdAt?: SortOrder
-  }
-
-  export type UserAvgOrderByAggregateInput = {
-    rating?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -19591,8 +19360,6 @@ export namespace Prisma {
     email?: SortOrder
     passwordHash?: SortOrder
     role?: SortOrder
-    profilePicUrl?: SortOrder
-    rating?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -19604,13 +19371,7 @@ export namespace Prisma {
     email?: SortOrder
     passwordHash?: SortOrder
     role?: SortOrder
-    profilePicUrl?: SortOrder
-    rating?: SortOrder
     createdAt?: SortOrder
-  }
-
-  export type UserSumOrderByAggregateInput = {
-    rating?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -19658,48 +19419,6 @@ export namespace Prisma {
     _min?: NestedEnumRoleFilter<$PrismaModel>
     _max?: NestedEnumRoleFilter<$PrismaModel>
   }
-  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedJsonNullableFilter<$PrismaModel>
-    _max?: NestedJsonNullableFilter<$PrismaModel>
-  }
-
-  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedFloatNullableFilter<$PrismaModel>
-    _min?: NestedFloatNullableFilter<$PrismaModel>
-    _max?: NestedFloatNullableFilter<$PrismaModel>
-  }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
@@ -19725,6 +19444,12 @@ export namespace Prisma {
     isNot?: UserWhereInput
   }
 
+  export type DriverDocumentListRelationFilter = {
+    every?: DriverDocumentWhereInput
+    some?: DriverDocumentWhereInput
+    none?: DriverDocumentWhereInput
+  }
+
   export type RideListRelationFilter = {
     every?: RideWhereInput
     some?: RideWhereInput
@@ -19737,10 +19462,8 @@ export namespace Prisma {
     none?: VehicleWhereInput
   }
 
-  export type DriverDocumentListRelationFilter = {
-    every?: DriverDocumentWhereInput
-    some?: DriverDocumentWhereInput
-    none?: DriverDocumentWhereInput
+  export type DriverDocumentOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type RideOrderByRelationAggregateInput = {
@@ -19751,16 +19474,11 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type DriverDocumentOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type DriverCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     licenseNumber?: SortOrder
     verified?: SortOrder
-    joinedAt?: SortOrder
   }
 
   export type DriverMaxOrderByAggregateInput = {
@@ -19768,7 +19486,6 @@ export namespace Prisma {
     userId?: SortOrder
     licenseNumber?: SortOrder
     verified?: SortOrder
-    joinedAt?: SortOrder
   }
 
   export type DriverMinOrderByAggregateInput = {
@@ -19776,7 +19493,6 @@ export namespace Prisma {
     userId?: SortOrder
     licenseNumber?: SortOrder
     verified?: SortOrder
-    joinedAt?: SortOrder
   }
 
   export type BoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -20452,6 +20168,12 @@ export namespace Prisma {
     order?: SortOrder
   }
 
+  export type DriverCreateNestedOneWithoutUserInput = {
+    create?: XOR<DriverCreateWithoutUserInput, DriverUncheckedCreateWithoutUserInput>
+    connectOrCreate?: DriverCreateOrConnectWithoutUserInput
+    connect?: DriverWhereUniqueInput
+  }
+
   export type BookingCreateNestedManyWithoutRiderInput = {
     create?: XOR<BookingCreateWithoutRiderInput, BookingUncheckedCreateWithoutRiderInput> | BookingCreateWithoutRiderInput[] | BookingUncheckedCreateWithoutRiderInput[]
     connectOrCreate?: BookingCreateOrConnectWithoutRiderInput | BookingCreateOrConnectWithoutRiderInput[]
@@ -20473,7 +20195,7 @@ export namespace Prisma {
     connect?: FeedbackWhereUniqueInput | FeedbackWhereUniqueInput[]
   }
 
-  export type DriverCreateNestedOneWithoutUserInput = {
+  export type DriverUncheckedCreateNestedOneWithoutUserInput = {
     create?: XOR<DriverCreateWithoutUserInput, DriverUncheckedCreateWithoutUserInput>
     connectOrCreate?: DriverCreateOrConnectWithoutUserInput
     connect?: DriverWhereUniqueInput
@@ -20500,12 +20222,6 @@ export namespace Prisma {
     connect?: FeedbackWhereUniqueInput | FeedbackWhereUniqueInput[]
   }
 
-  export type DriverUncheckedCreateNestedOneWithoutUserInput = {
-    create?: XOR<DriverCreateWithoutUserInput, DriverUncheckedCreateWithoutUserInput>
-    connectOrCreate?: DriverCreateOrConnectWithoutUserInput
-    connect?: DriverWhereUniqueInput
-  }
-
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -20518,16 +20234,18 @@ export namespace Prisma {
     set?: $Enums.Role
   }
 
-  export type NullableFloatFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
+  }
+
+  export type DriverUpdateOneWithoutUserNestedInput = {
+    create?: XOR<DriverCreateWithoutUserInput, DriverUncheckedCreateWithoutUserInput>
+    connectOrCreate?: DriverCreateOrConnectWithoutUserInput
+    upsert?: DriverUpsertWithoutUserInput
+    disconnect?: DriverWhereInput | boolean
+    delete?: DriverWhereInput | boolean
+    connect?: DriverWhereUniqueInput
+    update?: XOR<XOR<DriverUpdateToOneWithWhereWithoutUserInput, DriverUpdateWithoutUserInput>, DriverUncheckedUpdateWithoutUserInput>
   }
 
   export type BookingUpdateManyWithoutRiderNestedInput = {
@@ -20572,7 +20290,7 @@ export namespace Prisma {
     deleteMany?: FeedbackScalarWhereInput | FeedbackScalarWhereInput[]
   }
 
-  export type DriverUpdateOneWithoutUserNestedInput = {
+  export type DriverUncheckedUpdateOneWithoutUserNestedInput = {
     create?: XOR<DriverCreateWithoutUserInput, DriverUncheckedCreateWithoutUserInput>
     connectOrCreate?: DriverCreateOrConnectWithoutUserInput
     upsert?: DriverUpsertWithoutUserInput
@@ -20624,20 +20342,17 @@ export namespace Prisma {
     deleteMany?: FeedbackScalarWhereInput | FeedbackScalarWhereInput[]
   }
 
-  export type DriverUncheckedUpdateOneWithoutUserNestedInput = {
-    create?: XOR<DriverCreateWithoutUserInput, DriverUncheckedCreateWithoutUserInput>
-    connectOrCreate?: DriverCreateOrConnectWithoutUserInput
-    upsert?: DriverUpsertWithoutUserInput
-    disconnect?: DriverWhereInput | boolean
-    delete?: DriverWhereInput | boolean
-    connect?: DriverWhereUniqueInput
-    update?: XOR<XOR<DriverUpdateToOneWithWhereWithoutUserInput, DriverUpdateWithoutUserInput>, DriverUncheckedUpdateWithoutUserInput>
-  }
-
   export type UserCreateNestedOneWithoutDriverProfileInput = {
     create?: XOR<UserCreateWithoutDriverProfileInput, UserUncheckedCreateWithoutDriverProfileInput>
     connectOrCreate?: UserCreateOrConnectWithoutDriverProfileInput
     connect?: UserWhereUniqueInput
+  }
+
+  export type DriverDocumentCreateNestedManyWithoutDriverInput = {
+    create?: XOR<DriverDocumentCreateWithoutDriverInput, DriverDocumentUncheckedCreateWithoutDriverInput> | DriverDocumentCreateWithoutDriverInput[] | DriverDocumentUncheckedCreateWithoutDriverInput[]
+    connectOrCreate?: DriverDocumentCreateOrConnectWithoutDriverInput | DriverDocumentCreateOrConnectWithoutDriverInput[]
+    createMany?: DriverDocumentCreateManyDriverInputEnvelope
+    connect?: DriverDocumentWhereUniqueInput | DriverDocumentWhereUniqueInput[]
   }
 
   export type RideCreateNestedManyWithoutDriverInput = {
@@ -20654,7 +20369,7 @@ export namespace Prisma {
     connect?: VehicleWhereUniqueInput | VehicleWhereUniqueInput[]
   }
 
-  export type DriverDocumentCreateNestedManyWithoutDriverInput = {
+  export type DriverDocumentUncheckedCreateNestedManyWithoutDriverInput = {
     create?: XOR<DriverDocumentCreateWithoutDriverInput, DriverDocumentUncheckedCreateWithoutDriverInput> | DriverDocumentCreateWithoutDriverInput[] | DriverDocumentUncheckedCreateWithoutDriverInput[]
     connectOrCreate?: DriverDocumentCreateOrConnectWithoutDriverInput | DriverDocumentCreateOrConnectWithoutDriverInput[]
     createMany?: DriverDocumentCreateManyDriverInputEnvelope
@@ -20675,13 +20390,6 @@ export namespace Prisma {
     connect?: VehicleWhereUniqueInput | VehicleWhereUniqueInput[]
   }
 
-  export type DriverDocumentUncheckedCreateNestedManyWithoutDriverInput = {
-    create?: XOR<DriverDocumentCreateWithoutDriverInput, DriverDocumentUncheckedCreateWithoutDriverInput> | DriverDocumentCreateWithoutDriverInput[] | DriverDocumentUncheckedCreateWithoutDriverInput[]
-    connectOrCreate?: DriverDocumentCreateOrConnectWithoutDriverInput | DriverDocumentCreateOrConnectWithoutDriverInput[]
-    createMany?: DriverDocumentCreateManyDriverInputEnvelope
-    connect?: DriverDocumentWhereUniqueInput | DriverDocumentWhereUniqueInput[]
-  }
-
   export type BoolFieldUpdateOperationsInput = {
     set?: boolean
   }
@@ -20692,6 +20400,20 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutDriverProfileInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDriverProfileInput, UserUpdateWithoutDriverProfileInput>, UserUncheckedUpdateWithoutDriverProfileInput>
+  }
+
+  export type DriverDocumentUpdateManyWithoutDriverNestedInput = {
+    create?: XOR<DriverDocumentCreateWithoutDriverInput, DriverDocumentUncheckedCreateWithoutDriverInput> | DriverDocumentCreateWithoutDriverInput[] | DriverDocumentUncheckedCreateWithoutDriverInput[]
+    connectOrCreate?: DriverDocumentCreateOrConnectWithoutDriverInput | DriverDocumentCreateOrConnectWithoutDriverInput[]
+    upsert?: DriverDocumentUpsertWithWhereUniqueWithoutDriverInput | DriverDocumentUpsertWithWhereUniqueWithoutDriverInput[]
+    createMany?: DriverDocumentCreateManyDriverInputEnvelope
+    set?: DriverDocumentWhereUniqueInput | DriverDocumentWhereUniqueInput[]
+    disconnect?: DriverDocumentWhereUniqueInput | DriverDocumentWhereUniqueInput[]
+    delete?: DriverDocumentWhereUniqueInput | DriverDocumentWhereUniqueInput[]
+    connect?: DriverDocumentWhereUniqueInput | DriverDocumentWhereUniqueInput[]
+    update?: DriverDocumentUpdateWithWhereUniqueWithoutDriverInput | DriverDocumentUpdateWithWhereUniqueWithoutDriverInput[]
+    updateMany?: DriverDocumentUpdateManyWithWhereWithoutDriverInput | DriverDocumentUpdateManyWithWhereWithoutDriverInput[]
+    deleteMany?: DriverDocumentScalarWhereInput | DriverDocumentScalarWhereInput[]
   }
 
   export type RideUpdateManyWithoutDriverNestedInput = {
@@ -20722,7 +20444,7 @@ export namespace Prisma {
     deleteMany?: VehicleScalarWhereInput | VehicleScalarWhereInput[]
   }
 
-  export type DriverDocumentUpdateManyWithoutDriverNestedInput = {
+  export type DriverDocumentUncheckedUpdateManyWithoutDriverNestedInput = {
     create?: XOR<DriverDocumentCreateWithoutDriverInput, DriverDocumentUncheckedCreateWithoutDriverInput> | DriverDocumentCreateWithoutDriverInput[] | DriverDocumentUncheckedCreateWithoutDriverInput[]
     connectOrCreate?: DriverDocumentCreateOrConnectWithoutDriverInput | DriverDocumentCreateOrConnectWithoutDriverInput[]
     upsert?: DriverDocumentUpsertWithWhereUniqueWithoutDriverInput | DriverDocumentUpsertWithWhereUniqueWithoutDriverInput[]
@@ -20762,20 +20484,6 @@ export namespace Prisma {
     update?: VehicleUpdateWithWhereUniqueWithoutDriverInput | VehicleUpdateWithWhereUniqueWithoutDriverInput[]
     updateMany?: VehicleUpdateManyWithWhereWithoutDriverInput | VehicleUpdateManyWithWhereWithoutDriverInput[]
     deleteMany?: VehicleScalarWhereInput | VehicleScalarWhereInput[]
-  }
-
-  export type DriverDocumentUncheckedUpdateManyWithoutDriverNestedInput = {
-    create?: XOR<DriverDocumentCreateWithoutDriverInput, DriverDocumentUncheckedCreateWithoutDriverInput> | DriverDocumentCreateWithoutDriverInput[] | DriverDocumentUncheckedCreateWithoutDriverInput[]
-    connectOrCreate?: DriverDocumentCreateOrConnectWithoutDriverInput | DriverDocumentCreateOrConnectWithoutDriverInput[]
-    upsert?: DriverDocumentUpsertWithWhereUniqueWithoutDriverInput | DriverDocumentUpsertWithWhereUniqueWithoutDriverInput[]
-    createMany?: DriverDocumentCreateManyDriverInputEnvelope
-    set?: DriverDocumentWhereUniqueInput | DriverDocumentWhereUniqueInput[]
-    disconnect?: DriverDocumentWhereUniqueInput | DriverDocumentWhereUniqueInput[]
-    delete?: DriverDocumentWhereUniqueInput | DriverDocumentWhereUniqueInput[]
-    connect?: DriverDocumentWhereUniqueInput | DriverDocumentWhereUniqueInput[]
-    update?: DriverDocumentUpdateWithWhereUniqueWithoutDriverInput | DriverDocumentUpdateWithWhereUniqueWithoutDriverInput[]
-    updateMany?: DriverDocumentUpdateManyWithWhereWithoutDriverInput | DriverDocumentUpdateManyWithWhereWithoutDriverInput[]
-    deleteMany?: DriverDocumentScalarWhereInput | DriverDocumentScalarWhereInput[]
   }
 
   export type DriverCreateNestedOneWithoutVehiclesInput = {
@@ -21491,17 +21199,6 @@ export namespace Prisma {
     not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
   }
 
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
-
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -21577,45 +21274,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumRoleFilter<$PrismaModel>
     _max?: NestedEnumRoleFilter<$PrismaModel>
-  }
-  export type NestedJsonNullableFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
-        Required<NestedJsonNullableFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
-
-  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-  }
-
-  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedFloatNullableFilter<$PrismaModel>
-    _min?: NestedFloatNullableFilter<$PrismaModel>
-    _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -21830,6 +21488,29 @@ export namespace Prisma {
     _max?: NestedEnumLocationTypeFilter<$PrismaModel>
   }
 
+  export type DriverCreateWithoutUserInput = {
+    id?: string
+    licenseNumber?: string | null
+    verified?: boolean
+    documents?: DriverDocumentCreateNestedManyWithoutDriverInput
+    rides?: RideCreateNestedManyWithoutDriverInput
+    vehicles?: VehicleCreateNestedManyWithoutDriverInput
+  }
+
+  export type DriverUncheckedCreateWithoutUserInput = {
+    id?: string
+    licenseNumber?: string | null
+    verified?: boolean
+    documents?: DriverDocumentUncheckedCreateNestedManyWithoutDriverInput
+    rides?: RideUncheckedCreateNestedManyWithoutDriverInput
+    vehicles?: VehicleUncheckedCreateNestedManyWithoutDriverInput
+  }
+
+  export type DriverCreateOrConnectWithoutUserInput = {
+    where: DriverWhereUniqueInput
+    create: XOR<DriverCreateWithoutUserInput, DriverUncheckedCreateWithoutUserInput>
+  }
+
   export type BookingCreateWithoutRiderInput = {
     id?: string
     status?: $Enums.BookingStatus
@@ -21914,29 +21595,33 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type DriverCreateWithoutUserInput = {
-    id?: string
-    licenseNumber?: string | null
-    verified?: boolean
-    joinedAt?: Date | string
-    rides?: RideCreateNestedManyWithoutDriverInput
-    vehicles?: VehicleCreateNestedManyWithoutDriverInput
-    documents?: DriverDocumentCreateNestedManyWithoutDriverInput
-  }
-
-  export type DriverUncheckedCreateWithoutUserInput = {
-    id?: string
-    licenseNumber?: string | null
-    verified?: boolean
-    joinedAt?: Date | string
-    rides?: RideUncheckedCreateNestedManyWithoutDriverInput
-    vehicles?: VehicleUncheckedCreateNestedManyWithoutDriverInput
-    documents?: DriverDocumentUncheckedCreateNestedManyWithoutDriverInput
-  }
-
-  export type DriverCreateOrConnectWithoutUserInput = {
-    where: DriverWhereUniqueInput
+  export type DriverUpsertWithoutUserInput = {
+    update: XOR<DriverUpdateWithoutUserInput, DriverUncheckedUpdateWithoutUserInput>
     create: XOR<DriverCreateWithoutUserInput, DriverUncheckedCreateWithoutUserInput>
+    where?: DriverWhereInput
+  }
+
+  export type DriverUpdateToOneWithWhereWithoutUserInput = {
+    where?: DriverWhereInput
+    data: XOR<DriverUpdateWithoutUserInput, DriverUncheckedUpdateWithoutUserInput>
+  }
+
+  export type DriverUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    licenseNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    documents?: DriverDocumentUpdateManyWithoutDriverNestedInput
+    rides?: RideUpdateManyWithoutDriverNestedInput
+    vehicles?: VehicleUpdateManyWithoutDriverNestedInput
+  }
+
+  export type DriverUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    licenseNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    documents?: DriverDocumentUncheckedUpdateManyWithoutDriverNestedInput
+    rides?: RideUncheckedUpdateManyWithoutDriverNestedInput
+    vehicles?: VehicleUncheckedUpdateManyWithoutDriverNestedInput
   }
 
   export type BookingUpsertWithWhereUniqueWithoutRiderInput = {
@@ -22012,37 +21697,6 @@ export namespace Prisma {
     data: XOR<FeedbackUpdateManyMutationInput, FeedbackUncheckedUpdateManyWithoutRaterInput>
   }
 
-  export type DriverUpsertWithoutUserInput = {
-    update: XOR<DriverUpdateWithoutUserInput, DriverUncheckedUpdateWithoutUserInput>
-    create: XOR<DriverCreateWithoutUserInput, DriverUncheckedCreateWithoutUserInput>
-    where?: DriverWhereInput
-  }
-
-  export type DriverUpdateToOneWithWhereWithoutUserInput = {
-    where?: DriverWhereInput
-    data: XOR<DriverUpdateWithoutUserInput, DriverUncheckedUpdateWithoutUserInput>
-  }
-
-  export type DriverUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    licenseNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    verified?: BoolFieldUpdateOperationsInput | boolean
-    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    rides?: RideUpdateManyWithoutDriverNestedInput
-    vehicles?: VehicleUpdateManyWithoutDriverNestedInput
-    documents?: DriverDocumentUpdateManyWithoutDriverNestedInput
-  }
-
-  export type DriverUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    licenseNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    verified?: BoolFieldUpdateOperationsInput | boolean
-    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    rides?: RideUncheckedUpdateManyWithoutDriverNestedInput
-    vehicles?: VehicleUncheckedUpdateManyWithoutDriverNestedInput
-    documents?: DriverDocumentUncheckedUpdateManyWithoutDriverNestedInput
-  }
-
   export type UserCreateWithoutDriverProfileInput = {
     id?: string
     firstName: string
@@ -22051,11 +21705,6 @@ export namespace Prisma {
     email: string
     passwordHash?: string | null
     role: $Enums.Role
-    profilePicUrl?: string | null
-    homeLocation?: NullableJsonNullValueInput | InputJsonValue
-    workLocation?: NullableJsonNullValueInput | InputJsonValue
-    schedule?: NullableJsonNullValueInput | InputJsonValue
-    rating?: number | null
     createdAt?: Date | string
     bookings?: BookingCreateNestedManyWithoutRiderInput
     feedbackReceived?: FeedbackCreateNestedManyWithoutRateeInput
@@ -22070,11 +21719,6 @@ export namespace Prisma {
     email: string
     passwordHash?: string | null
     role: $Enums.Role
-    profilePicUrl?: string | null
-    homeLocation?: NullableJsonNullValueInput | InputJsonValue
-    workLocation?: NullableJsonNullValueInput | InputJsonValue
-    schedule?: NullableJsonNullValueInput | InputJsonValue
-    rating?: number | null
     createdAt?: Date | string
     bookings?: BookingUncheckedCreateNestedManyWithoutRiderInput
     feedbackReceived?: FeedbackUncheckedCreateNestedManyWithoutRateeInput
@@ -22084,6 +21728,32 @@ export namespace Prisma {
   export type UserCreateOrConnectWithoutDriverProfileInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutDriverProfileInput, UserUncheckedCreateWithoutDriverProfileInput>
+  }
+
+  export type DriverDocumentCreateWithoutDriverInput = {
+    id?: string
+    type: $Enums.DocumentType
+    fileUrl: string
+    verified?: boolean
+    uploadedAt?: Date | string
+  }
+
+  export type DriverDocumentUncheckedCreateWithoutDriverInput = {
+    id?: string
+    type: $Enums.DocumentType
+    fileUrl: string
+    verified?: boolean
+    uploadedAt?: Date | string
+  }
+
+  export type DriverDocumentCreateOrConnectWithoutDriverInput = {
+    where: DriverDocumentWhereUniqueInput
+    create: XOR<DriverDocumentCreateWithoutDriverInput, DriverDocumentUncheckedCreateWithoutDriverInput>
+  }
+
+  export type DriverDocumentCreateManyDriverInputEnvelope = {
+    data: DriverDocumentCreateManyDriverInput | DriverDocumentCreateManyDriverInput[]
+    skipDuplicates?: boolean
   }
 
   export type RideCreateWithoutDriverInput = {
@@ -22154,32 +21824,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type DriverDocumentCreateWithoutDriverInput = {
-    id?: string
-    type: $Enums.DocumentType
-    fileUrl: string
-    verified?: boolean
-    uploadedAt?: Date | string
-  }
-
-  export type DriverDocumentUncheckedCreateWithoutDriverInput = {
-    id?: string
-    type: $Enums.DocumentType
-    fileUrl: string
-    verified?: boolean
-    uploadedAt?: Date | string
-  }
-
-  export type DriverDocumentCreateOrConnectWithoutDriverInput = {
-    where: DriverDocumentWhereUniqueInput
-    create: XOR<DriverDocumentCreateWithoutDriverInput, DriverDocumentUncheckedCreateWithoutDriverInput>
-  }
-
-  export type DriverDocumentCreateManyDriverInputEnvelope = {
-    data: DriverDocumentCreateManyDriverInput | DriverDocumentCreateManyDriverInput[]
-    skipDuplicates?: boolean
-  }
-
   export type UserUpsertWithoutDriverProfileInput = {
     update: XOR<UserUpdateWithoutDriverProfileInput, UserUncheckedUpdateWithoutDriverProfileInput>
     create: XOR<UserCreateWithoutDriverProfileInput, UserUncheckedCreateWithoutDriverProfileInput>
@@ -22199,11 +21843,6 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    profilePicUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    homeLocation?: NullableJsonNullValueInput | InputJsonValue
-    workLocation?: NullableJsonNullValueInput | InputJsonValue
-    schedule?: NullableJsonNullValueInput | InputJsonValue
-    rating?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bookings?: BookingUpdateManyWithoutRiderNestedInput
     feedbackReceived?: FeedbackUpdateManyWithoutRateeNestedInput
@@ -22218,15 +21857,38 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    profilePicUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    homeLocation?: NullableJsonNullValueInput | InputJsonValue
-    workLocation?: NullableJsonNullValueInput | InputJsonValue
-    schedule?: NullableJsonNullValueInput | InputJsonValue
-    rating?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bookings?: BookingUncheckedUpdateManyWithoutRiderNestedInput
     feedbackReceived?: FeedbackUncheckedUpdateManyWithoutRateeNestedInput
     feedbackGiven?: FeedbackUncheckedUpdateManyWithoutRaterNestedInput
+  }
+
+  export type DriverDocumentUpsertWithWhereUniqueWithoutDriverInput = {
+    where: DriverDocumentWhereUniqueInput
+    update: XOR<DriverDocumentUpdateWithoutDriverInput, DriverDocumentUncheckedUpdateWithoutDriverInput>
+    create: XOR<DriverDocumentCreateWithoutDriverInput, DriverDocumentUncheckedCreateWithoutDriverInput>
+  }
+
+  export type DriverDocumentUpdateWithWhereUniqueWithoutDriverInput = {
+    where: DriverDocumentWhereUniqueInput
+    data: XOR<DriverDocumentUpdateWithoutDriverInput, DriverDocumentUncheckedUpdateWithoutDriverInput>
+  }
+
+  export type DriverDocumentUpdateManyWithWhereWithoutDriverInput = {
+    where: DriverDocumentScalarWhereInput
+    data: XOR<DriverDocumentUpdateManyMutationInput, DriverDocumentUncheckedUpdateManyWithoutDriverInput>
+  }
+
+  export type DriverDocumentScalarWhereInput = {
+    AND?: DriverDocumentScalarWhereInput | DriverDocumentScalarWhereInput[]
+    OR?: DriverDocumentScalarWhereInput[]
+    NOT?: DriverDocumentScalarWhereInput | DriverDocumentScalarWhereInput[]
+    id?: StringFilter<"DriverDocument"> | string
+    driverId?: StringFilter<"DriverDocument"> | string
+    type?: EnumDocumentTypeFilter<"DriverDocument"> | $Enums.DocumentType
+    fileUrl?: StringFilter<"DriverDocument"> | string
+    verified?: BoolFilter<"DriverDocument"> | boolean
+    uploadedAt?: DateTimeFilter<"DriverDocument"> | Date | string
   }
 
   export type RideUpsertWithWhereUniqueWithoutDriverInput = {
@@ -22291,42 +21953,13 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Vehicle"> | Date | string
   }
 
-  export type DriverDocumentUpsertWithWhereUniqueWithoutDriverInput = {
-    where: DriverDocumentWhereUniqueInput
-    update: XOR<DriverDocumentUpdateWithoutDriverInput, DriverDocumentUncheckedUpdateWithoutDriverInput>
-    create: XOR<DriverDocumentCreateWithoutDriverInput, DriverDocumentUncheckedCreateWithoutDriverInput>
-  }
-
-  export type DriverDocumentUpdateWithWhereUniqueWithoutDriverInput = {
-    where: DriverDocumentWhereUniqueInput
-    data: XOR<DriverDocumentUpdateWithoutDriverInput, DriverDocumentUncheckedUpdateWithoutDriverInput>
-  }
-
-  export type DriverDocumentUpdateManyWithWhereWithoutDriverInput = {
-    where: DriverDocumentScalarWhereInput
-    data: XOR<DriverDocumentUpdateManyMutationInput, DriverDocumentUncheckedUpdateManyWithoutDriverInput>
-  }
-
-  export type DriverDocumentScalarWhereInput = {
-    AND?: DriverDocumentScalarWhereInput | DriverDocumentScalarWhereInput[]
-    OR?: DriverDocumentScalarWhereInput[]
-    NOT?: DriverDocumentScalarWhereInput | DriverDocumentScalarWhereInput[]
-    id?: StringFilter<"DriverDocument"> | string
-    driverId?: StringFilter<"DriverDocument"> | string
-    type?: EnumDocumentTypeFilter<"DriverDocument"> | $Enums.DocumentType
-    fileUrl?: StringFilter<"DriverDocument"> | string
-    verified?: BoolFilter<"DriverDocument"> | boolean
-    uploadedAt?: DateTimeFilter<"DriverDocument"> | Date | string
-  }
-
   export type DriverCreateWithoutVehiclesInput = {
     id?: string
     licenseNumber?: string | null
     verified?: boolean
-    joinedAt?: Date | string
     user: UserCreateNestedOneWithoutDriverProfileInput
-    rides?: RideCreateNestedManyWithoutDriverInput
     documents?: DriverDocumentCreateNestedManyWithoutDriverInput
+    rides?: RideCreateNestedManyWithoutDriverInput
   }
 
   export type DriverUncheckedCreateWithoutVehiclesInput = {
@@ -22334,9 +21967,8 @@ export namespace Prisma {
     userId: string
     licenseNumber?: string | null
     verified?: boolean
-    joinedAt?: Date | string
-    rides?: RideUncheckedCreateNestedManyWithoutDriverInput
     documents?: DriverDocumentUncheckedCreateNestedManyWithoutDriverInput
+    rides?: RideUncheckedCreateNestedManyWithoutDriverInput
   }
 
   export type DriverCreateOrConnectWithoutVehiclesInput = {
@@ -22359,10 +21991,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     licenseNumber?: NullableStringFieldUpdateOperationsInput | string | null
     verified?: BoolFieldUpdateOperationsInput | boolean
-    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutDriverProfileNestedInput
-    rides?: RideUpdateManyWithoutDriverNestedInput
     documents?: DriverDocumentUpdateManyWithoutDriverNestedInput
+    rides?: RideUpdateManyWithoutDriverNestedInput
   }
 
   export type DriverUncheckedUpdateWithoutVehiclesInput = {
@@ -22370,16 +22001,14 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     licenseNumber?: NullableStringFieldUpdateOperationsInput | string | null
     verified?: BoolFieldUpdateOperationsInput | boolean
-    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    rides?: RideUncheckedUpdateManyWithoutDriverNestedInput
     documents?: DriverDocumentUncheckedUpdateManyWithoutDriverNestedInput
+    rides?: RideUncheckedUpdateManyWithoutDriverNestedInput
   }
 
   export type DriverCreateWithoutDocumentsInput = {
     id?: string
     licenseNumber?: string | null
     verified?: boolean
-    joinedAt?: Date | string
     user: UserCreateNestedOneWithoutDriverProfileInput
     rides?: RideCreateNestedManyWithoutDriverInput
     vehicles?: VehicleCreateNestedManyWithoutDriverInput
@@ -22390,7 +22019,6 @@ export namespace Prisma {
     userId: string
     licenseNumber?: string | null
     verified?: boolean
-    joinedAt?: Date | string
     rides?: RideUncheckedCreateNestedManyWithoutDriverInput
     vehicles?: VehicleUncheckedCreateNestedManyWithoutDriverInput
   }
@@ -22415,7 +22043,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     licenseNumber?: NullableStringFieldUpdateOperationsInput | string | null
     verified?: BoolFieldUpdateOperationsInput | boolean
-    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutDriverProfileNestedInput
     rides?: RideUpdateManyWithoutDriverNestedInput
     vehicles?: VehicleUpdateManyWithoutDriverNestedInput
@@ -22426,7 +22053,6 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     licenseNumber?: NullableStringFieldUpdateOperationsInput | string | null
     verified?: BoolFieldUpdateOperationsInput | boolean
-    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     rides?: RideUncheckedUpdateManyWithoutDriverNestedInput
     vehicles?: VehicleUncheckedUpdateManyWithoutDriverNestedInput
   }
@@ -22435,10 +22061,9 @@ export namespace Prisma {
     id?: string
     licenseNumber?: string | null
     verified?: boolean
-    joinedAt?: Date | string
     user: UserCreateNestedOneWithoutDriverProfileInput
-    vehicles?: VehicleCreateNestedManyWithoutDriverInput
     documents?: DriverDocumentCreateNestedManyWithoutDriverInput
+    vehicles?: VehicleCreateNestedManyWithoutDriverInput
   }
 
   export type DriverUncheckedCreateWithoutRidesInput = {
@@ -22446,9 +22071,8 @@ export namespace Prisma {
     userId: string
     licenseNumber?: string | null
     verified?: boolean
-    joinedAt?: Date | string
-    vehicles?: VehicleUncheckedCreateNestedManyWithoutDriverInput
     documents?: DriverDocumentUncheckedCreateNestedManyWithoutDriverInput
+    vehicles?: VehicleUncheckedCreateNestedManyWithoutDriverInput
   }
 
   export type DriverCreateOrConnectWithoutRidesInput = {
@@ -22527,10 +22151,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     licenseNumber?: NullableStringFieldUpdateOperationsInput | string | null
     verified?: BoolFieldUpdateOperationsInput | boolean
-    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutDriverProfileNestedInput
-    vehicles?: VehicleUpdateManyWithoutDriverNestedInput
     documents?: DriverDocumentUpdateManyWithoutDriverNestedInput
+    vehicles?: VehicleUpdateManyWithoutDriverNestedInput
   }
 
   export type DriverUncheckedUpdateWithoutRidesInput = {
@@ -22538,9 +22161,8 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     licenseNumber?: NullableStringFieldUpdateOperationsInput | string | null
     verified?: BoolFieldUpdateOperationsInput | boolean
-    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    vehicles?: VehicleUncheckedUpdateManyWithoutDriverNestedInput
     documents?: DriverDocumentUncheckedUpdateManyWithoutDriverNestedInput
+    vehicles?: VehicleUncheckedUpdateManyWithoutDriverNestedInput
   }
 
   export type BookingUpsertWithWhereUniqueWithoutRideInput = {
@@ -22614,15 +22236,10 @@ export namespace Prisma {
     email: string
     passwordHash?: string | null
     role: $Enums.Role
-    profilePicUrl?: string | null
-    homeLocation?: NullableJsonNullValueInput | InputJsonValue
-    workLocation?: NullableJsonNullValueInput | InputJsonValue
-    schedule?: NullableJsonNullValueInput | InputJsonValue
-    rating?: number | null
     createdAt?: Date | string
+    driverProfile?: DriverCreateNestedOneWithoutUserInput
     feedbackReceived?: FeedbackCreateNestedManyWithoutRateeInput
     feedbackGiven?: FeedbackCreateNestedManyWithoutRaterInput
-    driverProfile?: DriverCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutBookingsInput = {
@@ -22633,15 +22250,10 @@ export namespace Prisma {
     email: string
     passwordHash?: string | null
     role: $Enums.Role
-    profilePicUrl?: string | null
-    homeLocation?: NullableJsonNullValueInput | InputJsonValue
-    workLocation?: NullableJsonNullValueInput | InputJsonValue
-    schedule?: NullableJsonNullValueInput | InputJsonValue
-    rating?: number | null
     createdAt?: Date | string
+    driverProfile?: DriverUncheckedCreateNestedOneWithoutUserInput
     feedbackReceived?: FeedbackUncheckedCreateNestedManyWithoutRateeInput
     feedbackGiven?: FeedbackUncheckedCreateNestedManyWithoutRaterInput
-    driverProfile?: DriverUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutBookingsInput = {
@@ -22728,15 +22340,10 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    profilePicUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    homeLocation?: NullableJsonNullValueInput | InputJsonValue
-    workLocation?: NullableJsonNullValueInput | InputJsonValue
-    schedule?: NullableJsonNullValueInput | InputJsonValue
-    rating?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    driverProfile?: DriverUpdateOneWithoutUserNestedInput
     feedbackReceived?: FeedbackUpdateManyWithoutRateeNestedInput
     feedbackGiven?: FeedbackUpdateManyWithoutRaterNestedInput
-    driverProfile?: DriverUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBookingsInput = {
@@ -22747,15 +22354,10 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    profilePicUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    homeLocation?: NullableJsonNullValueInput | InputJsonValue
-    workLocation?: NullableJsonNullValueInput | InputJsonValue
-    schedule?: NullableJsonNullValueInput | InputJsonValue
-    rating?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    driverProfile?: DriverUncheckedUpdateOneWithoutUserNestedInput
     feedbackReceived?: FeedbackUncheckedUpdateManyWithoutRateeNestedInput
     feedbackGiven?: FeedbackUncheckedUpdateManyWithoutRaterNestedInput
-    driverProfile?: DriverUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type PaymentUpsertWithoutBookingInput = {
@@ -22847,15 +22449,10 @@ export namespace Prisma {
     email: string
     passwordHash?: string | null
     role: $Enums.Role
-    profilePicUrl?: string | null
-    homeLocation?: NullableJsonNullValueInput | InputJsonValue
-    workLocation?: NullableJsonNullValueInput | InputJsonValue
-    schedule?: NullableJsonNullValueInput | InputJsonValue
-    rating?: number | null
     createdAt?: Date | string
+    driverProfile?: DriverCreateNestedOneWithoutUserInput
     bookings?: BookingCreateNestedManyWithoutRiderInput
     feedbackGiven?: FeedbackCreateNestedManyWithoutRaterInput
-    driverProfile?: DriverCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutFeedbackReceivedInput = {
@@ -22866,15 +22463,10 @@ export namespace Prisma {
     email: string
     passwordHash?: string | null
     role: $Enums.Role
-    profilePicUrl?: string | null
-    homeLocation?: NullableJsonNullValueInput | InputJsonValue
-    workLocation?: NullableJsonNullValueInput | InputJsonValue
-    schedule?: NullableJsonNullValueInput | InputJsonValue
-    rating?: number | null
     createdAt?: Date | string
+    driverProfile?: DriverUncheckedCreateNestedOneWithoutUserInput
     bookings?: BookingUncheckedCreateNestedManyWithoutRiderInput
     feedbackGiven?: FeedbackUncheckedCreateNestedManyWithoutRaterInput
-    driverProfile?: DriverUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutFeedbackReceivedInput = {
@@ -22890,15 +22482,10 @@ export namespace Prisma {
     email: string
     passwordHash?: string | null
     role: $Enums.Role
-    profilePicUrl?: string | null
-    homeLocation?: NullableJsonNullValueInput | InputJsonValue
-    workLocation?: NullableJsonNullValueInput | InputJsonValue
-    schedule?: NullableJsonNullValueInput | InputJsonValue
-    rating?: number | null
     createdAt?: Date | string
+    driverProfile?: DriverCreateNestedOneWithoutUserInput
     bookings?: BookingCreateNestedManyWithoutRiderInput
     feedbackReceived?: FeedbackCreateNestedManyWithoutRateeInput
-    driverProfile?: DriverCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutFeedbackGivenInput = {
@@ -22909,15 +22496,10 @@ export namespace Prisma {
     email: string
     passwordHash?: string | null
     role: $Enums.Role
-    profilePicUrl?: string | null
-    homeLocation?: NullableJsonNullValueInput | InputJsonValue
-    workLocation?: NullableJsonNullValueInput | InputJsonValue
-    schedule?: NullableJsonNullValueInput | InputJsonValue
-    rating?: number | null
     createdAt?: Date | string
+    driverProfile?: DriverUncheckedCreateNestedOneWithoutUserInput
     bookings?: BookingUncheckedCreateNestedManyWithoutRiderInput
     feedbackReceived?: FeedbackUncheckedCreateNestedManyWithoutRateeInput
-    driverProfile?: DriverUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutFeedbackGivenInput = {
@@ -22975,15 +22557,10 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    profilePicUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    homeLocation?: NullableJsonNullValueInput | InputJsonValue
-    workLocation?: NullableJsonNullValueInput | InputJsonValue
-    schedule?: NullableJsonNullValueInput | InputJsonValue
-    rating?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    driverProfile?: DriverUpdateOneWithoutUserNestedInput
     bookings?: BookingUpdateManyWithoutRiderNestedInput
     feedbackGiven?: FeedbackUpdateManyWithoutRaterNestedInput
-    driverProfile?: DriverUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFeedbackReceivedInput = {
@@ -22994,15 +22571,10 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    profilePicUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    homeLocation?: NullableJsonNullValueInput | InputJsonValue
-    workLocation?: NullableJsonNullValueInput | InputJsonValue
-    schedule?: NullableJsonNullValueInput | InputJsonValue
-    rating?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    driverProfile?: DriverUncheckedUpdateOneWithoutUserNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutRiderNestedInput
     feedbackGiven?: FeedbackUncheckedUpdateManyWithoutRaterNestedInput
-    driverProfile?: DriverUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutFeedbackGivenInput = {
@@ -23024,15 +22596,10 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    profilePicUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    homeLocation?: NullableJsonNullValueInput | InputJsonValue
-    workLocation?: NullableJsonNullValueInput | InputJsonValue
-    schedule?: NullableJsonNullValueInput | InputJsonValue
-    rating?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    driverProfile?: DriverUpdateOneWithoutUserNestedInput
     bookings?: BookingUpdateManyWithoutRiderNestedInput
     feedbackReceived?: FeedbackUpdateManyWithoutRateeNestedInput
-    driverProfile?: DriverUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFeedbackGivenInput = {
@@ -23043,15 +22610,10 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    profilePicUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    homeLocation?: NullableJsonNullValueInput | InputJsonValue
-    workLocation?: NullableJsonNullValueInput | InputJsonValue
-    schedule?: NullableJsonNullValueInput | InputJsonValue
-    rating?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    driverProfile?: DriverUncheckedUpdateOneWithoutUserNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutRiderNestedInput
     feedbackReceived?: FeedbackUncheckedUpdateManyWithoutRateeNestedInput
-    driverProfile?: DriverUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type RideUpsertWithoutFeedbackInput = {
@@ -23935,6 +23497,14 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type DriverDocumentCreateManyDriverInput = {
+    id?: string
+    type: $Enums.DocumentType
+    fileUrl: string
+    verified?: boolean
+    uploadedAt?: Date | string
+  }
+
   export type RideCreateManyDriverInput = {
     id?: string
     startLocation: JsonNullValueInput | InputJsonValue
@@ -23957,12 +23527,28 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
-  export type DriverDocumentCreateManyDriverInput = {
-    id?: string
-    type: $Enums.DocumentType
-    fileUrl: string
-    verified?: boolean
-    uploadedAt?: Date | string
+  export type DriverDocumentUpdateWithoutDriverInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumDocumentTypeFieldUpdateOperationsInput | $Enums.DocumentType
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DriverDocumentUncheckedUpdateWithoutDriverInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumDocumentTypeFieldUpdateOperationsInput | $Enums.DocumentType
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DriverDocumentUncheckedUpdateManyWithoutDriverInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumDocumentTypeFieldUpdateOperationsInput | $Enums.DocumentType
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type RideUpdateWithoutDriverInput = {
@@ -24033,30 +23619,6 @@ export namespace Prisma {
     color?: NullableStringFieldUpdateOperationsInput | string | null
     verified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type DriverDocumentUpdateWithoutDriverInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    type?: EnumDocumentTypeFieldUpdateOperationsInput | $Enums.DocumentType
-    fileUrl?: StringFieldUpdateOperationsInput | string
-    verified?: BoolFieldUpdateOperationsInput | boolean
-    uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type DriverDocumentUncheckedUpdateWithoutDriverInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    type?: EnumDocumentTypeFieldUpdateOperationsInput | $Enums.DocumentType
-    fileUrl?: StringFieldUpdateOperationsInput | string
-    verified?: BoolFieldUpdateOperationsInput | boolean
-    uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type DriverDocumentUncheckedUpdateManyWithoutDriverInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    type?: EnumDocumentTypeFieldUpdateOperationsInput | $Enums.DocumentType
-    fileUrl?: StringFieldUpdateOperationsInput | string
-    verified?: BoolFieldUpdateOperationsInput | boolean
-    uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BookingCreateManyRideInput = {

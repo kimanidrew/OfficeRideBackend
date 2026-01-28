@@ -128,11 +128,6 @@ exports.Prisma.UserScalarFieldEnum = {
   email: 'email',
   passwordHash: 'passwordHash',
   role: 'role',
-  profilePicUrl: 'profilePicUrl',
-  homeLocation: 'homeLocation',
-  workLocation: 'workLocation',
-  schedule: 'schedule',
-  rating: 'rating',
   createdAt: 'createdAt'
 };
 
@@ -140,8 +135,7 @@ exports.Prisma.DriverScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   licenseNumber: 'licenseNumber',
-  verified: 'verified',
-  joinedAt: 'joinedAt'
+  verified: 'verified'
 };
 
 exports.Prisma.VehicleScalarFieldEnum = {
@@ -253,11 +247,6 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
-exports.Prisma.NullableJsonNullValueInput = {
-  DbNull: Prisma.DbNull,
-  JsonNull: Prisma.JsonNull
-};
-
 exports.Prisma.JsonNullValueInput = {
   JsonNull: Prisma.JsonNull
 };
@@ -267,15 +256,15 @@ exports.Prisma.QueryMode = {
   insensitive: 'insensitive'
 };
 
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+
 exports.Prisma.JsonNullValueFilter = {
   DbNull: Prisma.DbNull,
   JsonNull: Prisma.JsonNull,
   AnyNull: Prisma.AnyNull
-};
-
-exports.Prisma.NullsOrder = {
-  first: 'first',
-  last: 'last'
 };
 exports.Role = exports.$Enums.Role = {
   driver: 'driver',

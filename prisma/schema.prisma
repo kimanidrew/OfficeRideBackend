@@ -8,38 +8,31 @@ datasource db {
 }
 
 model User {
-  id               String     @id @default(uuid())
-  firstName        String
-  middleName       String? // optional 
-  lastName         String? // optional
-  email            String     @unique
-  passwordHash     String?
-  role             Role
-  profilePicUrl    String?
-  homeLocation     Json?
-  workLocation     Json?
-  schedule         Json?
-  rating           Float?     @default(0)
-  createdAt        DateTime   @default(now())
-  bookings         Booking[]  @relation("RiderBookings")
+  id           String   @id @default(uuid())
+  firstName    String
+  middleName   String?
+  lastName     String?
+  email        String   @unique
+  passwordHash String?
+  role         Role
+  createdAt    DateTime @default(now())
+  driverProfile Driver?
+  bookings     Booking[]  @relation("RiderBookings")
   feedbackReceived Feedback[] @relation("FeedbackReceived")
   feedbackGiven    Feedback[] @relation("FeedbackGiven")
-  driverProfile    Driver?
 }
 
 model Driver {
-  id     String @id @default(uuid())
-  userId String @unique
-  user   User   @relation(fields: [userId], references: [id])
-
+  id            String   @id @default(uuid())
+  userId        String   @unique
+  user          User     @relation(fields: [userId], references: [id])
   licenseNumber String?
   verified      Boolean  @default(false)
-  joinedAt      DateTime @default(now())
-
-  rides     Ride[]
-  vehicles  Vehicle[]
-  documents DriverDocument[]
+  documents     DriverDocument[]
+  rides         Ride[]
+  vehicles      Vehicle[]
 }
+
 
 model Vehicle {
   id       String @id @default(uuid())
