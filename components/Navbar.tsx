@@ -70,7 +70,7 @@ const Navbar = () => {
           </Link>
         </li>
          <li>
-          <Link href="/bookings" className={linkClass}>
+          <Link href="/drivers" className={linkClass}>
             Drivers
           </Link>
         </li>
