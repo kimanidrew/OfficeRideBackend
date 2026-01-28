@@ -33,16 +33,13 @@ export default function RoutesList({
   const [currentPage, setCurrentPage] = useState(1);
   const [savingId, setSavingId] = useState<string | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(true); // Loading state for initial fetch
+  const [loading, setLoading] = useState<boolean>(true);
 
   const routesPerPage = 5;
 
-  // Show loading while routes prop is empty or updating
   useEffect(() => {
     setLoading(true);
-    const timeout = setTimeout(() => {
-      setLoading(false);
-    }, 200); // small delay for smoother UX
+    const timeout = setTimeout(() => setLoading(false), 200);
     return () => clearTimeout(timeout);
   }, [routes]);
 
@@ -60,6 +57,7 @@ export default function RoutesList({
   ): Promise<number> => {
     const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
     const waypoints = via.map((v) => `${v.latitude},${v.longitude}`).join("|");
+
     const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${start.latitude},${start.longitude}&destination=${end.latitude},${end.longitude}&key=${apiKey}${
       waypoints ? `&waypoints=${waypoints}` : ""
     }`;
@@ -83,6 +81,7 @@ export default function RoutesList({
     setSavingId(r.id);
     try {
       const distance = await calculateDistance(editStart, editEnd, editStops);
+
       await fetch("/api/routes", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -94,6 +93,7 @@ export default function RoutesList({
           distance,
         }),
       });
+
       setEditingId(null);
       reload();
     } finally {
@@ -128,45 +128,11 @@ export default function RoutesList({
     startIndex + routesPerPage
   );
 
-  const goToPrevPage = () => {
-    if (currentPage > 1) setCurrentPage(currentPage - 1);
-  };
-
-  const goToNextPage = () => {
-    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
-  };
-
-
   return (
     <div className="space-y-6">
       {/* Header */}
       <div className="flex justify-between items-center">
-        <h2 className="text-3xl font-bold text-indigo-700">Routes</h2>
-        <div className="flex items-center gap-2">
-          <button
-            onClick={goToPrevPage}
-            disabled={currentPage === 1}
-            className={`p-2 cursor-pointer rounded-full ${
-              currentPage === 1 ? "text-gray-400" : "hover:text-gray-800"
-            }`}
-          >
-            ◀
-          </button>
-          <span className="text-sm font-medium">
-            Page {currentPage} of {totalPages || 1}
-          </span>
-          <button
-            onClick={goToNextPage}
-            disabled={currentPage === totalPages || totalPages === 0}
-            className={`p-2 cursor-pointer rounded-full ${
-              currentPage === totalPages || totalPages === 0
-                ? "text-gray-400"
-                : "hover:text-gray-800"
-            }`}
-          >
-            ▶
-          </button>
-        </div>
+        <h2 className="text-3xl font-bold">Routes</h2>
       </div>
 
       {/* Search */}
@@ -185,93 +151,117 @@ export default function RoutesList({
 
       {loading && (
         <div className="flex justify-center items-center h-40">
-        <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-      </div>
-       )}
-      {!loading && currentRoutes.length === 0 && (
-        <p className="text-gray-500 text-sm">No routes match your search.</p>
+          <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+        </div>
       )}
 
-      {currentRoutes.map((r) => (
-        <div key={r.id} className="bg-white/70 rounded-xl shadow p-5">
-          {editingId === r.id ? (
-            <div className="space-y-5">
-              <LocationSearch
-                label="Edit Start"
-                value={editStart?.name || ""}
-                onSelect={setEditStart}
-              />
-              {editStops.map((_, i) => (
+      {!loading &&
+        currentRoutes.map((r) => (
+          <div key={r.id} className="bg-white/70 rounded-xl shadow p-5">
+            {editingId === r.id ? (
+              <div className="space-y-5">
                 <LocationSearch
-                  key={i}
-                  label={`Edit Stop ${i + 1}`}
-                  value={editStops[i]?.name || ""}
-                  onSelect={(loc) => {
-                    const updated = [...editStops];
-                    updated[i] = loc;
-                    setEditStops(updated);
-                  }}
+                  label="Edit Start"
+                  value={editStart?.name || ""}
+                  onSelect={setEditStart}
                 />
-              ))}
-              <LocationSearch
-                label="Edit End"
-                value={editEnd?.name || ""}
-                onSelect={setEditEnd}
-              />
 
-              <div className="flex gap-2 mt-3">
-                <button
-                  onClick={() => save(r)}
-                  disabled={savingId === r.id}
-                  className="cursor-pointer text-sm font-semibold bg-green-600 text-white px-3 py-1 rounded flex items-center"
-                >
-                  {savingId === r.id && (
-                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
-                  )}
-                  {savingId === r.id ? "Saving..." : "Save"}
-                </button>
-                <button
-                  onClick={() => setEditingId(null)}
-                  className="cursor-pointer text-sm font-semibold bg-gray-400 text-white px-3 py-1 rounded"
-                >
-                  Cancel
-                </button>
-              </div>
-            </div>
-          ) : (
-            <>
-              <p className="font-semibold text-gray-500 mb-1">
-                {r.company.companyName}
-              </p>
-              <p className="text-md font-bold">
-                {r.startLocation.name} →{" "}
-                {r.stops.map((s) => s.location.name).join(" → ")} →{" "}
-                {r.endLocation.name}
-              </p>
-              <p className="text-sm text-gray-500 font-medium">{r.distance} km</p>
+                {editStops.map((stop, i) => (
+                  <div key={i} className="flex gap-2 items-center">
+                    <LocationSearch
+                      label={`Edit Stop ${i + 1}`}
+                      value={stop?.name || ""}
+                      onSelect={(loc) => {
+                        const updated = [...editStops];
+                        updated[i] = loc;
+                        setEditStops(updated);
+                      }}
+                    />
+                    <button
+                      onClick={() =>
+                        setEditStops(editStops.filter((_, idx) => idx !== i))
+                      }
+                      className="cursor-pointer text-xl font-semibold text-red-500 p-2"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                ))}
 
-              <div className="flex gap-2 mt-2">
+                {/* ADD STOP */}
                 <button
-                  onClick={() => startEdit(r)}
-                  className="cursor-pointer text-sm font-semibold bg-indigo-600 text-white px-3 py-1 rounded"
+                  onClick={() =>
+                    setEditStops([
+                      ...editStops,
+                      { name: "", latitude: 0, longitude: 0 },
+                    ])
+                  }
+                  className="cursor-pointer text-sm font-semibold bg-gray-300 text-gray-800 px-3 py-1 rounded"
                 >
-                  Edit
+                  + Add Stop
                 </button>
-                <button
-                  onClick={() => remove(r.id)}
-                  disabled={deletingId === r.id}
-                  className="cursor-pointer text-sm font-semibold bg-red-600 text-white px-3 py-1 rounded flex items-center"
-                >
-                  {deletingId === r.id && (
-                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
-                  )}
-                  {deletingId === r.id ? "Deleting..." : "Delete"}
-                </button>
+
+                <LocationSearch
+                  label="Edit End"
+                  value={editEnd?.name || ""}
+                  onSelect={setEditEnd}
+                />
+
+                <div className="flex gap-2 mt-3">
+                  <button
+                    onClick={() => save(r)}
+                    disabled={savingId === r.id}
+                    className="cursor-pointer text-sm font-semibold bg-green-600 text-white px-3 py-1 rounded flex items-center"
+                  >
+                    {savingId === r.id && (
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                    )}
+                    {savingId === r.id ? "Saving..." : "Save"}
+                  </button>
+                  <button
+                    onClick={() => setEditingId(null)}
+                    className="cursor-pointer text-sm font-semibold bg-gray-400 text-white px-3 py-1 rounded"
+                  >
+                    Cancel
+                  </button>
+                </div>
               </div>
-            </>
-          )}
-        </div>
-      ))}
+            ) : (
+              <>
+                <p className="font-semibold text-gray-500 mb-1">
+                  {r.company.companyName}
+                </p>
+                <p className="text-md font-bold">
+                  {r.startLocation.name} →{" "}
+                  {r.stops.map((s) => s.location.name).join(" → ")}{" "}
+                  {r.endLocation.name}
+                </p>
+                <p className="text-sm text-gray-500 font-medium">
+                  {r.distance} km
+                </p>
+
+                <div className="flex gap-2 mt-2">
+                  <button
+                    onClick={() => startEdit(r)}
+                    className="cursor-pointer text-sm font-semibold bg-indigo-600 text-white px-3 py-1 rounded"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => remove(r.id)}
+                    disabled={deletingId === r.id}
+                    className="cursor-pointer text-sm font-semibold bg-red-600 text-white px-3 py-1 rounded flex items-center"
+                  >
+                    {deletingId === r.id && (
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                    )}
+                    {deletingId === r.id ? "Deleting..." : "Delete"}
+                  </button>
+                </div>
+              </>
+            )}
+          </div>
+        ))}
     </div>
   );
 }

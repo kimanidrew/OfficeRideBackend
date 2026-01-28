@@ -13,6 +13,7 @@ model User {
   email            String     @unique
   passwordHash     String?
   role             Role
+  profilePicUrl    String?
   homeLocation     Json?
   workLocation     Json?
   schedule         Json?
@@ -21,12 +22,59 @@ model User {
   bookings         Booking[]  @relation("RiderBookings")
   feedbackReceived Feedback[] @relation("FeedbackReceived")
   feedbackGiven    Feedback[] @relation("FeedbackGiven")
-  rides            Ride[]     @relation("DriverRides")
+  driverProfile    Driver?
+}
+
+model Driver {
+  id     String @id @default(uuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id])
+
+  licenseNumber String?
+  verified      Boolean  @default(false)
+  joinedAt      DateTime @default(now())
+
+  rides     Ride[]
+  vehicles  Vehicle[]
+  documents DriverDocument[]
+}
+
+model Vehicle {
+  id       String @id @default(uuid())
+  driverId String
+  driver   Driver @relation(fields: [driverId], references: [id])
+
+  make        String
+  model       String
+  year        Int
+  plateNumber String   @unique
+  color       String?
+  verified    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
+
+model DriverDocument {
+  id       String @id @default(uuid())
+  driverId String
+  driver   Driver @relation(fields: [driverId], references: [id])
+
+  type       DocumentType
+  fileUrl    String
+  verified   Boolean      @default(false)
+  uploadedAt DateTime     @default(now())
+}
+
+enum DocumentType {
+  licence
+  national_id
+  passport
+  police_clearance
 }
 
 model Ride {
   id             String     @id @default(uuid())
   driverId       String
+  driver         Driver     @relation(fields: [driverId], references: [id])
   startLocation  Json
   endLocation    Json
   departureTime  DateTime
@@ -36,7 +84,6 @@ model Ride {
   createdAt      DateTime   @default(now())
   bookings       Booking[]
   feedback       Feedback[]
-  driver         User       @relation("DriverRides", fields: [driverId], references: [id])
 }
 
 model Booking {
@@ -75,82 +122,77 @@ model Feedback {
   ride      Ride     @relation(fields: [rideId], references: [id])
 }
 
-// prisma/schema.prisma
-
 model Company {
-  id          String   @id @default(uuid())
+  id          String     @id @default(uuid())
   companyName String
-  domainName  String   @unique
-  createdAt   DateTime @default(now())
+  domainName  String     @unique
+  createdAt   DateTime   @default(now())
   routes      Route[]
   locations   Location[]
 }
 
 model Admin {
-  id           String   @id @default(uuid())
+  id           String    @id @default(uuid())
   name         String
-  email        String   @unique
+  email        String    @unique
   role         AdminRole
-  passwordHash String   // <-- add this
+  passwordHash String
   routes       Route[]
 }
 
 enum LocationType {
-  office     // default start location
-  custom     // user-added or route-specific
+  office
+  custom
 }
 
 model Location {
-  id         String       @id @default(uuid())
-  companyId  String
-  company    Company      @relation(fields: [companyId], references: [id])
+  id        String  @id @default(uuid())
+  companyId String
+  company   Company @relation(fields: [companyId], references: [id])
 
-  name       String       // formatted address from Google
-  latitude   Float
-  longitude  Float
-  type       LocationType @default(custom)  // <-- new field
+  name      String
+  latitude  Float
+  longitude Float
+  type      LocationType @default(custom)
 
-  createdAt  DateTime     @default(now())
+  createdAt DateTime @default(now())
 
-  // reverse relations
   startRoutes Route[]     @relation("StartLocation")
   endRoutes   Route[]     @relation("EndLocation")
   routeStops  RouteStop[]
 }
 
-
 model Route {
-  id               String    @id @default(uuid())
-  companyId        String
-  company          Company   @relation(fields: [companyId], references: [id])
+  id        String  @id @default(uuid())
+  companyId String
+  company   Company @relation(fields: [companyId], references: [id])
 
-  adminId          String
-  admin            Admin     @relation(fields: [adminId], references: [id])
+  adminId String
+  admin   Admin  @relation(fields: [adminId], references: [id])
 
-  startLocationId  String
-  startLocation    Location  @relation("StartLocation", fields: [startLocationId], references: [id])
+  startLocationId String
+  startLocation   Location @relation("StartLocation", fields: [startLocationId], references: [id])
 
-  endLocationId    String
-  endLocation      Location  @relation("EndLocation", fields: [endLocationId], references: [id])
+  endLocationId String
+  endLocation   Location @relation("EndLocation", fields: [endLocationId], references: [id])
 
-  distance         Float
-  createdAt        DateTime  @default(now())
+  distance  Float
+  createdAt DateTime @default(now())
 
-  // ordered via stops
-  stops            RouteStop[]
+  stops RouteStop[]
 }
 
 model RouteStop {
-  id          String   @id @default(uuid())
-  routeId     String
-  route       Route    @relation(fields: [routeId], references: [id])
+  id      String @id @default(uuid())
+  routeId String
+  route   Route  @relation(fields: [routeId], references: [id])
 
-  locationId  String
-  location    Location @relation(fields: [locationId], references: [id])
+  locationId String
+  location   Location @relation(fields: [locationId], references: [id])
 
-  order       Int      // 0,1,2... to keep via order
+  order Int
 
-  @@unique([routeId, order]) // one stop per position
+  @@unique([routeId, order])
 }
 
 enum Role {
@@ -159,7 +201,6 @@ enum Role {
   both
   admin
 }
-
 
 enum RideStatus {
   open

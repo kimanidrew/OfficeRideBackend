@@ -126,11 +126,41 @@ exports.Prisma.UserScalarFieldEnum = {
   email: 'email',
   passwordHash: 'passwordHash',
   role: 'role',
+  profilePicUrl: 'profilePicUrl',
   homeLocation: 'homeLocation',
   workLocation: 'workLocation',
   schedule: 'schedule',
   rating: 'rating',
   createdAt: 'createdAt'
+};
+
+exports.Prisma.DriverScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  licenseNumber: 'licenseNumber',
+  verified: 'verified',
+  joinedAt: 'joinedAt'
+};
+
+exports.Prisma.VehicleScalarFieldEnum = {
+  id: 'id',
+  driverId: 'driverId',
+  make: 'make',
+  model: 'model',
+  year: 'year',
+  plateNumber: 'plateNumber',
+  color: 'color',
+  verified: 'verified',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.DriverDocumentScalarFieldEnum = {
+  id: 'id',
+  driverId: 'driverId',
+  type: 'type',
+  fileUrl: 'fileUrl',
+  verified: 'verified',
+  uploadedAt: 'uploadedAt'
 };
 
 exports.Prisma.RideScalarFieldEnum = {
@@ -252,6 +282,13 @@ exports.Role = exports.$Enums.Role = {
   admin: 'admin'
 };
 
+exports.DocumentType = exports.$Enums.DocumentType = {
+  licence: 'licence',
+  national_id: 'national_id',
+  passport: 'passport',
+  police_clearance: 'police_clearance'
+};
+
 exports.RideStatus = exports.$Enums.RideStatus = {
   open: 'open',
   booked: 'booked',
@@ -292,6 +329,9 @@ exports.LocationType = exports.$Enums.LocationType = {
 
 exports.Prisma.ModelName = {
   User: 'User',
+  Driver: 'Driver',
+  Vehicle: 'Vehicle',
+  DriverDocument: 'DriverDocument',
   Ride: 'Ride',
   Booking: 'Booking',
   Payment: 'Payment',
