@@ -1,36 +1,34 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === "POST") {
-    const { firstName, middleName, lastName, email, password, licenseNumber } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10);
+export async function POST(req: NextRequest) {
+  const body = await req.json();
+  const { firstName, middleName, lastName, email, password, licenseNumber } = body;
 
-    const user = await prisma.user.create({
-      data: {
-        firstName,
-        middleName, // optional
-        lastName,   // optional
-        email,
-        passwordHash: hashedPassword,
-        role: "driver",
-        driverProfile: {
-          create: { licenseNumber },
-        },
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  const user = await prisma.user.create({
+    data: {
+      firstName,
+      middleName,
+      lastName,
+      email,
+      passwordHash: hashedPassword,
+      role: "driver",
+      driverProfile: {
+        create: { licenseNumber },
       },
-      include: { driverProfile: true },
-    });
+    },
+    include: { driverProfile: true },
+  });
 
-    return res.status(201).json(user);
-  }
+  return NextResponse.json(user, { status: 201 });
+}
 
-  if (req.method === "GET") {
-    const drivers = await prisma.driver.findMany({
-      include: { user: true, documents: true },
-    });
-    return res.json(drivers);
-  }
-
-  res.status(405).end();
+export async function GET() {
+  const drivers = await prisma.driver.findMany({
+    include: { user: true, documents: true },
+  });
+  return NextResponse.json(drivers);
 }
