@@ -1,25 +1,21 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  // Parse query params using URL
-  const { searchParams } = new URL(req.url!, `http://${req.headers.host}`);
+export async function PUT(req: NextRequest) {
+  const { searchParams } = new URL(req.url);
   const driverId = searchParams.get("driverId");
 
-  if (req.method === "PUT") {
-    const { verified } = req.body;
-
-    if (!driverId) {
-      return res.status(400).json({ error: "Missing driverId" });
-    }
-
-    const driver = await prisma.driver.update({
-      where: { id: driverId },
-      data: { verified },
-    });
-
-    return res.json(driver);
+  if (!driverId) {
+    return NextResponse.json({ error: "Missing driverId" }, { status: 400 });
   }
 
-  res.status(405).end();
+  const body = await req.json();
+  const { verified } = body;
+
+  const driver = await prisma.driver.update({
+    where: { id: driverId },
+    data: { verified },
+  });
+
+  return NextResponse.json(driver);
 }
