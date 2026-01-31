@@ -16,7 +16,11 @@ export async function POST(req: NextRequest) {
   // Generate unique filename
   const ext = path.extname(file.name);
   const fileName = `${uuidv4()}${ext}`;
-  const filePath = path.join(process.cwd(), "public", "uploads", fileName);
+  const uploadDir = path.join(process.cwd(), "public", "uploads");
+  const filePath = path.join(uploadDir, fileName);
+
+  // Ensure uploads directory exists
+  await fs.mkdir(uploadDir, { recursive: true });
 
   // Convert File to Buffer
   const arrayBuffer = await file.arrayBuffer();

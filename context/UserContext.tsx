@@ -60,11 +60,9 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         .then((data) => {
           // backend should return user object
           if (!data?.user) {
-            logout();
           }
         })
         .catch(() => {
-          logout();
         });
     }
   }, []);

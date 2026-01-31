@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
+import { use, useEffect, useState } from "react";
 import {
   FaUserCircle,
   FaFileAlt,
@@ -9,9 +10,16 @@ import {
   FaUpload,
   FaEdit,
 } from "react-icons/fa";
+import dynamic from 'next/dynamic'
 
-export default function DriverDetailPage({ params }: { params: { id: string } }) {
-  const driverId = params.id;
+const FaceMatchWithHighlight = dynamic(
+  () => import('../components/FaceMatchWithHighlight'),
+  { ssr: false }
+)
+
+export default function DriverDetailPage() {
+  const { id } = useParams<{ id: string }>()
+  const driverId = id;
   const [driver, setDriver] = useState<any>(null);
   const [form, setForm] = useState({
     firstName: "",
@@ -48,7 +56,7 @@ export default function DriverDetailPage({ params }: { params: { id: string } })
       const fd = new FormData();
       fd.append("file", form.profilePicFile);
       fd.append("userId", driver.user.id);
-      const uploadRes = await fetch("/api/upload-profile-picture", {
+      const uploadRes = await fetch("/api/drivers/upload-profile-picture", {
         method: "POST",
         body: fd,
       });
@@ -234,6 +242,8 @@ export default function DriverDetailPage({ params }: { params: { id: string } })
           <FaUpload /> Upload Document
         </button>
       </div>
+
+      <FaceMatchWithHighlight/>
     </div>
   );
 }
