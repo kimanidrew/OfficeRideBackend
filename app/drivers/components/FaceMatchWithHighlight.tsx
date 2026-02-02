@@ -165,7 +165,7 @@ export default function MultiImageFaceMatch() {
       <button
         onClick={compareFaces}
         disabled={loading || !modelsLoaded}
-        className="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg disabled:bg-slate-300 transition-all active:scale-95"
+        className="cursor-pointer w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg disabled:bg-slate-300 transition-all active:scale-95"
       >
         {loading ? "Analyzing Geometry..." : "Verify Identity"}
       </button>

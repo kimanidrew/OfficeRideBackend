@@ -19,7 +19,7 @@ export default function RoutesPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-blue-100 to-purple-100 px-10 py-10">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-blue-100 to-purple-100 px-10 py-30">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-10">
         <div className="w-full">
         <CreateRouteForm userId={user?.id} onCreated={loadRoutes} />

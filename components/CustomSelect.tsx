@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
+import { FaChevronDown, FaSearch, FaCheck } from "react-icons/fa";
 
 interface Option {
   value: string;
@@ -11,13 +12,13 @@ interface CustomSelectProps {
   options: Option[];
   placeholder?: string;
   onChange: (v: string) => void;
-  searchable?: boolean; // optional search input
+  searchable?: boolean;
 }
 
 export default function CustomSelect({
   value,
   options,
-  placeholder = "Select",
+  placeholder = "Select Option",
   onChange,
   searchable = false,
 }: CustomSelectProps) {
@@ -28,7 +29,6 @@ export default function CustomSelect({
 
   const selected = options.find((o) => o.value === value);
 
-  // Filter options if searchable
   useEffect(() => {
     if (searchable && query) {
       setFilteredOptions(
@@ -41,7 +41,6 @@ export default function CustomSelect({
     }
   }, [query, options, searchable]);
 
-  // Close dropdown if clicked outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (ref.current && !ref.current.contains(event.target as Node)) {
@@ -53,48 +52,70 @@ export default function CustomSelect({
   }, []);
 
   return (
-    <div className="relative w-full" ref={ref}>
+    <div className="relative w-full group" ref={ref}>
+      {/* Trigger Button */}
       <button
         type="button"
         onClick={() => setOpen((prev) => !prev)}
-        className="w-full flex justify-between items-center px-4 py-3 text-sm font-semibold rounded-md shadow-sm bg-white text-gray-700 hover:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1 transition"
+        className={`w-full flex justify-between items-center px-4 py-3.5 text-sm font-bold rounded-xl border transition-all duration-200 outline-none shadow-sm ${
+          open 
+            ? "bg-white border-indigo-500 ring-4 ring-indigo-500/10" 
+            : "bg-white border-slate-200 hover:border-slate-300 text-slate-700"
+        }`}
       >
-        <span className={selected ? "text-gray-900" : "text-gray-400"}>
+        <span className={selected ? "text-slate-900" : "text-slate-400"}>
           {selected?.label || placeholder}
         </span>
-        <span className={`transition-transform ${open ? "rotate-180" : ""}`}>▾</span>
+        <FaChevronDown 
+          size={12} 
+          className={`text-slate-400 transition-transform duration-300 ${open ? "rotate-180 text-indigo-500" : ""}`} 
+        />
       </button>
 
+      {/* Dropdown Menu */}
       {open && (
-        <div className="absolute z-50 w-full mt-1 bg-white border border-gray-200 rounded-md shadow-lg max-h-60 overflow-y-auto">
+        <div className="absolute z-[100] w-full mt-2 bg-white/95 backdrop-blur-md border border-slate-100 rounded-2xl shadow-2xl shadow-slate-200/50 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
           {searchable && (
-            <div className="p-2">
+            <div className="p-3 border-b border-slate-50 relative">
+              <FaSearch size={12} className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-300" />
               <input
                 type="text"
+                autoFocus
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search..."
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 shadow-sm text-sm"
+                placeholder="Search options..."
+                className="w-full pl-9 pr-4 py-2 bg-slate-50 border-none rounded-lg focus:ring-2 focus:ring-indigo-500/10 text-sm font-semibold outline-none transition-all placeholder:text-slate-300"
               />
             </div>
           )}
-          {filteredOptions.length > 0 ? (
-            filteredOptions.map((o) => (
-              <div
-                key={o.value}
-                className="font-semibold text-sm px-4 py-2 cursor-pointer hover:bg-indigo-50 hover:text-indigo-700 text-sm transition-colors"
-                onMouseDown={() => {
-                  onChange(o.value);
-                  setOpen(false);
-                  setQuery("");
-                }}
-              >
-                {o.label}
+
+          <div className="max-h-60 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-200">
+            {filteredOptions.length > 0 ? (
+              filteredOptions.map((o) => (
+                <div
+                  key={o.value}
+                  onMouseDown={(e) => {
+                    e.preventDefault();
+                    onChange(o.value);
+                    setOpen(false);
+                    setQuery("");
+                  }}
+                  className={`flex items-center justify-between px-4 py-3 cursor-pointer transition-all duration-200 ${
+                    value === o.value 
+                      ? "bg-indigo-50 text-indigo-700 font-black" 
+                      : "hover:bg-slate-50 text-slate-600 font-bold hover:text-indigo-600"
+                  }`}
+                >
+                  <span className="text-sm">{o.label}</span>
+                  {value === o.value && <FaCheck size={10} className="text-indigo-500" />}
+                </div>
+              ))
+            ) : (
+              <div className="px-4 py-8 text-center text-slate-400 text-xs font-bold uppercase tracking-widest">
+                No Results Found
               </div>
-            ))
-          ) : (
-            <div className="px-4 py-2 text-gray-500 text-sm">No options found</div>
-          )}
+            )}
+          </div>
         </div>
       )}
     </div>

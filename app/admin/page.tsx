@@ -5,7 +5,7 @@ import {
   FaCity, FaUsers, FaRoute, FaChartLine, 
   FaUserShield, FaBell, FaSearch, FaSignOutAlt 
 } from "react-icons/fa";
-import CompanyPage from "./pageComponents/CompanyPage";
+import CompanyPage from "../pageComponents/CompanyPage";
 
 export default function AdminDashboard() {
 
@@ -19,7 +19,7 @@ export default function AdminDashboard() {
 
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800 font-sans py-20">
+    <div className="min-h-screen bg-slate-50 text-slate-800 font-sans pb-20">
       
 
       {/* MAIN CONTENT AREA */}

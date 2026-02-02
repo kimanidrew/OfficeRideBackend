@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
+import { FaSearch, FaMapMarkerAlt, FaSpinner } from "react-icons/fa";
 
 interface LocationResult {
   name: string;
@@ -26,6 +27,7 @@ export default function LocationSearch({
   const [query, setQuery] = useState(value || "");
   const [options, setOptions] = useState<Option[]>([]);
   const [isFocused, setIsFocused] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   // Reset input when resetSignal changes
@@ -36,7 +38,7 @@ export default function LocationSearch({
     }
   }, [resetSignal]);
 
-  // Fetch autocomplete options when query changes and input is focused
+  // Fetch autocomplete options
   useEffect(() => {
     if (!isFocused || query.length < 3) {
       setOptions([]);
@@ -44,6 +46,7 @@ export default function LocationSearch({
     }
 
     const fetchOptions = async () => {
+      setIsLoading(true);
       try {
         const res = await fetch(
           `/api/search-location?q=${encodeURIComponent(query)}`
@@ -54,10 +57,13 @@ export default function LocationSearch({
         }
       } catch (err) {
         console.error("Failed to fetch options", err);
+      } finally {
+        setIsLoading(false);
       }
     };
 
-    fetchOptions();
+    const debounce = setTimeout(fetchOptions, 300);
+    return () => clearTimeout(debounce);
   }, [query, isFocused]);
 
   const handleSelect = async (placeId: string, description: string) => {
@@ -66,18 +72,15 @@ export default function LocationSearch({
       if (res.ok) {
         const loc: LocationResult = await res.json();
 
-        // Override the name with the description so you save/display that
         const locWithDescription: LocationResult = {
           ...loc,
           name: description,
         };
 
         onSelect(locWithDescription);
-        setQuery(description); // show chosen description in input
-        setOptions([]); // close dropdown
-        setIsFocused(false); // prevent dropdown from reopening immediately
-
-        // blur the input so dropdown closes
+        setQuery(description);
+        setOptions([]);
+        setIsFocused(false);
         inputRef.current?.blur();
       }
     } catch (err) {
@@ -86,40 +89,60 @@ export default function LocationSearch({
   };
 
   return (
-    <div className="space-y-2 relative w-full">
-      <label className="block font-semibold text-gray-700 text-sm mb-2">
+    <div className="space-y-1.5 relative w-full group">
+      <label className="block text-[11px] font-black uppercase tracking-widest text-slate-400 ml-1">
         {label}
       </label>
-      <input
-        ref={inputRef}
-        type="text"
-        value={query}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => {
-          // small timeout so click on option registers before blur clears
-          setTimeout(() => setIsFocused(false), 100);
-        }}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="Search location..."
-        className="text-sm font-semibold rounded-md px-3 py-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm transition"
-      />
-      {isFocused && options.length > 0 && (
-        <ul className="absolute z-20 mt-1 py-2 border border-gray-200 bg-white w-full max-h-60 overflow-y-auto rounded-lg shadow-lg">
-          {options.map((o) => (
-            <li
-              key={o.placeId}
-              className="px-3 py-2 cursor-pointer hover:bg-blue-50 text-sm font-semibold text-gray-700 transition-colors"
-              onMouseDown={() => handleSelect(o.placeId, o.description)}
-            >
-              {o.description}
-            </li>
-          ))}
-        </ul>
-      )}
-      {isFocused && query.length >= 3 && options.length === 0 && (
-        <div className="absolute z-20 mt-1 border border-gray-200 bg-white w-full rounded-lg shadow-lg px-3 py-2 text-sm text-gray-500">
-          No results found
+      
+      <div className="relative">
+        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-indigo-500 transition-colors">
+          {isLoading ? (
+            <FaSpinner className="animate-spin" size={14} />
+          ) : (
+            <FaSearch size={14} />
+          )}
         </div>
+
+        <input
+          ref={inputRef}
+          type="text"
+          value={query}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => {
+            setTimeout(() => setIsFocused(false), 200);
+          }}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Enter address or landmark..."
+          className="w-full bg-white border border-slate-200 rounded-xl pl-11 pr-4 py-3 text-sm font-semibold text-slate-700 placeholder:text-slate-300 focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 outline-none transition-all shadow-sm"
+        />
+      </div>
+
+      {/* Results Dropdown */}
+      {isFocused && (options.length > 0 || (query.length >= 3 && !isLoading)) && (
+        <ul className="absolute z-[100] mt-2 w-full bg-white/95 backdrop-blur-md border border-slate-100 rounded-2xl shadow-2xl shadow-slate-200/50 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+          {options.length > 0 ? (
+            options.map((o) => (
+              <li
+                key={o.placeId}
+                className="px-4 py-3.5 cursor-pointer hover:bg-indigo-50 flex items-start gap-3 transition-colors border-b border-slate-50 last:border-none"
+                onMouseDown={(e) => {
+                    e.preventDefault(); // prevents blur before click
+                    handleSelect(o.placeId, o.description);
+                }}
+              >
+                <FaMapMarkerAlt className="text-indigo-400 mt-1 shrink-0" size={12} />
+                <span className="text-sm font-bold text-slate-600 leading-tight">
+                  {o.description}
+                </span>
+              </li>
+            ))
+          ) : query.length >= 3 && !isLoading && (
+            <li className="px-4 py-8 text-center">
+              <p className="text-sm font-bold text-slate-400">No locations found</p>
+              <p className="text-[10px] text-slate-300 mt-1 uppercase tracking-tighter">Try a different search term</p>
+            </li>
+          )}
+        </ul>
       )}
     </div>
   );
