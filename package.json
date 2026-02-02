@@ -6,9 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "postinstall": "cp ./node_modules/pdfjs-dist/build/pdf.worker.min.mjs ./public/"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
     "@mediapipe/camera_utils": "^0.3.1675466862",
     "@mediapipe/drawing_utils": "^0.3.1675466124",
     "@mediapipe/face_detection": "^0.4.1646425229",
@@ -20,13 +22,17 @@
     "@tensorflow/tfjs-backend-cpu": "^3.21.0",
     "@tensorflow/tfjs-backend-webgl": "^3.21.0",
     "@vladmandic/face-api": "^1.7.15",
+    "@xenova/transformers": "^2.17.2",
     "bcryptjs": "^3.0.3",
     "clsx": "^2.1.1",
     "jsonwebtoken": "^9.0.3",
+    "mammoth": "^1.11.0",
     "next": "^16.1.6",
+    "pdfjs-dist": "^5.4.624",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-icons": "^5.5.0",
+    "tesseract.js": "^7.0.0",
     "uuid": "^13.0.0"
   },
   "devDependencies": {
