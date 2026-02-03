@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { writeFile } from "fs/promises";
+import path from "path";
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
@@ -26,50 +28,55 @@ export async function PUT(req: NextRequest) {
       return NextResponse.json({ error: "Missing driverId" }, { status: 400 });
     }
 
-    const body = await req.json();
-    const { 
-      firstName, 
-      middleName, 
-      lastName, 
-      email, 
-      licenseNumber, 
-      profilePicUrl,
-      verified 
-    } = body;
+    // 1. Switch from req.json() to req.formData()
+    const formData = await req.formData();
+    
+    const firstName = formData.get("firstName") as string;
+    const middleName = formData.get("middleName") as string;
+    const lastName = formData.get("lastName") as string;
+    const email = formData.get("email") as string;
+    const licenseNumber = formData.get("licenseNumber") as string;
+    const profilePicFile = formData.get("profilePic") as File | null;
 
-    // Use Prisma's nested update to modify both tables in one transaction
+    let profilePicUrl = formData.get("profilePicUrl") as string;
+
+    // 2. Handle File Upload (Example: Saving to public/uploads)
+    if (profilePicFile && typeof profilePicFile !== "string") {
+      const bytes = await profilePicFile.arrayBuffer();
+      const buffer = Buffer.from(bytes);
+
+      const filename = `${Date.now()}-${profilePicFile.name.replace(/\s+/g, "-")}`;
+      const uploadPath = path.join(process.cwd(), "public/uploads", filename);
+      
+      await writeFile(uploadPath, buffer);
+      profilePicUrl = `/uploads/${filename}`; // This is what we save in DB
+    }
+
+    // 3. Update Database
     const updatedDriver = await prisma.driver.update({
       where: { id: driverId },
       data: {
-        licenseNumber, // Updates Driver table
-        verified,      // Updates Driver table
-        user: {        // Navigates to User table
+        licenseNumber,
+        user: {
           update: {
             firstName,
             middleName,
             lastName,
             email,
-            profilePicUrl,
+            profilePicUrl, // The new path
           },
         },
       },
-      include: { 
-        user: true,
-        documents: true,
-        vehicles: true 
-      },
+      include: { user: true, documents: true },
     });
 
     return NextResponse.json(updatedDriver, { status: 200 });
   } catch (error: any) {
     console.error("Update Error:", error);
-    // Handle Prisma unique constraint errors (e.g., email already taken)
-    if (error.code === 'P2002') {
-      return NextResponse.json({ error: "Email already in use" }, { status: 400 });
-    }
     return NextResponse.json({ error: "Failed to update driver" }, { status: 500 });
   }
 }
+
 
 export async function DELETE(req: NextRequest) {
   try {

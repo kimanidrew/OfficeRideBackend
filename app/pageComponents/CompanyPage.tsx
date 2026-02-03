@@ -136,7 +136,7 @@ function AddCompany({ onAdded }: { onAdded: () => void }) {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-black py-4 rounded-2xl transition-all shadow-lg shadow-indigo-100 disabled:bg-slate-300 mt-2 flex items-center justify-center gap-2"
+            className="cursor-pointer w-full bg-indigo-600 hover:bg-indigo-700 text-white font-black py-4 rounded-2xl transition-all shadow-lg shadow-indigo-100 disabled:bg-slate-300 mt-2 flex items-center justify-center gap-2"
           >
             {loading ? "Registering..." : <><FaPlus size={12}/> Register Partner</>}
           </button>
@@ -155,7 +155,7 @@ function AddCompany({ onAdded }: { onAdded: () => void }) {
   );
 }
 
-export default function CompanyPage() {
+export default function CompanyPage({ onGlobalRefresh }: { onGlobalRefresh: () => void }) {
   const [companies, setCompanies] = useState<Company[]>([]);
 
   const loadCompanies = async () => {
@@ -169,13 +169,18 @@ export default function CompanyPage() {
     }
   };
 
+  const handleUpdate = () => {
+    loadCompanies();      // Refresh the local list
+    onGlobalRefresh();   // Refresh the parent stats (Daily Rides, Company Count, etc)
+  };
+
   useEffect(() => {
     loadCompanies();
   }, []);
 
   return (
     <div className="flex flex-col lg:flex-row gap-12">
-      <AddCompany onAdded={loadCompanies} />
+      <AddCompany onAdded={handleUpdate}/>
       <CompanyList companies={companies} />
     </div>
   );
