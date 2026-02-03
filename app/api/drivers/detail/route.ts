@@ -28,66 +28,54 @@ export async function GET(req: NextRequest) {
   return NextResponse.json(driver);
 }
 
+
 export async function PUT(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
     const driverId = searchParams.get("driverId");
 
-    if (!driverId) {
-      return NextResponse.json({ error: "Missing driverId" }, { status: 400 });
-    }
+    if (!driverId) return NextResponse.json({ error: "Missing driverId" }, { status: 400 });
 
     const formData = await req.formData();
-    
     const firstName = formData.get("firstName") as string;
-    const middleName = formData.get("middleName") as string;
     const lastName = formData.get("lastName") as string;
     const email = formData.get("email") as string;
-    const licenseNumber = formData.get("licenseNumber") as string;
     const profilePicFile = formData.get("profilePic") as File | null;
 
     let profilePicUrl = formData.get("profilePicUrl") as string;
 
-    // Handle File Upload
+    // ✅ FIX FOR PRODUCTION: Convert File to Base64 String
     if (profilePicFile && typeof profilePicFile !== "string") {
-      const bytes = await profilePicFile.arrayBuffer();
-      const buffer = Buffer.from(bytes);
-
-      const filename = `${Date.now()}-${profilePicFile.name.replace(/\s+/g, "-")}`;
-      const uploadPath = path.join(process.cwd(), "public/uploads", filename);
+      const arrayBuffer = await profilePicFile.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+      const base64Image = buffer.toString("base64");
       
-      await writeFile(uploadPath, buffer);
-      profilePicUrl = `/uploads/${filename}`;
+      // Create a Data URL that can be used directly in <img> tags
+      profilePicUrl = `data:${profilePicFile.type};base64,${base64Image}`;
     }
 
     const updatedDriver = await prisma.driver.update({
       where: { id: driverId },
       data: {
-        licenseNumber,
         user: {
           update: {
             firstName,
-            middleName,
             lastName,
             email,
-            profilePicUrl,
+            profilePicUrl, // Now saving the long Base64 string to DB
           },
         },
       },
-      // ✅ CONSISTENCY: Include vehicles here too so the UI refreshes correctly
-      include: { 
-        user: true, 
-        documents: true,
-        vehicles: true 
-      },
+      include: { user: true, documents: true, vehicles: true },
     });
 
     return NextResponse.json(updatedDriver, { status: 200 });
   } catch (error: any) {
-    console.error("Update Error:", error);
-    return NextResponse.json({ error: "Failed to update driver" }, { status: 500 });
+    console.error("Base64 Upload Error:", error);
+    return NextResponse.json({ error: "Failed to update profile" }, { status: 500 });
   }
 }
+
 
 export async function DELETE(req: NextRequest) {
   try {
