@@ -104,7 +104,7 @@ const Navbar = () => {
                   </p>
                 </div>
                 <Link
-                  href="/admin"
+                  href="/"
                   className="p-3 bg-indigo-600 text-white rounded-2xl shadow-xl shadow-indigo-100 hover:scale-110 active:scale-95 transition-all"
                 >
                   <RiDashboardFill size={22} />
