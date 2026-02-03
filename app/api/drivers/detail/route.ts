@@ -11,10 +11,19 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "Missing driverId" }, { status: 400 });
   }
 
+  // ✅ ADDED: vehicles: true to the include object
   const driver = await prisma.driver.findUnique({
     where: { id: driverId },
-    include: { user: true, documents: true },
+    include: { 
+      user: true, 
+      documents: true,
+      vehicles: true // This will now return the vehicle array
+    },
   });
+
+  if (!driver) {
+    return NextResponse.json({ error: "Driver not found" }, { status: 404 });
+  }
 
   return NextResponse.json(driver);
 }
@@ -28,7 +37,6 @@ export async function PUT(req: NextRequest) {
       return NextResponse.json({ error: "Missing driverId" }, { status: 400 });
     }
 
-    // 1. Switch from req.json() to req.formData()
     const formData = await req.formData();
     
     const firstName = formData.get("firstName") as string;
@@ -40,7 +48,7 @@ export async function PUT(req: NextRequest) {
 
     let profilePicUrl = formData.get("profilePicUrl") as string;
 
-    // 2. Handle File Upload (Example: Saving to public/uploads)
+    // Handle File Upload
     if (profilePicFile && typeof profilePicFile !== "string") {
       const bytes = await profilePicFile.arrayBuffer();
       const buffer = Buffer.from(bytes);
@@ -49,10 +57,9 @@ export async function PUT(req: NextRequest) {
       const uploadPath = path.join(process.cwd(), "public/uploads", filename);
       
       await writeFile(uploadPath, buffer);
-      profilePicUrl = `/uploads/${filename}`; // This is what we save in DB
+      profilePicUrl = `/uploads/${filename}`;
     }
 
-    // 3. Update Database
     const updatedDriver = await prisma.driver.update({
       where: { id: driverId },
       data: {
@@ -63,11 +70,16 @@ export async function PUT(req: NextRequest) {
             middleName,
             lastName,
             email,
-            profilePicUrl, // The new path
+            profilePicUrl,
           },
         },
       },
-      include: { user: true, documents: true },
+      // ✅ CONSISTENCY: Include vehicles here too so the UI refreshes correctly
+      include: { 
+        user: true, 
+        documents: true,
+        vehicles: true 
+      },
     });
 
     return NextResponse.json(updatedDriver, { status: 200 });
@@ -76,7 +88,6 @@ export async function PUT(req: NextRequest) {
     return NextResponse.json({ error: "Failed to update driver" }, { status: 500 });
   }
 }
-
 
 export async function DELETE(req: NextRequest) {
   try {

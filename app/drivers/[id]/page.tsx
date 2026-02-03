@@ -10,6 +10,8 @@ import DocumentSection from "../components/DocumentSection";
 import AISummaryReport from "../components/AISummaryReport";
 import DocumentModal from "../components/DocumentModal";
 import DocumentSummary from "../components/DocumentSummary";
+import VehicleSection from "../components/VehicleSection";
+import VehicleEditModal from "../components/VehicleEditModal";
 
 const FaceMatchWithHighlight = dynamic(
   () => import('../components/FaceMatchWithHighlight'),
@@ -28,6 +30,8 @@ export default function DriverDetailPage() {
     email: "", licenseNumber: "", profilePicFile: null as File | null,
     previewUrl: "",
   });
+  const [isAddingVehicle, setIsAddingVehicle] = useState(false);
+  const [editingVehicle, setEditingVehicle] = useState<any>(null);
   const [aiSummary, setAiSummary] = useState("");
   const [aiLoading, setAiLoading] = useState(false);
   const [selectedDoc, setSelectedDoc] = useState<{ url: string; type: string } | null>(null);
@@ -93,6 +97,39 @@ const scanDocument = async (docUrl: string) => {
     setAiLoading(false); 
   }
 };
+
+const uploadDocument = async () => {
+  if (!newDoc.type || !newDoc.file) {
+    alert("Please select both a document type and a file.");
+    return;
+  }
+
+  setLoading(true);
+  const formData = new FormData();
+  formData.append("type", newDoc.type);
+  formData.append("file", newDoc.file);
+  formData.append("driverId", driverId as string); // Body ID
+
+  try {
+    // ✅ ADD driverId to the URL search params for the API to catch it easily
+    const res = await fetch(`/api/drivers/documents?driverId=${driverId}`, {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || "Failed to upload document");
+
+    setNewDoc({ type: "", file: null });
+    await refreshData();
+    alert("Document registered successfully!");
+  } catch (err: any) {
+    alert(err.message);
+  } finally {
+    setLoading(false);
+  }
+};
+
 
 // Inside DriverDetailPage component
 const updateDocument = async (docId: string, verified: boolean) => {
@@ -177,6 +214,70 @@ const toggleDriverVerification = async (currentStatus: boolean) => {
   }
 };
 
+const handleSaveVehicle = async (vehicleData: any) => {
+  setLoading(true);
+  const isNew = !vehicleData.id;
+  // Use id param for updates, otherwise POST to the general endpoint
+  const url = isNew ? `/api/drivers/vehicles` : `/api/drivers/vehicles?id=${vehicleData.id}`;
+  const method = isNew ? "POST" : "PUT";
+
+  try {
+    const res = await fetch(url, {
+      method: method,
+      headers: { "Content-Type": "application/json" },
+      // Attach the driverId for new vehicles
+      body: JSON.stringify({ ...vehicleData, driverId }),
+    });
+
+    if (!res.ok) throw new Error(`Failed to ${isNew ? 'add' : 'update'} vehicle`);
+    
+    setEditingVehicle(null);
+    setIsAddingVehicle(false);
+    await refreshData();
+  } catch (err: any) {
+    alert(err.message);
+  } finally {
+    setLoading(false);
+  }
+};
+
+const updateVehicle = async (vehicleId: string, updatedData: any) => {
+  setLoading(true); // Reuse existing loading state for the save button
+  try {
+    const res = await fetch(`/api/drivers/vehicles?id=${vehicleId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatedData),
+    });
+
+    if (!res.ok) throw new Error("Failed to update vehicle");
+    
+    // Close the modal and refresh UI
+    setEditingVehicle(null);
+    await refreshData();
+    // Optional: add a toast/notification here
+  } catch (err: any) {
+    console.error("Vehicle Update Error:", err);
+    alert(err.message);
+  } finally {
+    setLoading(false);
+  }
+};
+
+const toggleVehicleVerification = async (vehicleId: string, currentStatus: boolean) => {
+  try {
+    const response = await fetch(`/api/drivers/vehicles/verify?id=${vehicleId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ verified: !currentStatus }),
+    });
+
+    if (!response.ok) throw new Error("Failed to update vehicle status");
+    await refreshData();
+  } catch (err: any) {
+    alert("Error updating vehicle verification.");
+  }
+};
 
   if (!driver) return <div className="h-screen flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600" /></div>;
 
@@ -191,6 +292,12 @@ const toggleDriverVerification = async (currentStatus: boolean) => {
         </div>
 
         <div className="lg:col-span-2 space-y-6">
+          <VehicleSection 
+            driver={driver} 
+            onEdit={(vehicle: any) => setEditingVehicle(vehicle)} 
+            onAdd={() => setIsAddingVehicle(true)} 
+            toggleVehicleVerification={toggleVehicleVerification}
+          />
           <DocumentSection 
             driver={driver} 
             newDoc={newDoc} 
@@ -200,6 +307,8 @@ const toggleDriverVerification = async (currentStatus: boolean) => {
             refreshData={refreshData} 
             driverId={driverId} 
             updateDocument={updateDocument}
+            uploadDocument={uploadDocument}
+            loading={loading}
           />
           
           <AISummaryReport aiLoading={aiLoading} aiSummary={aiSummary} setAiSummary={setAiSummary} copied={copied} setCopied={setCopied} />
@@ -214,6 +323,19 @@ const toggleDriverVerification = async (currentStatus: boolean) => {
       </div>
 
       {selectedDoc && <DocumentModal selectedDoc={selectedDoc} setSelectedDoc={setSelectedDoc} />}
+    
+    {/* Show Modal for either Editing or Adding */}
+    {(editingVehicle || isAddingVehicle) && (
+      <VehicleEditModal 
+        vehicle={editingVehicle || { make: "", model: "", plateNumber: "", year: 2024, color: "" }} 
+        loading={loading}
+        onClose={() => {
+          setEditingVehicle(null);
+          setIsAddingVehicle(false);
+        }} 
+        onSave={handleSaveVehicle} 
+      />
+    )}
     </div>
   );
 }

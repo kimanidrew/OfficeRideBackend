@@ -8,9 +8,20 @@ import {
 
 export default function DocumentSection({ 
   driver, newDoc, setNewDoc, uploadDocument, 
-  updateDocument, scanDocument, setSelectedDoc 
+  updateDocument, scanDocument, setSelectedDoc, loading 
 }: any) {
   
+  /** 
+   * Update these values to match your Prisma Schema @default or Enum.
+   * Common keys: 'licence', 'national_id', 'insurance', 'road_worthiness'
+   */
+  const documentCategories = [
+    { value: "licence", label: "Driving Licence" },
+    { value: "national_id", label: "National ID Card" },
+    { value: "insurance", label: "Vehicle Insurance" },
+    { value: "road_worthiness", label: "Road Worthiness (Logbook)" },
+  ];
+
   return (
     <section className="bg-white rounded-[2.5rem] border border-slate-200 shadow-sm p-8 overflow-hidden">
       {/* Header Section */}
@@ -24,7 +35,7 @@ export default function DocumentSection({
           </h3>
         </div>
         <span className="bg-slate-100 text-slate-600 text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest border border-slate-200">
-          {driver.documents.length} Records
+          {driver?.documents?.length || 0} Records
         </span>
       </div>
 
@@ -37,11 +48,14 @@ export default function DocumentSection({
           <select 
             value={newDoc.type} 
             onChange={(e) => setNewDoc({...newDoc, type: e.target.value})} 
-            className="flex-1 px-5 py-3 bg-white border border-slate-200 rounded-2xl text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+            className="flex-1 px-5 py-3 bg-white border border-slate-200 rounded-2xl text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none appearance-none"
           >
             <option value="">Select Category</option>
-            <option value="licence">Driving Licence</option>
-            <option value="national_id">National ID Card</option>
+            {documentCategories.map((cat) => (
+              <option key={cat.value} value={cat.value}>
+                {cat.label}
+              </option>
+            ))}
           </select>
           <input 
             type="file" 
@@ -53,15 +67,19 @@ export default function DocumentSection({
             <FaFileAlt className="text-indigo-300" />
             {newDoc.file ? newDoc.file.name : "Choose File"}
           </label>
-          <button onClick={uploadDocument} className="bg-indigo-600 text-white px-8 py-3 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100">
-            Submit
+          <button 
+            disabled={loading}
+            onClick={uploadDocument} 
+            className="cursor-pointer bg-indigo-600 text-white px-8 py-3 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100 disabled:bg-slate-300 disabled:shadow-none"
+          >
+           {loading ? "Submitting..." : "Submit"} 
           </button>
         </div>
       </div>
 
       {/* Documents Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        {driver.documents.map((doc: any) => (
+        {driver?.documents?.map((doc: any) => (
           <div key={doc.id} className={`p-6 border rounded-[2rem] group transition-all duration-300 ${doc.verified ? 'bg-white border-slate-100 shadow-sm' : 'bg-rose-50/30 border-rose-100'}`}>
             <div className="flex justify-between items-start mb-5">
               <div 
@@ -72,7 +90,7 @@ export default function DocumentSection({
                   <FaFileAlt size={20} />
                 </div>
                 <div>
-                  <span className="font-black text-slate-800 block capitalize text-sm">{doc.type.replace('_', ' ')}</span>
+                  <span className="font-black text-slate-800 block capitalize text-sm">{doc.type.replace(/_/g, ' ')}</span>
                   <div className="flex items-center gap-1.5 mt-0.5">
                     <FaEye size={10} className="text-indigo-400" />
                     <span className="text-[10px] font-black text-indigo-500 uppercase tracking-widest group-hover:underline">Preview File</span>
@@ -80,7 +98,6 @@ export default function DocumentSection({
                 </div>
               </div>
               
-              {/* Dynamic Status Badge */}
               <div className="flex items-center gap-2">
                 {doc.verified ? (
                   <div className="flex items-center gap-1.5 bg-emerald-50 text-emerald-600 px-3 py-1 rounded-full border border-emerald-100 shadow-sm">
@@ -97,7 +114,6 @@ export default function DocumentSection({
             </div>
 
             <div className="flex gap-2">
-              {/* Conditional Verify/Unverify Color Logic */}
               <button 
                 onClick={() => updateDocument(doc.id, !doc.verified)} 
                 className={`cursor-pointer flex-[2] py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border ${
@@ -109,7 +125,6 @@ export default function DocumentSection({
                 {doc.verified ? "Remove Approval" : "Approve Record"}
               </button>
 
-              {/* AI Scan Button with Label */}
               <button 
                 onClick={() => scanDocument(doc.fileUrl)} 
                 className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-white border border-slate-200 text-indigo-600 rounded-xl hover:bg-indigo-600 hover:text-white transition-all shadow-sm group/btn"
