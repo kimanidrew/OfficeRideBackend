@@ -18,7 +18,7 @@ export default function DriverHeader({ driver, form, toggleDriverVerification, d
 
         <div>
           <div className="flex items-center gap-3">
-            <h1 className="text-3xl font-black tracking-tight text-slate-900">{driver.user.firstName} {driver.user.lastName}</h1>
+            <h1 className="text-3xl font-black tracking-tight text-slate-900">{driver.user.firstName} {driver.user.middleName} {driver.user.lastName}</h1>
             <span className={`text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest ${driver.verified ? 'bg-emerald-50 text-emerald-600' : 'bg-rose-50 text-rose-600'}`}>
               {driver.verified ? 'Verified' : 'Pending'}
             </span>
