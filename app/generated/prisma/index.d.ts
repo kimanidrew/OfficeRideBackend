@@ -86,8 +86,10 @@ export namespace $Enums {
   export const DocumentType: {
   licence: 'licence',
   national_id: 'national_id',
-  passport: 'passport',
-  police_clearance: 'police_clearance'
+  insurance: 'insurance',
+  road_worthiness: 'road_worthiness',
+  police_clearance: 'police_clearance',
+  tax_compliance: 'tax_compliance'
 };
 
 export type DocumentType = (typeof DocumentType)[keyof typeof DocumentType]

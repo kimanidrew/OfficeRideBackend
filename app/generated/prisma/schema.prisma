@@ -1,6 +1,7 @@
 generator client {
-  provider = "prisma-client-js"
-  output   = "../app/generated/prisma"
+  provider   = "prisma-client-js"
+  output     = "../app/generated/prisma"
+  engineType = "library"
 }
 
 datasource db {
@@ -62,8 +63,10 @@ model DriverDocument {
 enum DocumentType {
   licence
   national_id
-  passport
+  insurance
+  road_worthiness
   police_clearance
+  tax_compliance
 }
 
 model Ride {
