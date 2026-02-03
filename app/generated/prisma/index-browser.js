@@ -280,7 +280,8 @@ exports.DocumentType = exports.$Enums.DocumentType = {
   insurance: 'insurance',
   road_worthiness: 'road_worthiness',
   police_clearance: 'police_clearance',
-  tax_compliance: 'tax_compliance'
+  tax_compliance: 'tax_compliance',
+  passport: 'passport'
 };
 
 exports.RideStatus = exports.$Enums.RideStatus = {

@@ -89,7 +89,8 @@ export namespace $Enums {
   insurance: 'insurance',
   road_worthiness: 'road_worthiness',
   police_clearance: 'police_clearance',
-  tax_compliance: 'tax_compliance'
+  tax_compliance: 'tax_compliance',
+  passport: 'passport'
 };
 
 export type DocumentType = (typeof DocumentType)[keyof typeof DocumentType]
