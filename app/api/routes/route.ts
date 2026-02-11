@@ -109,6 +109,17 @@ export async function POST(req: Request) {
       apiKey
     );
 
+    const adminExists = await prisma.admin.findUnique({
+        where: { id: adminId },
+      });
+
+    if (!adminExists) {
+      return NextResponse.json(
+        { error: `Admin with ID ${adminId} does not exist. Ensure you are passing an ID from the Admin table, not the User table.` },
+        { status: 400 }
+      );
+    }
+
     const route = await prisma.route.create({
       data: {
         companyId,

@@ -8,32 +8,32 @@ datasource db {
 }
 
 model User {
-  id           String   @id @default(uuid())
-  firstName    String
-  middleName   String?
-  lastName     String?
-  email        String   @unique
-  passwordHash String?
-  role         Role
-  createdAt    DateTime @default(now())
-  profilePicUrl String?
-  driverProfile Driver?
-  bookings     Booking[]  @relation("RiderBookings")
+  id               String     @id @default(uuid())
+  firstName        String
+  middleName       String?
+  lastName         String?
+  email            String     @unique
+  passwordHash     String?
+  role             Role
+  createdAt        DateTime   @default(now())
+  profilePicUrl    String?
+  driverProfile    Driver?
+  bookings         Booking[]  @relation("RiderBookings")
   feedbackReceived Feedback[] @relation("FeedbackReceived")
   feedbackGiven    Feedback[] @relation("FeedbackGiven")
+  routes           Route[]    @relation("UserRoutes")
 }
 
 model Driver {
-  id            String   @id @default(uuid())
-  userId        String   @unique
-  user          User     @relation(fields: [userId], references: [id])
+  id            String           @id @default(uuid())
+  userId        String           @unique
+  user          User             @relation(fields: [userId], references: [id])
   licenseNumber String?
-  verified      Boolean  @default(false)
+  verified      Boolean          @default(false)
   documents     DriverDocument[]
   rides         Ride[]
   vehicles      Vehicle[]
 }
-
 
 model Vehicle {
   id       String @id @default(uuid())
@@ -136,7 +136,6 @@ model Admin {
   email        String    @unique
   role         AdminRole
   passwordHash String
-  routes       Route[]
 }
 
 enum LocationType {
@@ -167,7 +166,7 @@ model Route {
   company   Company @relation(fields: [companyId], references: [id])
 
   adminId String
-  admin   Admin  @relation(fields: [adminId], references: [id])
+  admin   User   @relation("UserRoutes", fields: [adminId], references: [id])
 
   startLocationId String
   startLocation   Location @relation("StartLocation", fields: [startLocationId], references: [id])
