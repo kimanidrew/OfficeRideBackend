@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { prisma } from "../../../../lib/prisma";
 
-const JWT_SECRET = process.env.JWT_SECRET!; // ensure this is set in .env
+const JWT_SECRET = process.env.JWT_SECRET!; 
 
 export async function POST(req: Request) {
   try {
@@ -16,30 +16,44 @@ export async function POST(req: Request) {
       );
     }
 
-    // Find admin by email
-    const admin = await prisma.admin.findUnique({ where: { email } });
-    if (!admin) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
+    // 1. Find the USER by email (referenced by the Route model)
+    const user = await prisma.user.findUnique({ 
+      where: { email },
+      include: { adminProfile: true } 
+    });
+
+    // 2. Validate existence and Role
+    // Ensure the user exists and has the 'admin' role in the User table
+    if (!user || user.role !== 'admin') {
+      return NextResponse.json({ error: "Admin user not found" }, { status: 404 });
     }
 
-    // Verify password
-    const isValid = await bcrypt.compare(password, admin.passwordHash);
+    // 3. Verify password
+    const isValid = await bcrypt.compare(password, user.passwordHash!);
     if (!isValid) {
       return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
     }
 
-    // Create JWT payload
-    const payload = { id: admin.id, email: admin.email, role: admin.role };
+    // 4. Create JWT payload using the USER ID (Satisfies Route_adminId_fkey)
+    const payload = { 
+      id: user.id, 
+      email: user.email, 
+      role: user.role 
+    };
 
-    // Sign token
     const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "1h" });
 
-    // Remove sensitive fields before returning
-    const { passwordHash, ...safeAdmin } = admin;
+    // 5. PREVENT FRONTEND CRASH: Combine names into a single 'name' field
+    // This fixes the "Cannot read properties of undefined (reading 'split')" in Navbar.tsx
+    const { passwordHash, ...safeUser } = user;
+    const userWithLegacyFields = {
+      ...safeUser,
+      name: `${user.firstName} ${user.lastName || ""}`.trim(),
+    };
 
     return NextResponse.json({
       message: "Login successful",
-      user: safeAdmin,
+      user: userWithLegacyFields,
       token,
     });
   } catch (err) {

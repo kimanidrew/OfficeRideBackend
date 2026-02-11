@@ -2073,12 +2073,14 @@ export namespace Prisma {
     bookings: number
     feedbackReceived: number
     feedbackGiven: number
+    routes: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     bookings?: boolean | UserCountOutputTypeCountBookingsArgs
     feedbackReceived?: boolean | UserCountOutputTypeCountFeedbackReceivedArgs
     feedbackGiven?: boolean | UserCountOutputTypeCountFeedbackGivenArgs
+    routes?: boolean | UserCountOutputTypeCountRoutesArgs
   }
 
   // Custom InputTypes
@@ -2111,6 +2113,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountFeedbackGivenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: FeedbackWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountRoutesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RouteWhereInput
   }
 
 
@@ -2240,37 +2249,6 @@ export namespace Prisma {
    */
   export type CompanyCountOutputTypeCountLocationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: LocationWhereInput
-  }
-
-
-  /**
-   * Count Type AdminCountOutputType
-   */
-
-  export type AdminCountOutputType = {
-    routes: number
-  }
-
-  export type AdminCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    routes?: boolean | AdminCountOutputTypeCountRoutesArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * AdminCountOutputType without action
-   */
-  export type AdminCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AdminCountOutputType
-     */
-    select?: AdminCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * AdminCountOutputType without action
-   */
-  export type AdminCountOutputTypeCountRoutesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: RouteWhereInput
   }
 
 
@@ -2558,6 +2536,8 @@ export namespace Prisma {
     bookings?: boolean | User$bookingsArgs<ExtArgs>
     feedbackReceived?: boolean | User$feedbackReceivedArgs<ExtArgs>
     feedbackGiven?: boolean | User$feedbackGivenArgs<ExtArgs>
+    adminProfile?: boolean | User$adminProfileArgs<ExtArgs>
+    routes?: boolean | User$routesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2603,6 +2583,8 @@ export namespace Prisma {
     bookings?: boolean | User$bookingsArgs<ExtArgs>
     feedbackReceived?: boolean | User$feedbackReceivedArgs<ExtArgs>
     feedbackGiven?: boolean | User$feedbackGivenArgs<ExtArgs>
+    adminProfile?: boolean | User$adminProfileArgs<ExtArgs>
+    routes?: boolean | User$routesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2615,6 +2597,8 @@ export namespace Prisma {
       bookings: Prisma.$BookingPayload<ExtArgs>[]
       feedbackReceived: Prisma.$FeedbackPayload<ExtArgs>[]
       feedbackGiven: Prisma.$FeedbackPayload<ExtArgs>[]
+      adminProfile: Prisma.$AdminPayload<ExtArgs> | null
+      routes: Prisma.$RoutePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3024,6 +3008,8 @@ export namespace Prisma {
     bookings<T extends User$bookingsArgs<ExtArgs> = {}>(args?: Subset<T, User$bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     feedbackReceived<T extends User$feedbackReceivedArgs<ExtArgs> = {}>(args?: Subset<T, User$feedbackReceivedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FeedbackPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     feedbackGiven<T extends User$feedbackGivenArgs<ExtArgs> = {}>(args?: Subset<T, User$feedbackGivenArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FeedbackPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    adminProfile<T extends User$adminProfileArgs<ExtArgs> = {}>(args?: Subset<T, User$adminProfileArgs<ExtArgs>>): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    routes<T extends User$routesArgs<ExtArgs> = {}>(args?: Subset<T, User$routesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RoutePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3538,6 +3524,49 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: FeedbackScalarFieldEnum | FeedbackScalarFieldEnum[]
+  }
+
+  /**
+   * User.adminProfile
+   */
+  export type User$adminProfileArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Admin
+     */
+    omit?: AdminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
+    where?: AdminWhereInput
+  }
+
+  /**
+   * User.routes
+   */
+  export type User$routesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Route
+     */
+    select?: RouteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Route
+     */
+    omit?: RouteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouteInclude<ExtArgs> | null
+    where?: RouteWhereInput
+    orderBy?: RouteOrderByWithRelationInput | RouteOrderByWithRelationInput[]
+    cursor?: RouteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RouteScalarFieldEnum | RouteScalarFieldEnum[]
   }
 
   /**
@@ -12554,6 +12583,7 @@ export namespace Prisma {
 
   export type AdminMinAggregateOutputType = {
     id: string | null
+    userId: string | null
     name: string | null
     email: string | null
     role: $Enums.AdminRole | null
@@ -12562,6 +12592,7 @@ export namespace Prisma {
 
   export type AdminMaxAggregateOutputType = {
     id: string | null
+    userId: string | null
     name: string | null
     email: string | null
     role: $Enums.AdminRole | null
@@ -12570,6 +12601,7 @@ export namespace Prisma {
 
   export type AdminCountAggregateOutputType = {
     id: number
+    userId: number
     name: number
     email: number
     role: number
@@ -12580,6 +12612,7 @@ export namespace Prisma {
 
   export type AdminMinAggregateInputType = {
     id?: true
+    userId?: true
     name?: true
     email?: true
     role?: true
@@ -12588,6 +12621,7 @@ export namespace Prisma {
 
   export type AdminMaxAggregateInputType = {
     id?: true
+    userId?: true
     name?: true
     email?: true
     role?: true
@@ -12596,6 +12630,7 @@ export namespace Prisma {
 
   export type AdminCountAggregateInputType = {
     id?: true
+    userId?: true
     name?: true
     email?: true
     role?: true
@@ -12677,6 +12712,7 @@ export namespace Prisma {
 
   export type AdminGroupByOutputType = {
     id: string
+    userId: string
     name: string
     email: string
     role: $Enums.AdminRole
@@ -12702,53 +12738,62 @@ export namespace Prisma {
 
   export type AdminSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    userId?: boolean
     name?: boolean
     email?: boolean
     role?: boolean
     passwordHash?: boolean
-    routes?: boolean | Admin$routesArgs<ExtArgs>
-    _count?: boolean | AdminCountOutputTypeDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["admin"]>
 
   export type AdminSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    userId?: boolean
     name?: boolean
     email?: boolean
     role?: boolean
     passwordHash?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["admin"]>
 
   export type AdminSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    userId?: boolean
     name?: boolean
     email?: boolean
     role?: boolean
     passwordHash?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["admin"]>
 
   export type AdminSelectScalar = {
     id?: boolean
+    userId?: boolean
     name?: boolean
     email?: boolean
     role?: boolean
     passwordHash?: boolean
   }
 
-  export type AdminOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "role" | "passwordHash", ExtArgs["result"]["admin"]>
+  export type AdminOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "name" | "email" | "role" | "passwordHash", ExtArgs["result"]["admin"]>
   export type AdminInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    routes?: boolean | Admin$routesArgs<ExtArgs>
-    _count?: boolean | AdminCountOutputTypeDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
-  export type AdminIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type AdminIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type AdminIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type AdminIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
 
   export type $AdminPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Admin"
     objects: {
-      routes: Prisma.$RoutePayload<ExtArgs>[]
+      user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      userId: string
       name: string
       email: string
       role: $Enums.AdminRole
@@ -13147,7 +13192,7 @@ export namespace Prisma {
    */
   export interface Prisma__AdminClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    routes<T extends Admin$routesArgs<ExtArgs> = {}>(args?: Subset<T, Admin$routesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RoutePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -13178,6 +13223,7 @@ export namespace Prisma {
    */
   interface AdminFieldRefs {
     readonly id: FieldRef<"Admin", 'String'>
+    readonly userId: FieldRef<"Admin", 'String'>
     readonly name: FieldRef<"Admin", 'String'>
     readonly email: FieldRef<"Admin", 'String'>
     readonly role: FieldRef<"Admin", 'AdminRole'>
@@ -13431,6 +13477,10 @@ export namespace Prisma {
      */
     data: AdminCreateManyInput | AdminCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -13501,6 +13551,10 @@ export namespace Prisma {
      * Limit how many Admins to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -13567,30 +13621,6 @@ export namespace Prisma {
      * Limit how many Admins to delete.
      */
     limit?: number
-  }
-
-  /**
-   * Admin.routes
-   */
-  export type Admin$routesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Route
-     */
-    select?: RouteSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Route
-     */
-    omit?: RouteOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: RouteInclude<ExtArgs> | null
-    where?: RouteWhereInput
-    orderBy?: RouteOrderByWithRelationInput | RouteOrderByWithRelationInput[]
-    cursor?: RouteWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: RouteScalarFieldEnum | RouteScalarFieldEnum[]
   }
 
   /**
@@ -15035,7 +15065,7 @@ export namespace Prisma {
     distance?: boolean
     createdAt?: boolean
     company?: boolean | CompanyDefaultArgs<ExtArgs>
-    admin?: boolean | AdminDefaultArgs<ExtArgs>
+    admin?: boolean | UserDefaultArgs<ExtArgs>
     startLocation?: boolean | LocationDefaultArgs<ExtArgs>
     endLocation?: boolean | LocationDefaultArgs<ExtArgs>
     stops?: boolean | Route$stopsArgs<ExtArgs>
@@ -15051,7 +15081,7 @@ export namespace Prisma {
     distance?: boolean
     createdAt?: boolean
     company?: boolean | CompanyDefaultArgs<ExtArgs>
-    admin?: boolean | AdminDefaultArgs<ExtArgs>
+    admin?: boolean | UserDefaultArgs<ExtArgs>
     startLocation?: boolean | LocationDefaultArgs<ExtArgs>
     endLocation?: boolean | LocationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["route"]>
@@ -15065,7 +15095,7 @@ export namespace Prisma {
     distance?: boolean
     createdAt?: boolean
     company?: boolean | CompanyDefaultArgs<ExtArgs>
-    admin?: boolean | AdminDefaultArgs<ExtArgs>
+    admin?: boolean | UserDefaultArgs<ExtArgs>
     startLocation?: boolean | LocationDefaultArgs<ExtArgs>
     endLocation?: boolean | LocationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["route"]>
@@ -15083,7 +15113,7 @@ export namespace Prisma {
   export type RouteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "companyId" | "adminId" | "startLocationId" | "endLocationId" | "distance" | "createdAt", ExtArgs["result"]["route"]>
   export type RouteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     company?: boolean | CompanyDefaultArgs<ExtArgs>
-    admin?: boolean | AdminDefaultArgs<ExtArgs>
+    admin?: boolean | UserDefaultArgs<ExtArgs>
     startLocation?: boolean | LocationDefaultArgs<ExtArgs>
     endLocation?: boolean | LocationDefaultArgs<ExtArgs>
     stops?: boolean | Route$stopsArgs<ExtArgs>
@@ -15091,13 +15121,13 @@ export namespace Prisma {
   }
   export type RouteIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     company?: boolean | CompanyDefaultArgs<ExtArgs>
-    admin?: boolean | AdminDefaultArgs<ExtArgs>
+    admin?: boolean | UserDefaultArgs<ExtArgs>
     startLocation?: boolean | LocationDefaultArgs<ExtArgs>
     endLocation?: boolean | LocationDefaultArgs<ExtArgs>
   }
   export type RouteIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     company?: boolean | CompanyDefaultArgs<ExtArgs>
-    admin?: boolean | AdminDefaultArgs<ExtArgs>
+    admin?: boolean | UserDefaultArgs<ExtArgs>
     startLocation?: boolean | LocationDefaultArgs<ExtArgs>
     endLocation?: boolean | LocationDefaultArgs<ExtArgs>
   }
@@ -15106,7 +15136,7 @@ export namespace Prisma {
     name: "Route"
     objects: {
       company: Prisma.$CompanyPayload<ExtArgs>
-      admin: Prisma.$AdminPayload<ExtArgs>
+      admin: Prisma.$UserPayload<ExtArgs>
       startLocation: Prisma.$LocationPayload<ExtArgs>
       endLocation: Prisma.$LocationPayload<ExtArgs>
       stops: Prisma.$RouteStopPayload<ExtArgs>[]
@@ -15514,7 +15544,7 @@ export namespace Prisma {
   export interface Prisma__RouteClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     company<T extends CompanyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CompanyDefaultArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    admin<T extends AdminDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AdminDefaultArgs<ExtArgs>>): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    admin<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     startLocation<T extends LocationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LocationDefaultArgs<ExtArgs>>): Prisma__LocationClient<$Result.GetResult<Prisma.$LocationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     endLocation<T extends LocationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LocationDefaultArgs<ExtArgs>>): Prisma__LocationClient<$Result.GetResult<Prisma.$LocationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     stops<T extends Route$stopsArgs<ExtArgs> = {}>(args?: Subset<T, Route$stopsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RouteStopPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -17210,6 +17240,7 @@ export namespace Prisma {
 
   export const AdminScalarFieldEnum: {
     id: 'id',
+    userId: 'userId',
     name: 'name',
     email: 'email',
     role: 'role',
@@ -17509,6 +17540,8 @@ export namespace Prisma {
     bookings?: BookingListRelationFilter
     feedbackReceived?: FeedbackListRelationFilter
     feedbackGiven?: FeedbackListRelationFilter
+    adminProfile?: XOR<AdminNullableScalarRelationFilter, AdminWhereInput> | null
+    routes?: RouteListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -17525,6 +17558,8 @@ export namespace Prisma {
     bookings?: BookingOrderByRelationAggregateInput
     feedbackReceived?: FeedbackOrderByRelationAggregateInput
     feedbackGiven?: FeedbackOrderByRelationAggregateInput
+    adminProfile?: AdminOrderByWithRelationInput
+    routes?: RouteOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -17544,6 +17579,8 @@ export namespace Prisma {
     bookings?: BookingListRelationFilter
     feedbackReceived?: FeedbackListRelationFilter
     feedbackGiven?: FeedbackListRelationFilter
+    adminProfile?: XOR<AdminNullableScalarRelationFilter, AdminWhereInput> | null
+    routes?: RouteListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -18119,24 +18156,27 @@ export namespace Prisma {
     OR?: AdminWhereInput[]
     NOT?: AdminWhereInput | AdminWhereInput[]
     id?: StringFilter<"Admin"> | string
+    userId?: StringFilter<"Admin"> | string
     name?: StringFilter<"Admin"> | string
     email?: StringFilter<"Admin"> | string
     role?: EnumAdminRoleFilter<"Admin"> | $Enums.AdminRole
     passwordHash?: StringFilter<"Admin"> | string
-    routes?: RouteListRelationFilter
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type AdminOrderByWithRelationInput = {
     id?: SortOrder
+    userId?: SortOrder
     name?: SortOrder
     email?: SortOrder
     role?: SortOrder
     passwordHash?: SortOrder
-    routes?: RouteOrderByRelationAggregateInput
+    user?: UserOrderByWithRelationInput
   }
 
   export type AdminWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    userId?: string
     email?: string
     AND?: AdminWhereInput | AdminWhereInput[]
     OR?: AdminWhereInput[]
@@ -18144,11 +18184,12 @@ export namespace Prisma {
     name?: StringFilter<"Admin"> | string
     role?: EnumAdminRoleFilter<"Admin"> | $Enums.AdminRole
     passwordHash?: StringFilter<"Admin"> | string
-    routes?: RouteListRelationFilter
-  }, "id" | "email">
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "userId" | "email">
 
   export type AdminOrderByWithAggregationInput = {
     id?: SortOrder
+    userId?: SortOrder
     name?: SortOrder
     email?: SortOrder
     role?: SortOrder
@@ -18163,6 +18204,7 @@ export namespace Prisma {
     OR?: AdminScalarWhereWithAggregatesInput[]
     NOT?: AdminScalarWhereWithAggregatesInput | AdminScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Admin"> | string
+    userId?: StringWithAggregatesFilter<"Admin"> | string
     name?: StringWithAggregatesFilter<"Admin"> | string
     email?: StringWithAggregatesFilter<"Admin"> | string
     role?: EnumAdminRoleWithAggregatesFilter<"Admin"> | $Enums.AdminRole
@@ -18257,7 +18299,7 @@ export namespace Prisma {
     distance?: FloatFilter<"Route"> | number
     createdAt?: DateTimeFilter<"Route"> | Date | string
     company?: XOR<CompanyScalarRelationFilter, CompanyWhereInput>
-    admin?: XOR<AdminScalarRelationFilter, AdminWhereInput>
+    admin?: XOR<UserScalarRelationFilter, UserWhereInput>
     startLocation?: XOR<LocationScalarRelationFilter, LocationWhereInput>
     endLocation?: XOR<LocationScalarRelationFilter, LocationWhereInput>
     stops?: RouteStopListRelationFilter
@@ -18272,7 +18314,7 @@ export namespace Prisma {
     distance?: SortOrder
     createdAt?: SortOrder
     company?: CompanyOrderByWithRelationInput
-    admin?: AdminOrderByWithRelationInput
+    admin?: UserOrderByWithRelationInput
     startLocation?: LocationOrderByWithRelationInput
     endLocation?: LocationOrderByWithRelationInput
     stops?: RouteStopOrderByRelationAggregateInput
@@ -18290,7 +18332,7 @@ export namespace Prisma {
     distance?: FloatFilter<"Route"> | number
     createdAt?: DateTimeFilter<"Route"> | Date | string
     company?: XOR<CompanyScalarRelationFilter, CompanyWhereInput>
-    admin?: XOR<AdminScalarRelationFilter, AdminWhereInput>
+    admin?: XOR<UserScalarRelationFilter, UserWhereInput>
     startLocation?: XOR<LocationScalarRelationFilter, LocationWhereInput>
     endLocation?: XOR<LocationScalarRelationFilter, LocationWhereInput>
     stops?: RouteStopListRelationFilter
@@ -18394,6 +18436,8 @@ export namespace Prisma {
     bookings?: BookingCreateNestedManyWithoutRiderInput
     feedbackReceived?: FeedbackCreateNestedManyWithoutRateeInput
     feedbackGiven?: FeedbackCreateNestedManyWithoutRaterInput
+    adminProfile?: AdminCreateNestedOneWithoutUserInput
+    routes?: RouteCreateNestedManyWithoutAdminInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -18410,6 +18454,8 @@ export namespace Prisma {
     bookings?: BookingUncheckedCreateNestedManyWithoutRiderInput
     feedbackReceived?: FeedbackUncheckedCreateNestedManyWithoutRateeInput
     feedbackGiven?: FeedbackUncheckedCreateNestedManyWithoutRaterInput
+    adminProfile?: AdminUncheckedCreateNestedOneWithoutUserInput
+    routes?: RouteUncheckedCreateNestedManyWithoutAdminInput
   }
 
   export type UserUpdateInput = {
@@ -18426,6 +18472,8 @@ export namespace Prisma {
     bookings?: BookingUpdateManyWithoutRiderNestedInput
     feedbackReceived?: FeedbackUpdateManyWithoutRateeNestedInput
     feedbackGiven?: FeedbackUpdateManyWithoutRaterNestedInput
+    adminProfile?: AdminUpdateOneWithoutUserNestedInput
+    routes?: RouteUpdateManyWithoutAdminNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -18442,6 +18490,8 @@ export namespace Prisma {
     bookings?: BookingUncheckedUpdateManyWithoutRiderNestedInput
     feedbackReceived?: FeedbackUncheckedUpdateManyWithoutRateeNestedInput
     feedbackGiven?: FeedbackUncheckedUpdateManyWithoutRaterNestedInput
+    adminProfile?: AdminUncheckedUpdateOneWithoutUserNestedInput
+    routes?: RouteUncheckedUpdateManyWithoutAdminNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -19040,16 +19090,16 @@ export namespace Prisma {
     email: string
     role: $Enums.AdminRole
     passwordHash: string
-    routes?: RouteCreateNestedManyWithoutAdminInput
+    user: UserCreateNestedOneWithoutAdminProfileInput
   }
 
   export type AdminUncheckedCreateInput = {
     id?: string
+    userId: string
     name: string
     email: string
     role: $Enums.AdminRole
     passwordHash: string
-    routes?: RouteUncheckedCreateNestedManyWithoutAdminInput
   }
 
   export type AdminUpdateInput = {
@@ -19058,20 +19108,21 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     role?: EnumAdminRoleFieldUpdateOperationsInput | $Enums.AdminRole
     passwordHash?: StringFieldUpdateOperationsInput | string
-    routes?: RouteUpdateManyWithoutAdminNestedInput
+    user?: UserUpdateOneRequiredWithoutAdminProfileNestedInput
   }
 
   export type AdminUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     role?: EnumAdminRoleFieldUpdateOperationsInput | $Enums.AdminRole
     passwordHash?: StringFieldUpdateOperationsInput | string
-    routes?: RouteUncheckedUpdateManyWithoutAdminNestedInput
   }
 
   export type AdminCreateManyInput = {
     id?: string
+    userId: string
     name: string
     email: string
     role: $Enums.AdminRole
@@ -19088,6 +19139,7 @@ export namespace Prisma {
 
   export type AdminUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     role?: EnumAdminRoleFieldUpdateOperationsInput | $Enums.AdminRole
@@ -19180,7 +19232,7 @@ export namespace Prisma {
     distance: number
     createdAt?: Date | string
     company: CompanyCreateNestedOneWithoutRoutesInput
-    admin: AdminCreateNestedOneWithoutRoutesInput
+    admin: UserCreateNestedOneWithoutRoutesInput
     startLocation: LocationCreateNestedOneWithoutStartRoutesInput
     endLocation: LocationCreateNestedOneWithoutEndRoutesInput
     stops?: RouteStopCreateNestedManyWithoutRouteInput
@@ -19202,7 +19254,7 @@ export namespace Prisma {
     distance?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     company?: CompanyUpdateOneRequiredWithoutRoutesNestedInput
-    admin?: AdminUpdateOneRequiredWithoutRoutesNestedInput
+    admin?: UserUpdateOneRequiredWithoutRoutesNestedInput
     startLocation?: LocationUpdateOneRequiredWithoutStartRoutesNestedInput
     endLocation?: LocationUpdateOneRequiredWithoutEndRoutesNestedInput
     stops?: RouteStopUpdateManyWithoutRouteNestedInput
@@ -19357,6 +19409,17 @@ export namespace Prisma {
     none?: FeedbackWhereInput
   }
 
+  export type AdminNullableScalarRelationFilter = {
+    is?: AdminWhereInput | null
+    isNot?: AdminWhereInput | null
+  }
+
+  export type RouteListRelationFilter = {
+    every?: RouteWhereInput
+    some?: RouteWhereInput
+    none?: RouteWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -19367,6 +19430,10 @@ export namespace Prisma {
   }
 
   export type FeedbackOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type RouteOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -19959,20 +20026,10 @@ export namespace Prisma {
     rating?: SortOrder
   }
 
-  export type RouteListRelationFilter = {
-    every?: RouteWhereInput
-    some?: RouteWhereInput
-    none?: RouteWhereInput
-  }
-
   export type LocationListRelationFilter = {
     every?: LocationWhereInput
     some?: LocationWhereInput
     none?: LocationWhereInput
-  }
-
-  export type RouteOrderByRelationAggregateInput = {
-    _count?: SortOrder
   }
 
   export type LocationOrderByRelationAggregateInput = {
@@ -20009,6 +20066,7 @@ export namespace Prisma {
 
   export type AdminCountOrderByAggregateInput = {
     id?: SortOrder
+    userId?: SortOrder
     name?: SortOrder
     email?: SortOrder
     role?: SortOrder
@@ -20017,6 +20075,7 @@ export namespace Prisma {
 
   export type AdminMaxOrderByAggregateInput = {
     id?: SortOrder
+    userId?: SortOrder
     name?: SortOrder
     email?: SortOrder
     role?: SortOrder
@@ -20025,6 +20084,7 @@ export namespace Prisma {
 
   export type AdminMinOrderByAggregateInput = {
     id?: SortOrder
+    userId?: SortOrder
     name?: SortOrder
     email?: SortOrder
     role?: SortOrder
@@ -20111,11 +20171,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumLocationTypeFilter<$PrismaModel>
     _max?: NestedEnumLocationTypeFilter<$PrismaModel>
-  }
-
-  export type AdminScalarRelationFilter = {
-    is?: AdminWhereInput
-    isNot?: AdminWhereInput
   }
 
   export type LocationScalarRelationFilter = {
@@ -20227,6 +20282,19 @@ export namespace Prisma {
     connect?: FeedbackWhereUniqueInput | FeedbackWhereUniqueInput[]
   }
 
+  export type AdminCreateNestedOneWithoutUserInput = {
+    create?: XOR<AdminCreateWithoutUserInput, AdminUncheckedCreateWithoutUserInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutUserInput
+    connect?: AdminWhereUniqueInput
+  }
+
+  export type RouteCreateNestedManyWithoutAdminInput = {
+    create?: XOR<RouteCreateWithoutAdminInput, RouteUncheckedCreateWithoutAdminInput> | RouteCreateWithoutAdminInput[] | RouteUncheckedCreateWithoutAdminInput[]
+    connectOrCreate?: RouteCreateOrConnectWithoutAdminInput | RouteCreateOrConnectWithoutAdminInput[]
+    createMany?: RouteCreateManyAdminInputEnvelope
+    connect?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
+  }
+
   export type DriverUncheckedCreateNestedOneWithoutUserInput = {
     create?: XOR<DriverCreateWithoutUserInput, DriverUncheckedCreateWithoutUserInput>
     connectOrCreate?: DriverCreateOrConnectWithoutUserInput
@@ -20252,6 +20320,19 @@ export namespace Prisma {
     connectOrCreate?: FeedbackCreateOrConnectWithoutRaterInput | FeedbackCreateOrConnectWithoutRaterInput[]
     createMany?: FeedbackCreateManyRaterInputEnvelope
     connect?: FeedbackWhereUniqueInput | FeedbackWhereUniqueInput[]
+  }
+
+  export type AdminUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<AdminCreateWithoutUserInput, AdminUncheckedCreateWithoutUserInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutUserInput
+    connect?: AdminWhereUniqueInput
+  }
+
+  export type RouteUncheckedCreateNestedManyWithoutAdminInput = {
+    create?: XOR<RouteCreateWithoutAdminInput, RouteUncheckedCreateWithoutAdminInput> | RouteCreateWithoutAdminInput[] | RouteUncheckedCreateWithoutAdminInput[]
+    connectOrCreate?: RouteCreateOrConnectWithoutAdminInput | RouteCreateOrConnectWithoutAdminInput[]
+    createMany?: RouteCreateManyAdminInputEnvelope
+    connect?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -20322,6 +20403,30 @@ export namespace Prisma {
     deleteMany?: FeedbackScalarWhereInput | FeedbackScalarWhereInput[]
   }
 
+  export type AdminUpdateOneWithoutUserNestedInput = {
+    create?: XOR<AdminCreateWithoutUserInput, AdminUncheckedCreateWithoutUserInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutUserInput
+    upsert?: AdminUpsertWithoutUserInput
+    disconnect?: AdminWhereInput | boolean
+    delete?: AdminWhereInput | boolean
+    connect?: AdminWhereUniqueInput
+    update?: XOR<XOR<AdminUpdateToOneWithWhereWithoutUserInput, AdminUpdateWithoutUserInput>, AdminUncheckedUpdateWithoutUserInput>
+  }
+
+  export type RouteUpdateManyWithoutAdminNestedInput = {
+    create?: XOR<RouteCreateWithoutAdminInput, RouteUncheckedCreateWithoutAdminInput> | RouteCreateWithoutAdminInput[] | RouteUncheckedCreateWithoutAdminInput[]
+    connectOrCreate?: RouteCreateOrConnectWithoutAdminInput | RouteCreateOrConnectWithoutAdminInput[]
+    upsert?: RouteUpsertWithWhereUniqueWithoutAdminInput | RouteUpsertWithWhereUniqueWithoutAdminInput[]
+    createMany?: RouteCreateManyAdminInputEnvelope
+    set?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
+    disconnect?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
+    delete?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
+    connect?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
+    update?: RouteUpdateWithWhereUniqueWithoutAdminInput | RouteUpdateWithWhereUniqueWithoutAdminInput[]
+    updateMany?: RouteUpdateManyWithWhereWithoutAdminInput | RouteUpdateManyWithWhereWithoutAdminInput[]
+    deleteMany?: RouteScalarWhereInput | RouteScalarWhereInput[]
+  }
+
   export type DriverUncheckedUpdateOneWithoutUserNestedInput = {
     create?: XOR<DriverCreateWithoutUserInput, DriverUncheckedCreateWithoutUserInput>
     connectOrCreate?: DriverCreateOrConnectWithoutUserInput
@@ -20372,6 +20477,30 @@ export namespace Prisma {
     update?: FeedbackUpdateWithWhereUniqueWithoutRaterInput | FeedbackUpdateWithWhereUniqueWithoutRaterInput[]
     updateMany?: FeedbackUpdateManyWithWhereWithoutRaterInput | FeedbackUpdateManyWithWhereWithoutRaterInput[]
     deleteMany?: FeedbackScalarWhereInput | FeedbackScalarWhereInput[]
+  }
+
+  export type AdminUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<AdminCreateWithoutUserInput, AdminUncheckedCreateWithoutUserInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutUserInput
+    upsert?: AdminUpsertWithoutUserInput
+    disconnect?: AdminWhereInput | boolean
+    delete?: AdminWhereInput | boolean
+    connect?: AdminWhereUniqueInput
+    update?: XOR<XOR<AdminUpdateToOneWithWhereWithoutUserInput, AdminUpdateWithoutUserInput>, AdminUncheckedUpdateWithoutUserInput>
+  }
+
+  export type RouteUncheckedUpdateManyWithoutAdminNestedInput = {
+    create?: XOR<RouteCreateWithoutAdminInput, RouteUncheckedCreateWithoutAdminInput> | RouteCreateWithoutAdminInput[] | RouteUncheckedCreateWithoutAdminInput[]
+    connectOrCreate?: RouteCreateOrConnectWithoutAdminInput | RouteCreateOrConnectWithoutAdminInput[]
+    upsert?: RouteUpsertWithWhereUniqueWithoutAdminInput | RouteUpsertWithWhereUniqueWithoutAdminInput[]
+    createMany?: RouteCreateManyAdminInputEnvelope
+    set?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
+    disconnect?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
+    delete?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
+    connect?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
+    update?: RouteUpdateWithWhereUniqueWithoutAdminInput | RouteUpdateWithWhereUniqueWithoutAdminInput[]
+    updateMany?: RouteUpdateManyWithWhereWithoutAdminInput | RouteUpdateManyWithWhereWithoutAdminInput[]
+    deleteMany?: RouteScalarWhereInput | RouteScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutDriverProfileInput = {
@@ -20880,50 +21009,22 @@ export namespace Prisma {
     deleteMany?: LocationScalarWhereInput | LocationScalarWhereInput[]
   }
 
-  export type RouteCreateNestedManyWithoutAdminInput = {
-    create?: XOR<RouteCreateWithoutAdminInput, RouteUncheckedCreateWithoutAdminInput> | RouteCreateWithoutAdminInput[] | RouteUncheckedCreateWithoutAdminInput[]
-    connectOrCreate?: RouteCreateOrConnectWithoutAdminInput | RouteCreateOrConnectWithoutAdminInput[]
-    createMany?: RouteCreateManyAdminInputEnvelope
-    connect?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
-  }
-
-  export type RouteUncheckedCreateNestedManyWithoutAdminInput = {
-    create?: XOR<RouteCreateWithoutAdminInput, RouteUncheckedCreateWithoutAdminInput> | RouteCreateWithoutAdminInput[] | RouteUncheckedCreateWithoutAdminInput[]
-    connectOrCreate?: RouteCreateOrConnectWithoutAdminInput | RouteCreateOrConnectWithoutAdminInput[]
-    createMany?: RouteCreateManyAdminInputEnvelope
-    connect?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
+  export type UserCreateNestedOneWithoutAdminProfileInput = {
+    create?: XOR<UserCreateWithoutAdminProfileInput, UserUncheckedCreateWithoutAdminProfileInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAdminProfileInput
+    connect?: UserWhereUniqueInput
   }
 
   export type EnumAdminRoleFieldUpdateOperationsInput = {
     set?: $Enums.AdminRole
   }
 
-  export type RouteUpdateManyWithoutAdminNestedInput = {
-    create?: XOR<RouteCreateWithoutAdminInput, RouteUncheckedCreateWithoutAdminInput> | RouteCreateWithoutAdminInput[] | RouteUncheckedCreateWithoutAdminInput[]
-    connectOrCreate?: RouteCreateOrConnectWithoutAdminInput | RouteCreateOrConnectWithoutAdminInput[]
-    upsert?: RouteUpsertWithWhereUniqueWithoutAdminInput | RouteUpsertWithWhereUniqueWithoutAdminInput[]
-    createMany?: RouteCreateManyAdminInputEnvelope
-    set?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
-    disconnect?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
-    delete?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
-    connect?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
-    update?: RouteUpdateWithWhereUniqueWithoutAdminInput | RouteUpdateWithWhereUniqueWithoutAdminInput[]
-    updateMany?: RouteUpdateManyWithWhereWithoutAdminInput | RouteUpdateManyWithWhereWithoutAdminInput[]
-    deleteMany?: RouteScalarWhereInput | RouteScalarWhereInput[]
-  }
-
-  export type RouteUncheckedUpdateManyWithoutAdminNestedInput = {
-    create?: XOR<RouteCreateWithoutAdminInput, RouteUncheckedCreateWithoutAdminInput> | RouteCreateWithoutAdminInput[] | RouteUncheckedCreateWithoutAdminInput[]
-    connectOrCreate?: RouteCreateOrConnectWithoutAdminInput | RouteCreateOrConnectWithoutAdminInput[]
-    upsert?: RouteUpsertWithWhereUniqueWithoutAdminInput | RouteUpsertWithWhereUniqueWithoutAdminInput[]
-    createMany?: RouteCreateManyAdminInputEnvelope
-    set?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
-    disconnect?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
-    delete?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
-    connect?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
-    update?: RouteUpdateWithWhereUniqueWithoutAdminInput | RouteUpdateWithWhereUniqueWithoutAdminInput[]
-    updateMany?: RouteUpdateManyWithWhereWithoutAdminInput | RouteUpdateManyWithWhereWithoutAdminInput[]
-    deleteMany?: RouteScalarWhereInput | RouteScalarWhereInput[]
+  export type UserUpdateOneRequiredWithoutAdminProfileNestedInput = {
+    create?: XOR<UserCreateWithoutAdminProfileInput, UserUncheckedCreateWithoutAdminProfileInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAdminProfileInput
+    upsert?: UserUpsertWithoutAdminProfileInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAdminProfileInput, UserUpdateWithoutAdminProfileInput>, UserUncheckedUpdateWithoutAdminProfileInput>
   }
 
   export type CompanyCreateNestedOneWithoutLocationsInput = {
@@ -21076,10 +21177,10 @@ export namespace Prisma {
     connect?: CompanyWhereUniqueInput
   }
 
-  export type AdminCreateNestedOneWithoutRoutesInput = {
-    create?: XOR<AdminCreateWithoutRoutesInput, AdminUncheckedCreateWithoutRoutesInput>
-    connectOrCreate?: AdminCreateOrConnectWithoutRoutesInput
-    connect?: AdminWhereUniqueInput
+  export type UserCreateNestedOneWithoutRoutesInput = {
+    create?: XOR<UserCreateWithoutRoutesInput, UserUncheckedCreateWithoutRoutesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRoutesInput
+    connect?: UserWhereUniqueInput
   }
 
   export type LocationCreateNestedOneWithoutStartRoutesInput = {
@@ -21116,12 +21217,12 @@ export namespace Prisma {
     update?: XOR<XOR<CompanyUpdateToOneWithWhereWithoutRoutesInput, CompanyUpdateWithoutRoutesInput>, CompanyUncheckedUpdateWithoutRoutesInput>
   }
 
-  export type AdminUpdateOneRequiredWithoutRoutesNestedInput = {
-    create?: XOR<AdminCreateWithoutRoutesInput, AdminUncheckedCreateWithoutRoutesInput>
-    connectOrCreate?: AdminCreateOrConnectWithoutRoutesInput
-    upsert?: AdminUpsertWithoutRoutesInput
-    connect?: AdminWhereUniqueInput
-    update?: XOR<XOR<AdminUpdateToOneWithWhereWithoutRoutesInput, AdminUpdateWithoutRoutesInput>, AdminUncheckedUpdateWithoutRoutesInput>
+  export type UserUpdateOneRequiredWithoutRoutesNestedInput = {
+    create?: XOR<UserCreateWithoutRoutesInput, UserUncheckedCreateWithoutRoutesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRoutesInput
+    upsert?: UserUpsertWithoutRoutesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutRoutesInput, UserUpdateWithoutRoutesInput>, UserUncheckedUpdateWithoutRoutesInput>
   }
 
   export type LocationUpdateOneRequiredWithoutStartRoutesNestedInput = {
@@ -21627,6 +21728,57 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type AdminCreateWithoutUserInput = {
+    id?: string
+    name: string
+    email: string
+    role: $Enums.AdminRole
+    passwordHash: string
+  }
+
+  export type AdminUncheckedCreateWithoutUserInput = {
+    id?: string
+    name: string
+    email: string
+    role: $Enums.AdminRole
+    passwordHash: string
+  }
+
+  export type AdminCreateOrConnectWithoutUserInput = {
+    where: AdminWhereUniqueInput
+    create: XOR<AdminCreateWithoutUserInput, AdminUncheckedCreateWithoutUserInput>
+  }
+
+  export type RouteCreateWithoutAdminInput = {
+    id?: string
+    distance: number
+    createdAt?: Date | string
+    company: CompanyCreateNestedOneWithoutRoutesInput
+    startLocation: LocationCreateNestedOneWithoutStartRoutesInput
+    endLocation: LocationCreateNestedOneWithoutEndRoutesInput
+    stops?: RouteStopCreateNestedManyWithoutRouteInput
+  }
+
+  export type RouteUncheckedCreateWithoutAdminInput = {
+    id?: string
+    companyId: string
+    startLocationId: string
+    endLocationId: string
+    distance: number
+    createdAt?: Date | string
+    stops?: RouteStopUncheckedCreateNestedManyWithoutRouteInput
+  }
+
+  export type RouteCreateOrConnectWithoutAdminInput = {
+    where: RouteWhereUniqueInput
+    create: XOR<RouteCreateWithoutAdminInput, RouteUncheckedCreateWithoutAdminInput>
+  }
+
+  export type RouteCreateManyAdminInputEnvelope = {
+    data: RouteCreateManyAdminInput | RouteCreateManyAdminInput[]
+    skipDuplicates?: boolean
+  }
+
   export type DriverUpsertWithoutUserInput = {
     update: XOR<DriverUpdateWithoutUserInput, DriverUncheckedUpdateWithoutUserInput>
     create: XOR<DriverCreateWithoutUserInput, DriverUncheckedCreateWithoutUserInput>
@@ -21729,6 +21881,62 @@ export namespace Prisma {
     data: XOR<FeedbackUpdateManyMutationInput, FeedbackUncheckedUpdateManyWithoutRaterInput>
   }
 
+  export type AdminUpsertWithoutUserInput = {
+    update: XOR<AdminUpdateWithoutUserInput, AdminUncheckedUpdateWithoutUserInput>
+    create: XOR<AdminCreateWithoutUserInput, AdminUncheckedCreateWithoutUserInput>
+    where?: AdminWhereInput
+  }
+
+  export type AdminUpdateToOneWithWhereWithoutUserInput = {
+    where?: AdminWhereInput
+    data: XOR<AdminUpdateWithoutUserInput, AdminUncheckedUpdateWithoutUserInput>
+  }
+
+  export type AdminUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: EnumAdminRoleFieldUpdateOperationsInput | $Enums.AdminRole
+    passwordHash?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AdminUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: EnumAdminRoleFieldUpdateOperationsInput | $Enums.AdminRole
+    passwordHash?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type RouteUpsertWithWhereUniqueWithoutAdminInput = {
+    where: RouteWhereUniqueInput
+    update: XOR<RouteUpdateWithoutAdminInput, RouteUncheckedUpdateWithoutAdminInput>
+    create: XOR<RouteCreateWithoutAdminInput, RouteUncheckedCreateWithoutAdminInput>
+  }
+
+  export type RouteUpdateWithWhereUniqueWithoutAdminInput = {
+    where: RouteWhereUniqueInput
+    data: XOR<RouteUpdateWithoutAdminInput, RouteUncheckedUpdateWithoutAdminInput>
+  }
+
+  export type RouteUpdateManyWithWhereWithoutAdminInput = {
+    where: RouteScalarWhereInput
+    data: XOR<RouteUpdateManyMutationInput, RouteUncheckedUpdateManyWithoutAdminInput>
+  }
+
+  export type RouteScalarWhereInput = {
+    AND?: RouteScalarWhereInput | RouteScalarWhereInput[]
+    OR?: RouteScalarWhereInput[]
+    NOT?: RouteScalarWhereInput | RouteScalarWhereInput[]
+    id?: StringFilter<"Route"> | string
+    companyId?: StringFilter<"Route"> | string
+    adminId?: StringFilter<"Route"> | string
+    startLocationId?: StringFilter<"Route"> | string
+    endLocationId?: StringFilter<"Route"> | string
+    distance?: FloatFilter<"Route"> | number
+    createdAt?: DateTimeFilter<"Route"> | Date | string
+  }
+
   export type UserCreateWithoutDriverProfileInput = {
     id?: string
     firstName: string
@@ -21742,6 +21950,8 @@ export namespace Prisma {
     bookings?: BookingCreateNestedManyWithoutRiderInput
     feedbackReceived?: FeedbackCreateNestedManyWithoutRateeInput
     feedbackGiven?: FeedbackCreateNestedManyWithoutRaterInput
+    adminProfile?: AdminCreateNestedOneWithoutUserInput
+    routes?: RouteCreateNestedManyWithoutAdminInput
   }
 
   export type UserUncheckedCreateWithoutDriverProfileInput = {
@@ -21757,6 +21967,8 @@ export namespace Prisma {
     bookings?: BookingUncheckedCreateNestedManyWithoutRiderInput
     feedbackReceived?: FeedbackUncheckedCreateNestedManyWithoutRateeInput
     feedbackGiven?: FeedbackUncheckedCreateNestedManyWithoutRaterInput
+    adminProfile?: AdminUncheckedCreateNestedOneWithoutUserInput
+    routes?: RouteUncheckedCreateNestedManyWithoutAdminInput
   }
 
   export type UserCreateOrConnectWithoutDriverProfileInput = {
@@ -21882,6 +22094,8 @@ export namespace Prisma {
     bookings?: BookingUpdateManyWithoutRiderNestedInput
     feedbackReceived?: FeedbackUpdateManyWithoutRateeNestedInput
     feedbackGiven?: FeedbackUpdateManyWithoutRaterNestedInput
+    adminProfile?: AdminUpdateOneWithoutUserNestedInput
+    routes?: RouteUpdateManyWithoutAdminNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDriverProfileInput = {
@@ -21897,6 +22111,8 @@ export namespace Prisma {
     bookings?: BookingUncheckedUpdateManyWithoutRiderNestedInput
     feedbackReceived?: FeedbackUncheckedUpdateManyWithoutRateeNestedInput
     feedbackGiven?: FeedbackUncheckedUpdateManyWithoutRaterNestedInput
+    adminProfile?: AdminUncheckedUpdateOneWithoutUserNestedInput
+    routes?: RouteUncheckedUpdateManyWithoutAdminNestedInput
   }
 
   export type DriverDocumentUpsertWithWhereUniqueWithoutDriverInput = {
@@ -22277,6 +22493,8 @@ export namespace Prisma {
     driverProfile?: DriverCreateNestedOneWithoutUserInput
     feedbackReceived?: FeedbackCreateNestedManyWithoutRateeInput
     feedbackGiven?: FeedbackCreateNestedManyWithoutRaterInput
+    adminProfile?: AdminCreateNestedOneWithoutUserInput
+    routes?: RouteCreateNestedManyWithoutAdminInput
   }
 
   export type UserUncheckedCreateWithoutBookingsInput = {
@@ -22292,6 +22510,8 @@ export namespace Prisma {
     driverProfile?: DriverUncheckedCreateNestedOneWithoutUserInput
     feedbackReceived?: FeedbackUncheckedCreateNestedManyWithoutRateeInput
     feedbackGiven?: FeedbackUncheckedCreateNestedManyWithoutRaterInput
+    adminProfile?: AdminUncheckedCreateNestedOneWithoutUserInput
+    routes?: RouteUncheckedCreateNestedManyWithoutAdminInput
   }
 
   export type UserCreateOrConnectWithoutBookingsInput = {
@@ -22383,6 +22603,8 @@ export namespace Prisma {
     driverProfile?: DriverUpdateOneWithoutUserNestedInput
     feedbackReceived?: FeedbackUpdateManyWithoutRateeNestedInput
     feedbackGiven?: FeedbackUpdateManyWithoutRaterNestedInput
+    adminProfile?: AdminUpdateOneWithoutUserNestedInput
+    routes?: RouteUpdateManyWithoutAdminNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBookingsInput = {
@@ -22398,6 +22620,8 @@ export namespace Prisma {
     driverProfile?: DriverUncheckedUpdateOneWithoutUserNestedInput
     feedbackReceived?: FeedbackUncheckedUpdateManyWithoutRateeNestedInput
     feedbackGiven?: FeedbackUncheckedUpdateManyWithoutRaterNestedInput
+    adminProfile?: AdminUncheckedUpdateOneWithoutUserNestedInput
+    routes?: RouteUncheckedUpdateManyWithoutAdminNestedInput
   }
 
   export type PaymentUpsertWithoutBookingInput = {
@@ -22494,6 +22718,8 @@ export namespace Prisma {
     driverProfile?: DriverCreateNestedOneWithoutUserInput
     bookings?: BookingCreateNestedManyWithoutRiderInput
     feedbackGiven?: FeedbackCreateNestedManyWithoutRaterInput
+    adminProfile?: AdminCreateNestedOneWithoutUserInput
+    routes?: RouteCreateNestedManyWithoutAdminInput
   }
 
   export type UserUncheckedCreateWithoutFeedbackReceivedInput = {
@@ -22509,6 +22735,8 @@ export namespace Prisma {
     driverProfile?: DriverUncheckedCreateNestedOneWithoutUserInput
     bookings?: BookingUncheckedCreateNestedManyWithoutRiderInput
     feedbackGiven?: FeedbackUncheckedCreateNestedManyWithoutRaterInput
+    adminProfile?: AdminUncheckedCreateNestedOneWithoutUserInput
+    routes?: RouteUncheckedCreateNestedManyWithoutAdminInput
   }
 
   export type UserCreateOrConnectWithoutFeedbackReceivedInput = {
@@ -22529,6 +22757,8 @@ export namespace Prisma {
     driverProfile?: DriverCreateNestedOneWithoutUserInput
     bookings?: BookingCreateNestedManyWithoutRiderInput
     feedbackReceived?: FeedbackCreateNestedManyWithoutRateeInput
+    adminProfile?: AdminCreateNestedOneWithoutUserInput
+    routes?: RouteCreateNestedManyWithoutAdminInput
   }
 
   export type UserUncheckedCreateWithoutFeedbackGivenInput = {
@@ -22544,6 +22774,8 @@ export namespace Prisma {
     driverProfile?: DriverUncheckedCreateNestedOneWithoutUserInput
     bookings?: BookingUncheckedCreateNestedManyWithoutRiderInput
     feedbackReceived?: FeedbackUncheckedCreateNestedManyWithoutRateeInput
+    adminProfile?: AdminUncheckedCreateNestedOneWithoutUserInput
+    routes?: RouteUncheckedCreateNestedManyWithoutAdminInput
   }
 
   export type UserCreateOrConnectWithoutFeedbackGivenInput = {
@@ -22606,6 +22838,8 @@ export namespace Prisma {
     driverProfile?: DriverUpdateOneWithoutUserNestedInput
     bookings?: BookingUpdateManyWithoutRiderNestedInput
     feedbackGiven?: FeedbackUpdateManyWithoutRaterNestedInput
+    adminProfile?: AdminUpdateOneWithoutUserNestedInput
+    routes?: RouteUpdateManyWithoutAdminNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFeedbackReceivedInput = {
@@ -22621,6 +22855,8 @@ export namespace Prisma {
     driverProfile?: DriverUncheckedUpdateOneWithoutUserNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutRiderNestedInput
     feedbackGiven?: FeedbackUncheckedUpdateManyWithoutRaterNestedInput
+    adminProfile?: AdminUncheckedUpdateOneWithoutUserNestedInput
+    routes?: RouteUncheckedUpdateManyWithoutAdminNestedInput
   }
 
   export type UserUpsertWithoutFeedbackGivenInput = {
@@ -22647,6 +22883,8 @@ export namespace Prisma {
     driverProfile?: DriverUpdateOneWithoutUserNestedInput
     bookings?: BookingUpdateManyWithoutRiderNestedInput
     feedbackReceived?: FeedbackUpdateManyWithoutRateeNestedInput
+    adminProfile?: AdminUpdateOneWithoutUserNestedInput
+    routes?: RouteUpdateManyWithoutAdminNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFeedbackGivenInput = {
@@ -22662,6 +22900,8 @@ export namespace Prisma {
     driverProfile?: DriverUncheckedUpdateOneWithoutUserNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutRiderNestedInput
     feedbackReceived?: FeedbackUncheckedUpdateManyWithoutRateeNestedInput
+    adminProfile?: AdminUncheckedUpdateOneWithoutUserNestedInput
+    routes?: RouteUncheckedUpdateManyWithoutAdminNestedInput
   }
 
   export type RideUpsertWithoutFeedbackInput = {
@@ -22705,7 +22945,7 @@ export namespace Prisma {
     id?: string
     distance: number
     createdAt?: Date | string
-    admin: AdminCreateNestedOneWithoutRoutesInput
+    admin: UserCreateNestedOneWithoutRoutesInput
     startLocation: LocationCreateNestedOneWithoutStartRoutesInput
     endLocation: LocationCreateNestedOneWithoutEndRoutesInput
     stops?: RouteStopCreateNestedManyWithoutRouteInput
@@ -22781,19 +23021,6 @@ export namespace Prisma {
     data: XOR<RouteUpdateManyMutationInput, RouteUncheckedUpdateManyWithoutCompanyInput>
   }
 
-  export type RouteScalarWhereInput = {
-    AND?: RouteScalarWhereInput | RouteScalarWhereInput[]
-    OR?: RouteScalarWhereInput[]
-    NOT?: RouteScalarWhereInput | RouteScalarWhereInput[]
-    id?: StringFilter<"Route"> | string
-    companyId?: StringFilter<"Route"> | string
-    adminId?: StringFilter<"Route"> | string
-    startLocationId?: StringFilter<"Route"> | string
-    endLocationId?: StringFilter<"Route"> | string
-    distance?: FloatFilter<"Route"> | number
-    createdAt?: DateTimeFilter<"Route"> | Date | string
-  }
-
   export type LocationUpsertWithWhereUniqueWithoutCompanyInput = {
     where: LocationWhereUniqueInput
     update: XOR<LocationUpdateWithoutCompanyInput, LocationUncheckedUpdateWithoutCompanyInput>
@@ -22823,50 +23050,88 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Location"> | Date | string
   }
 
-  export type RouteCreateWithoutAdminInput = {
+  export type UserCreateWithoutAdminProfileInput = {
     id?: string
-    distance: number
+    firstName: string
+    middleName?: string | null
+    lastName?: string | null
+    email: string
+    passwordHash?: string | null
+    role: $Enums.Role
     createdAt?: Date | string
-    company: CompanyCreateNestedOneWithoutRoutesInput
-    startLocation: LocationCreateNestedOneWithoutStartRoutesInput
-    endLocation: LocationCreateNestedOneWithoutEndRoutesInput
-    stops?: RouteStopCreateNestedManyWithoutRouteInput
+    profilePicUrl?: string | null
+    driverProfile?: DriverCreateNestedOneWithoutUserInput
+    bookings?: BookingCreateNestedManyWithoutRiderInput
+    feedbackReceived?: FeedbackCreateNestedManyWithoutRateeInput
+    feedbackGiven?: FeedbackCreateNestedManyWithoutRaterInput
+    routes?: RouteCreateNestedManyWithoutAdminInput
   }
 
-  export type RouteUncheckedCreateWithoutAdminInput = {
+  export type UserUncheckedCreateWithoutAdminProfileInput = {
     id?: string
-    companyId: string
-    startLocationId: string
-    endLocationId: string
-    distance: number
+    firstName: string
+    middleName?: string | null
+    lastName?: string | null
+    email: string
+    passwordHash?: string | null
+    role: $Enums.Role
     createdAt?: Date | string
-    stops?: RouteStopUncheckedCreateNestedManyWithoutRouteInput
+    profilePicUrl?: string | null
+    driverProfile?: DriverUncheckedCreateNestedOneWithoutUserInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutRiderInput
+    feedbackReceived?: FeedbackUncheckedCreateNestedManyWithoutRateeInput
+    feedbackGiven?: FeedbackUncheckedCreateNestedManyWithoutRaterInput
+    routes?: RouteUncheckedCreateNestedManyWithoutAdminInput
   }
 
-  export type RouteCreateOrConnectWithoutAdminInput = {
-    where: RouteWhereUniqueInput
-    create: XOR<RouteCreateWithoutAdminInput, RouteUncheckedCreateWithoutAdminInput>
+  export type UserCreateOrConnectWithoutAdminProfileInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutAdminProfileInput, UserUncheckedCreateWithoutAdminProfileInput>
   }
 
-  export type RouteCreateManyAdminInputEnvelope = {
-    data: RouteCreateManyAdminInput | RouteCreateManyAdminInput[]
-    skipDuplicates?: boolean
+  export type UserUpsertWithoutAdminProfileInput = {
+    update: XOR<UserUpdateWithoutAdminProfileInput, UserUncheckedUpdateWithoutAdminProfileInput>
+    create: XOR<UserCreateWithoutAdminProfileInput, UserUncheckedCreateWithoutAdminProfileInput>
+    where?: UserWhereInput
   }
 
-  export type RouteUpsertWithWhereUniqueWithoutAdminInput = {
-    where: RouteWhereUniqueInput
-    update: XOR<RouteUpdateWithoutAdminInput, RouteUncheckedUpdateWithoutAdminInput>
-    create: XOR<RouteCreateWithoutAdminInput, RouteUncheckedCreateWithoutAdminInput>
+  export type UserUpdateToOneWithWhereWithoutAdminProfileInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAdminProfileInput, UserUncheckedUpdateWithoutAdminProfileInput>
   }
 
-  export type RouteUpdateWithWhereUniqueWithoutAdminInput = {
-    where: RouteWhereUniqueInput
-    data: XOR<RouteUpdateWithoutAdminInput, RouteUncheckedUpdateWithoutAdminInput>
+  export type UserUpdateWithoutAdminProfileInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    middleName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    profilePicUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    driverProfile?: DriverUpdateOneWithoutUserNestedInput
+    bookings?: BookingUpdateManyWithoutRiderNestedInput
+    feedbackReceived?: FeedbackUpdateManyWithoutRateeNestedInput
+    feedbackGiven?: FeedbackUpdateManyWithoutRaterNestedInput
+    routes?: RouteUpdateManyWithoutAdminNestedInput
   }
 
-  export type RouteUpdateManyWithWhereWithoutAdminInput = {
-    where: RouteScalarWhereInput
-    data: XOR<RouteUpdateManyMutationInput, RouteUncheckedUpdateManyWithoutAdminInput>
+  export type UserUncheckedUpdateWithoutAdminProfileInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    middleName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    profilePicUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    driverProfile?: DriverUncheckedUpdateOneWithoutUserNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutRiderNestedInput
+    feedbackReceived?: FeedbackUncheckedUpdateManyWithoutRateeNestedInput
+    feedbackGiven?: FeedbackUncheckedUpdateManyWithoutRaterNestedInput
+    routes?: RouteUncheckedUpdateManyWithoutAdminNestedInput
   }
 
   export type CompanyCreateWithoutLocationsInput = {
@@ -22895,7 +23160,7 @@ export namespace Prisma {
     distance: number
     createdAt?: Date | string
     company: CompanyCreateNestedOneWithoutRoutesInput
-    admin: AdminCreateNestedOneWithoutRoutesInput
+    admin: UserCreateNestedOneWithoutRoutesInput
     endLocation: LocationCreateNestedOneWithoutEndRoutesInput
     stops?: RouteStopCreateNestedManyWithoutRouteInput
   }
@@ -22925,7 +23190,7 @@ export namespace Prisma {
     distance: number
     createdAt?: Date | string
     company: CompanyCreateNestedOneWithoutRoutesInput
-    admin: AdminCreateNestedOneWithoutRoutesInput
+    admin: UserCreateNestedOneWithoutRoutesInput
     startLocation: LocationCreateNestedOneWithoutStartRoutesInput
     stops?: RouteStopCreateNestedManyWithoutRouteInput
   }
@@ -23078,25 +23343,43 @@ export namespace Prisma {
     create: XOR<CompanyCreateWithoutRoutesInput, CompanyUncheckedCreateWithoutRoutesInput>
   }
 
-  export type AdminCreateWithoutRoutesInput = {
+  export type UserCreateWithoutRoutesInput = {
     id?: string
-    name: string
+    firstName: string
+    middleName?: string | null
+    lastName?: string | null
     email: string
-    role: $Enums.AdminRole
-    passwordHash: string
+    passwordHash?: string | null
+    role: $Enums.Role
+    createdAt?: Date | string
+    profilePicUrl?: string | null
+    driverProfile?: DriverCreateNestedOneWithoutUserInput
+    bookings?: BookingCreateNestedManyWithoutRiderInput
+    feedbackReceived?: FeedbackCreateNestedManyWithoutRateeInput
+    feedbackGiven?: FeedbackCreateNestedManyWithoutRaterInput
+    adminProfile?: AdminCreateNestedOneWithoutUserInput
   }
 
-  export type AdminUncheckedCreateWithoutRoutesInput = {
+  export type UserUncheckedCreateWithoutRoutesInput = {
     id?: string
-    name: string
+    firstName: string
+    middleName?: string | null
+    lastName?: string | null
     email: string
-    role: $Enums.AdminRole
-    passwordHash: string
+    passwordHash?: string | null
+    role: $Enums.Role
+    createdAt?: Date | string
+    profilePicUrl?: string | null
+    driverProfile?: DriverUncheckedCreateNestedOneWithoutUserInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutRiderInput
+    feedbackReceived?: FeedbackUncheckedCreateNestedManyWithoutRateeInput
+    feedbackGiven?: FeedbackUncheckedCreateNestedManyWithoutRaterInput
+    adminProfile?: AdminUncheckedCreateNestedOneWithoutUserInput
   }
 
-  export type AdminCreateOrConnectWithoutRoutesInput = {
-    where: AdminWhereUniqueInput
-    create: XOR<AdminCreateWithoutRoutesInput, AdminUncheckedCreateWithoutRoutesInput>
+  export type UserCreateOrConnectWithoutRoutesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutRoutesInput, UserUncheckedCreateWithoutRoutesInput>
   }
 
   export type LocationCreateWithoutStartRoutesInput = {
@@ -23206,31 +23489,49 @@ export namespace Prisma {
     locations?: LocationUncheckedUpdateManyWithoutCompanyNestedInput
   }
 
-  export type AdminUpsertWithoutRoutesInput = {
-    update: XOR<AdminUpdateWithoutRoutesInput, AdminUncheckedUpdateWithoutRoutesInput>
-    create: XOR<AdminCreateWithoutRoutesInput, AdminUncheckedCreateWithoutRoutesInput>
-    where?: AdminWhereInput
+  export type UserUpsertWithoutRoutesInput = {
+    update: XOR<UserUpdateWithoutRoutesInput, UserUncheckedUpdateWithoutRoutesInput>
+    create: XOR<UserCreateWithoutRoutesInput, UserUncheckedCreateWithoutRoutesInput>
+    where?: UserWhereInput
   }
 
-  export type AdminUpdateToOneWithWhereWithoutRoutesInput = {
-    where?: AdminWhereInput
-    data: XOR<AdminUpdateWithoutRoutesInput, AdminUncheckedUpdateWithoutRoutesInput>
+  export type UserUpdateToOneWithWhereWithoutRoutesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutRoutesInput, UserUncheckedUpdateWithoutRoutesInput>
   }
 
-  export type AdminUpdateWithoutRoutesInput = {
+  export type UserUpdateWithoutRoutesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    middleName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    role?: EnumAdminRoleFieldUpdateOperationsInput | $Enums.AdminRole
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    profilePicUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    driverProfile?: DriverUpdateOneWithoutUserNestedInput
+    bookings?: BookingUpdateManyWithoutRiderNestedInput
+    feedbackReceived?: FeedbackUpdateManyWithoutRateeNestedInput
+    feedbackGiven?: FeedbackUpdateManyWithoutRaterNestedInput
+    adminProfile?: AdminUpdateOneWithoutUserNestedInput
   }
 
-  export type AdminUncheckedUpdateWithoutRoutesInput = {
+  export type UserUncheckedUpdateWithoutRoutesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    middleName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    role?: EnumAdminRoleFieldUpdateOperationsInput | $Enums.AdminRole
-    passwordHash?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    profilePicUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    driverProfile?: DriverUncheckedUpdateOneWithoutUserNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutRiderNestedInput
+    feedbackReceived?: FeedbackUncheckedUpdateManyWithoutRateeNestedInput
+    feedbackGiven?: FeedbackUncheckedUpdateManyWithoutRaterNestedInput
+    adminProfile?: AdminUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type LocationUpsertWithoutStartRoutesInput = {
@@ -23324,7 +23625,7 @@ export namespace Prisma {
     distance: number
     createdAt?: Date | string
     company: CompanyCreateNestedOneWithoutRoutesInput
-    admin: AdminCreateNestedOneWithoutRoutesInput
+    admin: UserCreateNestedOneWithoutRoutesInput
     startLocation: LocationCreateNestedOneWithoutStartRoutesInput
     endLocation: LocationCreateNestedOneWithoutEndRoutesInput
   }
@@ -23389,7 +23690,7 @@ export namespace Prisma {
     distance?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     company?: CompanyUpdateOneRequiredWithoutRoutesNestedInput
-    admin?: AdminUpdateOneRequiredWithoutRoutesNestedInput
+    admin?: UserUpdateOneRequiredWithoutRoutesNestedInput
     startLocation?: LocationUpdateOneRequiredWithoutStartRoutesNestedInput
     endLocation?: LocationUpdateOneRequiredWithoutEndRoutesNestedInput
   }
@@ -23462,6 +23763,15 @@ export namespace Prisma {
     rateeId: string
     rating: number
     comment?: string | null
+    createdAt?: Date | string
+  }
+
+  export type RouteCreateManyAdminInput = {
+    id?: string
+    companyId: string
+    startLocationId: string
+    endLocationId: string
+    distance: number
     createdAt?: Date | string
   }
 
@@ -23542,6 +23852,35 @@ export namespace Prisma {
     rateeId?: StringFieldUpdateOperationsInput | string
     rating?: IntFieldUpdateOperationsInput | number
     comment?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RouteUpdateWithoutAdminInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    distance?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    company?: CompanyUpdateOneRequiredWithoutRoutesNestedInput
+    startLocation?: LocationUpdateOneRequiredWithoutStartRoutesNestedInput
+    endLocation?: LocationUpdateOneRequiredWithoutEndRoutesNestedInput
+    stops?: RouteStopUpdateManyWithoutRouteNestedInput
+  }
+
+  export type RouteUncheckedUpdateWithoutAdminInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    companyId?: StringFieldUpdateOperationsInput | string
+    startLocationId?: StringFieldUpdateOperationsInput | string
+    endLocationId?: StringFieldUpdateOperationsInput | string
+    distance?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    stops?: RouteStopUncheckedUpdateManyWithoutRouteNestedInput
+  }
+
+  export type RouteUncheckedUpdateManyWithoutAdminInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    companyId?: StringFieldUpdateOperationsInput | string
+    startLocationId?: StringFieldUpdateOperationsInput | string
+    endLocationId?: StringFieldUpdateOperationsInput | string
+    distance?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -23761,7 +24100,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     distance?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    admin?: AdminUpdateOneRequiredWithoutRoutesNestedInput
+    admin?: UserUpdateOneRequiredWithoutRoutesNestedInput
     startLocation?: LocationUpdateOneRequiredWithoutStartRoutesNestedInput
     endLocation?: LocationUpdateOneRequiredWithoutEndRoutesNestedInput
     stops?: RouteStopUpdateManyWithoutRouteNestedInput
@@ -23819,44 +24158,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type RouteCreateManyAdminInput = {
-    id?: string
-    companyId: string
-    startLocationId: string
-    endLocationId: string
-    distance: number
-    createdAt?: Date | string
-  }
-
-  export type RouteUpdateWithoutAdminInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    distance?: FloatFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    company?: CompanyUpdateOneRequiredWithoutRoutesNestedInput
-    startLocation?: LocationUpdateOneRequiredWithoutStartRoutesNestedInput
-    endLocation?: LocationUpdateOneRequiredWithoutEndRoutesNestedInput
-    stops?: RouteStopUpdateManyWithoutRouteNestedInput
-  }
-
-  export type RouteUncheckedUpdateWithoutAdminInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    companyId?: StringFieldUpdateOperationsInput | string
-    startLocationId?: StringFieldUpdateOperationsInput | string
-    endLocationId?: StringFieldUpdateOperationsInput | string
-    distance?: FloatFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    stops?: RouteStopUncheckedUpdateManyWithoutRouteNestedInput
-  }
-
-  export type RouteUncheckedUpdateManyWithoutAdminInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    companyId?: StringFieldUpdateOperationsInput | string
-    startLocationId?: StringFieldUpdateOperationsInput | string
-    endLocationId?: StringFieldUpdateOperationsInput | string
-    distance?: FloatFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
   export type RouteCreateManyStartLocationInput = {
     id?: string
     companyId: string
@@ -23886,7 +24187,7 @@ export namespace Prisma {
     distance?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     company?: CompanyUpdateOneRequiredWithoutRoutesNestedInput
-    admin?: AdminUpdateOneRequiredWithoutRoutesNestedInput
+    admin?: UserUpdateOneRequiredWithoutRoutesNestedInput
     endLocation?: LocationUpdateOneRequiredWithoutEndRoutesNestedInput
     stops?: RouteStopUpdateManyWithoutRouteNestedInput
   }
@@ -23915,7 +24216,7 @@ export namespace Prisma {
     distance?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     company?: CompanyUpdateOneRequiredWithoutRoutesNestedInput
-    admin?: AdminUpdateOneRequiredWithoutRoutesNestedInput
+    admin?: UserUpdateOneRequiredWithoutRoutesNestedInput
     startLocation?: LocationUpdateOneRequiredWithoutStartRoutesNestedInput
     stops?: RouteStopUpdateManyWithoutRouteNestedInput
   }

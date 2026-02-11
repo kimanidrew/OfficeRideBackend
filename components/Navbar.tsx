@@ -32,13 +32,20 @@ const Navbar = () => {
 
   const isTransparent = !isScrolled && (pathname === "/" || pathname === "/about");
 
-  // Helper: get initials from user name
-  const getInitials = (name: string) => {
+  /* =========================
+     FIXED: NULL-SAFE INITIALS
+  ========================= */
+  const getInitials = (name: any) => {
+    // If name is missing or not a string, return a placeholder instead of crashing
+    if (!name || typeof name !== "string") return "??";
+    
     return name
-      .split(" ")
+      .trim()
+      .split(/\s+/)
       .map((n) => n[0])
       .join("")
-      .toUpperCase();
+      .toUpperCase()
+      .slice(0, 2);
   };
 
   return (
@@ -155,6 +162,7 @@ const Navbar = () => {
             <div className="relative z-10 flex items-center gap-5">
               <div className="relative">
                 <div className="w-16 h-16 rounded-2xl bg-white/10 flex items-center justify-center overflow-hidden border border-white/20 text-white font-black text-lg">
+                  {/* Using the safe getInitials function with user.name from your fixed Login API */}
                   {user ? getInitials(user.name) : <FaUserCircle className="text-4xl text-white/20" />}
                 </div>
                 <div className="absolute -bottom-1 -right-1 bg-emerald-500 h-5 w-5 rounded-full border-4 border-slate-900" />

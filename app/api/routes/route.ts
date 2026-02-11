@@ -93,6 +93,19 @@ export async function POST(req: Request) {
       );
     }
 
+    // 1. Check the USER table (Schema relation is Route -> User)
+    const user = await prisma.user.findUnique({
+      where: { id: adminId },
+    });
+
+    // 2. Validate existence and Role
+    if (!user || user.role !== "admin") {
+      return NextResponse.json(
+        { error: `Unauthorized: User ID ${adminId} not found or is not an admin.` },
+        { status: 400 }
+      );
+    }
+
     const startLoc = await findOrCreateLocation(companyId, start);
     const endLoc = await findOrCreateLocation(companyId, end);
 
@@ -109,21 +122,11 @@ export async function POST(req: Request) {
       apiKey
     );
 
-    const adminExists = await prisma.admin.findUnique({
-        where: { id: adminId },
-      });
-
-    if (!adminExists) {
-      return NextResponse.json(
-        { error: `Admin with ID ${adminId} does not exist. Ensure you are passing an ID from the Admin table, not the User table.` },
-        { status: 400 }
-      );
-    }
-
+    // 3. Create Route (adminId now correctly maps to the User table)
     const route = await prisma.route.create({
       data: {
         companyId,
-        adminId,
+        adminId, // This is the User.id
         startLocationId: startLoc.id,
         endLocationId: endLoc.id,
         distance,
@@ -142,7 +145,7 @@ export async function POST(req: Request) {
       where: { id: route.id },
       include: {
         company: true,
-        admin: true,
+        admin: true, // This will now fetch the User record
         startLocation: true,
         endLocation: true,
         stops: { include: { location: true }, orderBy: { order: "asc" } },
@@ -158,6 +161,7 @@ export async function POST(req: Request) {
     );
   }
 }
+
 
 /* =========================
    GET – FETCH ROUTES

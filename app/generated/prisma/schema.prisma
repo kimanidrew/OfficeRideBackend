@@ -21,6 +21,8 @@ model User {
   bookings         Booking[]  @relation("RiderBookings")
   feedbackReceived Feedback[] @relation("FeedbackReceived")
   feedbackGiven    Feedback[] @relation("FeedbackGiven")
+  adminProfile     Admin?
+  routes           Route[]    @relation("UserRoutes")
 }
 
 model Driver {
@@ -131,11 +133,12 @@ model Company {
 
 model Admin {
   id           String    @id @default(uuid())
+  userId       String    @unique
+  user         User      @relation(fields: [userId], references: [id])
   name         String
   email        String    @unique
   role         AdminRole
   passwordHash String
-  routes       Route[]
 }
 
 enum LocationType {
@@ -166,7 +169,7 @@ model Route {
   company   Company @relation(fields: [companyId], references: [id])
 
   adminId String
-  admin   Admin  @relation(fields: [adminId], references: [id])
+  admin   User   @relation("UserRoutes", fields: [adminId], references: [id])
 
   startLocationId String
   startLocation   Location @relation("StartLocation", fields: [startLocationId], references: [id])

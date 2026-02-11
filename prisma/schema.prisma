@@ -21,6 +21,7 @@ model User {
   bookings         Booking[]  @relation("RiderBookings")
   feedbackReceived Feedback[] @relation("FeedbackReceived")
   feedbackGiven    Feedback[] @relation("FeedbackGiven")
+  adminProfile  Admin? 
   routes           Route[]    @relation("UserRoutes")
 }
 
@@ -132,6 +133,8 @@ model Company {
 
 model Admin {
   id           String    @id @default(uuid())
+  userId       String    @unique
+  user         User      @relation(fields: [userId], references: [id])
   name         String
   email        String    @unique
   role         AdminRole
